@@ -159,8 +159,7 @@ export const Button: React.FC<ButtonProps> = ({
         {/* Граница при выделении через tab */}
         <div
           className={cn(
-            "absolute outline-offset-[2.5px] border-[2px] border-transparent outline-[2.5px] outline outline-transparent transition-all duration-300 text-transparent box-border ",
-            buttonVariants.size[size],
+            "absolute outline-offset-[2.5px] border-[2px] border-transparent outline-[2.5px] outline outline-transparent transition-all duration-300 text-transparent box-border w-full h-full",
             buttonVariants.radius[radius],
             buttonVariants.px[variant][size]
           )}
