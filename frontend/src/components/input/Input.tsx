@@ -4,9 +4,9 @@ import { cn } from "../../lib/cn";
 /* Варианты для скользящего шарика */
 const inputVariants = {
   size: {
-    sm: "h-[3rem] w-[27rem]",
-    md: "h-[3.5rem] w-[27rem]",
-    lg: "h-[4rem] w-[27rem]",
+    sm: "h-[3rem]",
+    md: "h-[3.5rem]",
+    lg: "h-[4rem] ",
   },
   colors: {
     default: "text-default-600 bg-default-200 placeholder-default-600",
@@ -96,24 +96,26 @@ export const Input: React.FC<SwitchProps> = ({
         {/* Основной контейнер,  */}
         <div
           className={cn(
-            "box-border z-10 relative transition-all duration-300 h-fit flex items-center px-3 rounded-[12px] overflow-hidden  ",
+            "box-border z-10 relative transition-all duration-300 h-fit w-full flex items-center px-3 rounded-[12px] overflow-hidden  ",
             inputVariants.size[size],
             variant == "flat" &&
               "group-hover:bg-default-300 group-focus-within:bg-default-300 bg-default-200",
             variant == "faded" &&
               "group-hover:bg-default-300 group-focus-within:bg-default-300 bg-default-200 border-[2px] border-default-300 group-focus-within:border-default group-hover:border-default",
             variant == "bordered" &&
-              "border-[2px] border-default-300 group-focus-within:border-default group-hover:border-default"
+              "border-[2px] border-default-300 group-focus-within:border-default group-hover:border-default",
+            inputVariants.radius[radius]
           )}
         >
           <input
             id={type == "password" ? type : id}
             type={type}
             className={cn(
-              "outline outline-transparent transition-all duration-300 bg-transparent absolute left-0 bottom-0 placeholder-default-500 text-layout-foreground w-full px-3 pt-[10px] h-full",
+              "outline outline-transparent transition-all duration-300 bg-transparent absolute left-0 bottom-0 placeholder-default-500 text-layout-foreground w-full px-3 pt-[10px] h-full box-border",
               placeholder == "" && value == ""
                 ? "opacity-0 focus:opacity-100"
-                : " [&:-webkit-autofill+*]:text-white"
+                : " [&:-webkit-autofill+*]:text-white",
+              inputVariants.radius[radius]
             )}
             value={value}
             placeholder={placeholder}
