@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <Switch
-        className="fixed right-0 bottom-0 z-full"
+        className="fixed right-0 bottom-0 z-50  "
         variant="theme"
         size="lg"
         onChange={(state: boolean) => {

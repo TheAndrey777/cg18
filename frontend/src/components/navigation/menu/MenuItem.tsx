@@ -14,18 +14,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   onClick,
 }) => {
   return (
-    <div className="pl-[10px]" onClick={onClick}>
-      <div
-        className={
-          "w-[160px] h-[40px] text-content-1 flex m-[10px] p-[5px] items-center rounded-[10px] select-none " +
-          (isActive
-            ? "bg-default-200"
-            : "hover:bg-default-100 hover:cursor-pointer")
-        }
-      >
-        {icon != null ? <img className="w-8 mr-[10px] p" src={icon} /> : <></>}
-        <div className="text-[20px] font-medium">{name}</div>
+    <div className="h-[40px]">
+      <div className="h-full aspect-square">
+        <img src={icon} alt="icon" className="h-[20px] w-[20px]" />
       </div>
+
+      {name}
     </div>
   );
 };
