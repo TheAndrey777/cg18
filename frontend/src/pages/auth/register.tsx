@@ -72,7 +72,7 @@ const Register = () => {
             onClick={() => {
               console.log("Click");
             }}
-            text="Зарегистрироваться"
+            text="Создать аккаунт"
           />
           <Button
             variant="bordered"
