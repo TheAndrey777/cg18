@@ -131,12 +131,11 @@ export const Button: React.FC<ButtonProps> = ({
         disabled && "pointer-events-none opacity-50",
         className
       )}
-      onClick={() => onClick()}
     >
       {/* Основной контейнер,  */}
       <div
         className={cn(
-          "group-active:scale-90 flex items-center justify-center box-border z-10 relative transition-all duration-300",
+          "group-active:scale-95 flex items-center justify-center box-border z-10 relative transition-all duration-300",
           buttonVariants.size[size],
           buttonVariants.radius[radius],
           buttonVariants.colorsHover[variant][color],
@@ -152,8 +151,8 @@ export const Button: React.FC<ButtonProps> = ({
             "absolute opacity-0 -z-10 h-0 w-0",
             buttonVariants.focuseOutline[color]
           )}
+          onClick={onClick}
           disabled={disabled}
-          onClick={() => {}}
         />
 
         {/* Граница при выделении через tab */}

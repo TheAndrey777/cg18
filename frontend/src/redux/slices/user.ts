@@ -8,6 +8,26 @@ export const loginUser: any = createAsyncThunk(
     return await axios
       .post(`api/auth/login`, { username: login, password: password })
       .then((res: any) => {
+        console.log(res);
+        return { payload: res.data };
+      })
+      .catch((e: any) => {
+        return rejectWithValue({ data: e.response.data });
+      });
+  }
+);
+
+export const registerUser: any = createAsyncThunk(
+  "api/auth/register",
+  async ({ login, email, password }: any, { rejectWithValue }: any) => {
+    return await axios
+      .post(`api/auth/register`, {
+        username: login,
+        password: password,
+        email: email,
+      })
+      .then((res: any) => {
+        console.log(res);
         return { payload: res.data };
       })
       .catch((e: any) => {
@@ -18,6 +38,7 @@ export const loginUser: any = createAsyncThunk(
 
 export const getUser: any = createAsyncThunk("api/auth/me", async () => {
   const { data } = await axios.get("api/auth/me");
+  console.log(data);
   return data;
 });
 
@@ -49,6 +70,21 @@ const userSlice = createSlice({
       state.status = "loaded";
     });
     builder.addCase(loginUser.rejected, (state, { payload }) => {
+      payload.data.errors.map((v: any) => {
+        console.log(v);
+      });
+      state.status = "error";
+    });
+
+    // *registerUser
+    builder.addCase(registerUser.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(registerUser.fulfilled, (state, { payload }) => {
+      state.isAuthorized = payload.payload.status === "success";
+      state.status = "loaded";
+    });
+    builder.addCase(registerUser.rejected, (state, { payload }) => {
       payload.data.errors.map((v: any) => {
         console.log(v);
       });
