@@ -76,6 +76,21 @@ const userSlice = createSlice({
       state.status = "error";
     });
 
+    // *registerUser
+    builder.addCase(registerUser.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(registerUser.fulfilled, (state, { payload }) => {
+      state.isAuthorized = payload.payload.status === "success";
+      state.status = "loaded";
+    });
+    builder.addCase(registerUser.rejected, (state, { payload }) => {
+      payload.data.errors.map((v: any) => {
+        console.log(v);
+      });
+      state.status = "error";
+    });
+
     // *getUser
     builder.addCase(getUser.pending, (state) => {
       state.status = "loading";
