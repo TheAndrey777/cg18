@@ -5,6 +5,7 @@ import cors from "cors";
 import { errorHandler } from "./middlewares/error.middleware";
 import { authRouter } from "./routes/auth.router";
 import "./strategies/jwt.strategy";
+import { officeRouter } from "./routes/office.router";
 
 const app: Application = express();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/api/auth", authRouter);
+app.use("/api/office", officeRouter);
 
 app.use(errorHandler);
 
