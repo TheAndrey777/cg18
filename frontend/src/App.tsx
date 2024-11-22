@@ -1,5 +1,5 @@
 import { Switch } from "./components/switch/Switch";
-import Login from "./pages/auth/login";
+import Register from "./pages/auth/register";
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
           }}
         />
       </div>
-      <Login />
+      <Register />
     </>
   );
 };
