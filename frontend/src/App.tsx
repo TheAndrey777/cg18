@@ -1,9 +1,11 @@
+import Login from "./pages/auth/login";
+
 const App = () => {
   return (
     <>
-      <div className=" bg-default-300 h-[100vh] w-[100vw]"> </div>
+      <Login />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
