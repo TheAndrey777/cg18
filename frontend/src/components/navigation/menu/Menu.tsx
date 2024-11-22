@@ -55,7 +55,7 @@ export const Menu: React.FC = () => {
     >
       <div
         className={cn(
-          "bg-layout-background h-[calc(100%-50px)] w-[13rem] fixed top-[25px] left-[25px] transition-all px-[10px] box-border   ",
+          "bg-layout-background h-[calc(100%-50px)] w-[13rem] fixed top-[25px] left-[25px] transition-all px-[10px] box-border",
           a
         )}
       >
