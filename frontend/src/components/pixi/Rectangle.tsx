@@ -14,11 +14,13 @@ interface Props {
   y: number;
   width: number;
   height: number;
+  onClick: any;
+  app: any;
 }
 
-export const getTexture = (props: TextureProps) => {
+export const getRectangleTexture = (props: TextureProps) => {
   const g = new Graphics();
-  g.lineStyle(props.lineSize, 0x0fff00, props.lineSize);
+  g.lineStyle(props.lineSize, 0xcccccc, props.lineSize);
   g.beginFill(props.color);
   g.drawRect(0, 0, props.width, props.height);
   g.endFill();
@@ -35,6 +37,10 @@ export const Rectangle = PixiComponent<Props, Sprite>("Rectangle", {
     ins.y = props.y;
     ins.width = props.width;
     ins.height = props.height;
-    console.log(ins);
+    ins.interactive = true;
+    ins.on("pointerup", (e) => {
+      console.log({ button: e.button });
+      props.onClick(e, props.app);
+    });
   },
 });

@@ -3,11 +3,12 @@ import { Grid } from "./Grid";
 
 interface Props {}
 
-function App(props: Props) {
+function PixiApplication(props: Props) {
   const {} = props;
 
   return (
-    <div>
+    <div onContextMenu={(e) => e.preventDefault()}>
+      <span>123321</span>
       <Stage width={500} height={500} renderOnComponentChange={true}>
         <Grid size={20} height={500} width={500}></Grid>
       </Stage>
@@ -15,4 +16,4 @@ function App(props: Props) {
   );
 }
 
-export default App;
+export default PixiApplication;

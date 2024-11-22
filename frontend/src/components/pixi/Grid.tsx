@@ -1,5 +1,8 @@
-import { Rectangle, getTexture } from "./Rectangle";
-import { Container } from "@pixi/react";
+import { Mouse } from "../../PixiMouse/Mouse";
+import { Point, getPointTexture } from "./Point";
+import { Rectangle, getRectangleTexture } from "./Rectangle";
+import { Container, useApp, PixiRef } from "@pixi/react";
+import React from "react";
 
 interface Props {
   width: number;
@@ -13,8 +16,40 @@ interface Tile {
   color: number;
 }
 
+type IPoint = PixiRef<typeof Point>;
+
 export const Grid = (props: Props) => {
   const { height, width, size } = props;
+
+  const pointRefS = React.useRef<IPoint>(null);
+  const pointRefF = React.useRef<IPoint>(null);
+  const POINT_SIZE = 10;
+
+  const app = useApp();
+  const onClick = (e: any, app: any) => {
+    console.log(Mouse.x(app), Mouse.y(app));
+
+    if (e.button == 2) {
+      if (pointRefS.current!.visible) pointRefS.current!.visible = false;
+      if (pointRefF.current!.visible) pointRefF.current!.visible = false;
+    } else {
+      if (!pointRefS.current!.visible) {
+        console.log(1);
+        pointRefS.current!.x = Mouse.x(app) * 2 - POINT_SIZE;
+        pointRefS.current!.y = Mouse.y(app) * 2 - POINT_SIZE;
+        pointRefS.current!.visible = true;
+      } else if (!pointRefF.current!.visible) {
+        console.log(2);
+        pointRefF.current!.x = Mouse.x(app) * 2 - POINT_SIZE;
+        pointRefF.current!.y = Mouse.y(app) * 2 - POINT_SIZE;
+        pointRefF.current!.visible = true;
+      } else {
+        console.log(3);
+        if (pointRefS.current!.visible) pointRefS.current!.visible = false;
+        if (pointRefF.current!.visible) pointRefF.current!.visible = false;
+      }
+    }
+  };
 
   let h: number = (height / size) * 2;
   let w: number = (width / size) * 2;
@@ -29,24 +64,49 @@ export const Grid = (props: Props) => {
         color: 0xffffff,
       });
 
-  const texture = getTexture({
+  const rectangleTexture = getRectangleTexture({
     lineSize: lineSize,
     width: size,
     height: size,
     color: 0xffffff,
   });
 
+  const pointTexture = getPointTexture({ size: POINT_SIZE });
+
   return (
     <Container scale={0.5}>
       {grid.map((item, id) => (
         <Rectangle
-          texture={texture}
+          key={id}
+          texture={rectangleTexture}
           width={size}
           height={size}
           x={item.x}
           y={item.y}
+          onClick={onClick}
+          app={app}
         />
       ))}
+      <Point
+        ref={pointRefS}
+        texture={getPointTexture({
+          size: POINT_SIZE,
+          color: 0xfdba74,
+          borderColor: 0xff0000,
+        })}
+        x={100}
+        y={100}
+      />
+      <Point
+        ref={pointRefF}
+        texture={getPointTexture({
+          size: POINT_SIZE,
+          color: 0x00ff00,
+          borderColor: 0xffff00,
+        })}
+        x={200}
+        y={200}
+      />
     </Container>
   );
 };
