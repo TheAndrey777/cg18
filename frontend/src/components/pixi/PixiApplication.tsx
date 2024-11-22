@@ -1,8 +1,18 @@
-import { Stage } from "@pixi/react";
+import { Stage, useApp } from "@pixi/react";
 import { Grid } from "./Grid";
 
-export const PixiApplication = () => (
-  <Stage width={500} height={500}>
-    <Grid size={20} height={500} width={500}></Grid>
-  </Stage>
-);
+interface Props {}
+
+function App(props: Props) {
+  const {} = props;
+
+  return (
+    <div>
+      <Stage width={500} height={500} renderOnComponentChange={true}>
+        <Grid size={20} height={500} width={500}></Grid>
+      </Stage>
+    </div>
+  );
+}
+
+export default App;
