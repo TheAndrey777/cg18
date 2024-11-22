@@ -25,6 +25,7 @@ const Login = () => {
           />
           <Input
             label="Пароль"
+            type="password"
             radius="sm"
             className="w-[22rem] mt-[15px]"
             onChange={(state: string) => {
