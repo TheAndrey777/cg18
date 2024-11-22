@@ -4,6 +4,7 @@ import { ValidationException } from "../exceptions/validation.exception";
 import OfficeService from "../services/office.service";
 import userService from "../services/user.service";
 import { InternalException } from "../exceptions/internal.exceptions";
+import officeService from "../services/office.service";
 
 class OfficeController {
   public async createOffice(req: Request, res: Response, next: NextFunction) {
@@ -34,6 +35,14 @@ class OfficeController {
     }
 
     res.send({ status: "success" });
+  }
+
+  public async getAllOffices(req: Request, res: Response, next: NextFunction) {
+    const result = await officeService.getAllOffices();
+    res.send({
+      status: "success",
+      offices: result 
+    });
   }
 }
 

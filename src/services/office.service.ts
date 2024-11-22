@@ -10,6 +10,14 @@ class OfficeService {
       workers: [user]
     });
   }
+
+  public async getAllOffices() {
+    return await Office.find({ 
+      relations: {
+        workers: true
+      },
+   });
+  }
 }
 
 export default new OfficeService;
