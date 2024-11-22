@@ -1,10 +1,5 @@
-import { PixiComponent } from "@pixi/react";
-import { Color, Graphics } from "pixi.js";
-import { Rectangle } from "./Rectangle";
-import { Container, PixiRef } from "@pixi/react";
-import React from "react";
-
-type IContainer = PixiRef<typeof Container>; // Pixi Container
+import { Rectangle, getTexture } from "./Rectangle";
+import { Container } from "@pixi/react";
 
 interface Props {
   width: number;
@@ -20,7 +15,6 @@ interface Tile {
 
 export const Grid = (props: Props) => {
   const { height, width, size } = props;
-  const containerRef = React.useRef<IContainer>(null);
 
   let h: number = (height / size) * 2;
   let w: number = (width / size) * 2;
@@ -30,23 +24,27 @@ export const Grid = (props: Props) => {
   for (let i = 0; i < h; i++)
     for (let j = 0; j < w; j++)
       grid.push({
-        x: j * size + j * lineSize,
-        y: i * size + i * lineSize,
+        x: j * size,
+        y: i * size,
         color: 0xffffff,
       });
 
-  console.log(grid);
+  const texture = getTexture({
+    lineSize: lineSize,
+    width: size,
+    height: size,
+    color: 0xffffff,
+  });
 
   return (
-    <Container scale={0.5} ref={containerRef}>
+    <Container scale={0.5}>
       {grid.map((item, id) => (
         <Rectangle
-          x={item.x}
-          y={item.y}
-          lineSize={lineSize}
+          texture={texture}
           width={size}
           height={size}
-          color={item.color}
+          x={item.x}
+          y={item.y}
         />
       ))}
     </Container>
