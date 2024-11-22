@@ -41,12 +41,14 @@ const Register = () => {
 
         <div className="mt-[15px]">
           <Input
+            required
             label="Логин"
             radius="sm"
             className="w-[22rem]"
             onChange={setLogin}
           />
           <Input
+            required
             label="Почта"
             type="email"
             radius="sm"
@@ -54,6 +56,7 @@ const Register = () => {
             onChange={setEmail}
           />
           <Input
+            required
             label="Пароль"
             type="password"
             radius="sm"
@@ -61,6 +64,7 @@ const Register = () => {
             onChange={setPassword}
           />
           <Input
+            required
             label="Повторите пароль"
             type="password"
             radius="sm"
