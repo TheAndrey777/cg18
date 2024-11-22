@@ -1,5 +1,11 @@
+import Menu from "../../components/navigation/menu/Menu";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Menu />
+    </div>
+  );
 };
 
 export default Home;

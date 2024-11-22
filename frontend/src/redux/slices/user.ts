@@ -22,25 +22,12 @@ export const getUser: any = createAsyncThunk("api/auth/me", async () => {
 });
 
 const initialState = {
-  id: {
-    value: 0,
-    status: "",
-  },
-  username: {
-    value: "",
-    status: "",
-  },
-  isAdmin: {
-    value: true,
-    status: "",
-  },
-  isAuthorized: {
-    value: false,
-    status: "",
-  },
-  rederectPath: {
-    value: "/admin-panel/about",
-  },
+  id: 0,
+  status: "loaded",
+  isAdmin: false,
+  username: "Генадий Буль",
+  email: "genadybooool@gmail.ru",
+  isAuthorized: false,
 };
 
 const userSlice = createSlice({
@@ -48,33 +35,36 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setRedirectPath: (state, action: PayloadAction<any>) => {
-      state.rederectPath.value = action.payload.location;
+      console.log(state, action);
+      //state.rederectPath.value = action.payload.location;
     },
   },
   extraReducers: (builder) => {
     // *loginUser
     builder.addCase(loginUser.pending, (state) => {
-      state.isAuthorized.status = "loading";
+      state.status = "loading";
     });
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
-      state.isAuthorized.value = payload.payload.status === "success";
-      state.isAuthorized.status = "loaded";
+      state.isAuthorized = payload.payload.status === "success";
+      state.status = "loaded";
     });
     builder.addCase(loginUser.rejected, (state, { payload }) => {
-      payload.data.errors.map((v: any) => {});
-      state.isAuthorized.status = "error";
+      payload.data.errors.map((v: any) => {
+        console.log(v);
+      });
+      state.status = "error";
     });
 
     // *getUser
     builder.addCase(getUser.pending, (state) => {
-      state.isAuthorized.status = "loading";
+      state.status = "loading";
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
-      state.isAuthorized.value = payload.status === "success";
-      state.isAuthorized.status = "loaded";
+      state.isAuthorized = payload.status === "success";
+      state.status = "loaded";
     });
     builder.addCase(getUser.rejected, (state) => {
-      state.isAuthorized.status = "error";
+      state.status = "error";
     });
   },
 });
