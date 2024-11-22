@@ -41,20 +41,21 @@ export const Menu: React.FC = () => {
   ];
 
   const [a, seta] = React.useState("");
+  const [active, setactive] = React.useState(0);
   return (
     <div
       className={cn(
-        "w-[20rem] h-full transition-all relative overflow-hidden",
+        "w-[13rem] h-full transition-all relative overflow-hidden",
         a
       )}
       onClick={() => {
-        seta("w-[40px]");
-        if (a == "w-[40px]") seta("");
+        //seta("w-[60px]");
+        //if (a == "w-[60px]") seta("");
       }}
     >
       <div
         className={cn(
-          "bg-red-300 h-[calc(100%-50px)] w-[320px] fixed top-[25px] left-[25px] transition-all",
+          "bg-layout-background h-[calc(100%-50px)] w-[13rem] fixed top-[25px] left-[25px] transition-all px-[10px] box-border   ",
           a
         )}
       >
@@ -64,8 +65,11 @@ export const Menu: React.FC = () => {
               key={i}
               name={v.name}
               icon={v.icon}
-              isActive={v.isActive}
-              onClick={v.onClick}
+              opened={a == "w-[60px]"}
+              isActive={i == active}
+              onClick={() => {
+                setactive(i);
+              }}
             />
           );
         })}
