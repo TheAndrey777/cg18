@@ -4,8 +4,9 @@
 
 * {
   -webkit-tap-highlight-color: transparent; /*Отключаем выделение синим при тапе на телефоне*/
-  @apply transition-colors duration-300
-  /* outline: 1px solid green; */;
+  font-family: "Onest", serif;
+  @apply transition-colors duration-300;
+  /* outline: 1px solid green; */
 }
 
 :root {
