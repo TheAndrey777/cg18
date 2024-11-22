@@ -26,7 +26,16 @@ export const Grid = (props: Props) => {
   const POINT_SIZE = 10;
 
   const app = useApp();
-  const onClick = (e: any, app: any) => {
+  const onClick = (
+    e: any,
+    app: any,
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number
+  ) => {
+    const mX: number = Mouse.x(app);
+    const mY: number = Mouse.y(app);
     console.log(Mouse.x(app), Mouse.y(app));
 
     if (e.button == 2) {
@@ -35,13 +44,20 @@ export const Grid = (props: Props) => {
     } else {
       if (!pointRefS.current!.visible) {
         console.log(1);
-        pointRefS.current!.x = Mouse.x(app) * 2 - POINT_SIZE;
-        pointRefS.current!.y = Mouse.y(app) * 2 - POINT_SIZE;
+        if (mX - x1 / 2 < x2 / 2 - mX) pointRefS.current!.x = x1 - POINT_SIZE;
+        else pointRefS.current!.x = x2 - POINT_SIZE;
+
+        if (mY - y1 / 2 < y2 / 2 - mY) pointRefS.current!.y = y1 - POINT_SIZE;
+        else pointRefS.current!.y = y2 - POINT_SIZE;
+
         pointRefS.current!.visible = true;
       } else if (!pointRefF.current!.visible) {
         console.log(2);
-        pointRefF.current!.x = Mouse.x(app) * 2 - POINT_SIZE;
-        pointRefF.current!.y = Mouse.y(app) * 2 - POINT_SIZE;
+        if (mX - x1 / 2 < x2 / 2 - mX) pointRefF.current!.x = x1 - POINT_SIZE;
+        else pointRefF.current!.x = x2 - POINT_SIZE;
+
+        if (mY - y1 / 2 < y2 / 2 - mY) pointRefF.current!.y = y1 - POINT_SIZE;
+        else pointRefF.current!.y = y2 - POINT_SIZE;
         pointRefF.current!.visible = true;
       } else {
         console.log(3);
@@ -70,8 +86,6 @@ export const Grid = (props: Props) => {
     height: size,
     color: 0xffffff,
   });
-
-  const pointTexture = getPointTexture({ size: POINT_SIZE });
 
   return (
     <Container scale={0.5}>
