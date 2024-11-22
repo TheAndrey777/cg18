@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD: 11
       POSTGRES_DB: cybergarden
     ports:
       - '5432:5432'
