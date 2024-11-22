@@ -91,7 +91,7 @@ const buttonVariants = {
   },
   type: {
     solid: "",
-    bordered: "border-solid border-[2px]",
+    bordered: "border-solid border-[2px] bg-default-200 ",
     light: "",
   },
 };
