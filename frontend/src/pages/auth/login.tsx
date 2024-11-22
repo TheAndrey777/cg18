@@ -1,8 +1,21 @@
+import React from "react";
 import { Button } from "../../components/button/Button";
 import { Checkbox } from "../../components/checkbox/Checkbox";
 import { Input } from "../../components/input/Input";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../redux/slices/user";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [login, setLogin] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+
+  const clickLogin = () => {
+    dispatch(loginUser({ login: login, password: password }));
+  };
   return (
     <div className="h-full w-full bg-default-100 flex items-center justify-center">
       <div className=" bg-layout-background w-[25rem] h-[34.375rem] rounded-[15px] box-border p-[25px] relative">
@@ -19,26 +32,20 @@ const Login = () => {
             label="Логин"
             radius="sm"
             className="w-[22rem]"
-            onChange={(state: string) => {
-              console.log(state);
-            }}
+            onChange={setLogin}
           />
           <Input
             label="Пароль"
             type="password"
             radius="sm"
             className="w-[22rem] mt-[15px]"
-            onChange={(state: string) => {
-              console.log(state);
-            }}
+            onChange={setPassword}
           />
 
           <Checkbox
             className="mt-[15px]"
             label="Сохранить вход"
-            onChange={(state: boolean) => {
-              console.log(state);
-            }}
+            onChange={(state: boolean) => console.log(state)}
           />
         </div>
 
@@ -46,9 +53,7 @@ const Login = () => {
           <Button
             className="w-full mb-[8px]"
             size="lg"
-            onClick={() => {
-              console.log("Click");
-            }}
+            onClick={clickLogin}
             text="Войти"
           />
           <Button
