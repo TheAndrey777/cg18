@@ -11,7 +11,7 @@ const app: Application = express();
 const origins = process.env.NODE_ENV == "development" ? 
   [ "http://192.168.0.108:5173", "http://localhost:5173", "http://localhost:8000", "http://82.146.43.148" ] : [];
 
-app.use(cors({ credentials: true }));
+app.use(cors({ origin: origins, credentials: true }));
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
