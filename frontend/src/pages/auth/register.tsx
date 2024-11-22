@@ -5,7 +5,7 @@ import { Input } from "../../components/input/Input";
 const Register = () => {
   return (
     <div className="h-full w-full bg-default-100 flex items-center justify-center">
-      <div className=" bg-layout-background w-[25rem] h-[40.625rem] rounded-[15px] box-border p-[25px] relative">
+      <div className=" bg-layout-background w-[25rem] h-[38rem] rounded-[15px] box-border p-[25px] relative">
         <div className="text-content-1 w-full h-[3.125rem] text-[28px] font-bold text-center">
           Добро пожаловать!
         </div>
@@ -58,7 +58,7 @@ const Register = () => {
                 console.log(state);
               }}
             />
-            <div className="text-[10px] absolute top-0 left-[35px]">
+            <div className="text-[10px] absolute top-0 left-[35px] text-content-1">
               Нажимая «Создать аккаунт», вы соглашаетесь с Условиями
               обслуживания и Политикой конфиденциальности
             </div>
