@@ -39,12 +39,14 @@ const Login = () => {
 
         <div className="mt-[15px]">
           <Input
+            required
             label="Логин"
             radius="sm"
             className="w-[22rem]"
             onChange={setLogin}
           />
           <Input
+            required
             label="Пароль"
             type="password"
             radius="sm"

@@ -111,7 +111,7 @@ export const Input: React.FC<SwitchProps> = ({
             id={type == "password" ? type : id}
             type={type}
             className={cn(
-              "outline outline-transparent transition-all duration-300 bg-transparent absolute left-0 bottom-0 placeholder-default-500 text-layout-foreground w-full px-3 pt-[10px] h-full box-border",
+              "outline outline-transparent border-none transition-all duration-300 bg-transparent absolute left-0 bottom-0 placeholder-default-500 text-layout-foreground w-full px-3 pt-[18px] h-full box-border",
               placeholder == "" && value == ""
                 ? "opacity-0 focus:opacity-100"
                 : " [&:-webkit-autofill+*]:text-white",
@@ -127,10 +127,10 @@ export const Input: React.FC<SwitchProps> = ({
 
           <div
             className={cn(
-              "absolute text-default-600 transition-all duration-300 my-[2px]",
+              "absolute text-default-600 transition-all duration-300",
               placeholder == "" && value == "" && labelType != "in-fixed"
-                ? "top-[20%] text-[16px] group-focus-within:top-0 group-focus-within:text-[12px] group-focus-within:text-default-700"
-                : "top-0 text-[12px] text-default-700"
+                ? "top-[25%] text-[16px] group-focus-within:top-0 group-focus-within:mt-[4px] group-focus-within:text-[12px] group-focus-within:text-default-700"
+                : "top-0 text-[12px] mt-[4px] text-default-700"
             )}
           >
             {label}
