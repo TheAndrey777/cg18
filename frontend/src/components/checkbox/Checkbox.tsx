@@ -97,7 +97,8 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         className={cn(
           "group-hover:bg-default-100 group-active:scale-90 flex items-center justify-center bg-transparent hover:bg-default-100 box-border border-solid border-[2px] border-default z-10 relative transition-all duration-300",
           sizeVariants[size],
-          radiusVraiants[radius]
+          radiusVraiants[radius],
+          active && "border-default-300"
         )}
       >
         <input
@@ -148,7 +149,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         </span>
       </div>
       {variant == "label" && (
-        <div className="select-none text-layout-foeground transition-all duration-200">
+        <div className="select-none text-content-1 transition-all duration-200">
           {label}
         </div>
       )}
