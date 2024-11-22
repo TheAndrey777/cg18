@@ -1,12 +1,12 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 * {
   -webkit-tap-highlight-color: transparent; /*Отключаем выделение синим при тапе на телефоне*/
-  /* outline: 1px solid green; */
-} 
+  @apply transition-colors duration-300
+  /* outline: 1px solid green; */;
+}
 
 :root {
   color-scheme: light dark;
@@ -28,7 +28,7 @@
 body {
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
   width: 100%;
   height: 100%;
   margin: 0;
