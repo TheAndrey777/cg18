@@ -7,7 +7,7 @@ export const Menu: React.FC = () => {
   let currentPage = 1;
 
   return (
-    <div className="w-[320px] h-screen bg-white m-[20px] rounded-[15px]">
+    <div className="w-[320px] h-full bg-white m-[20px] rounded-[15px]">
       {pageNames.map((name: string, i: number) => {
         return <MenuItem name={name} isActive={i === currentPage}></MenuItem>;
       })}
