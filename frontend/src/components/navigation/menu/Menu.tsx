@@ -4,6 +4,8 @@ import { MenuItem } from "./MenuItem";
 import { useNavigate } from "react-router-dom";
 
 import { menuicon } from "../../../assets/svg";
+import { IoPerson } from "react-icons/io5";
+
 import MiniProfile from "./MiniProfile";
 
 export const Menu: React.FC = () => {
