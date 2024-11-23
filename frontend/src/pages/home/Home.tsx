@@ -9,14 +9,12 @@ const Home = () => {
     <div className="bg-default-100 min-h-full w-full relative grid grid-cols-[auto_1fr] gap-[20px] p-[20px] box-border ">
       <Menu />
       <div className="bg-green-3001 w-full">
-        <div className="bg-yellow-3001">
-          <Routes>
-            <Route path="offices/*" element={<Offices />} />
-            <Route path="management/:officeId/*" element={<Management />} />
-            <Route path="management/*" element={<Management />} />
-            <Route path="editor/*" element={<Editor />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="offices/*" element={<Offices />} />
+          <Route path="management/:officeId/*" element={<Management />} />
+          <Route path="management/*" element={<Management />} />
+          <Route path="editor/*" element={<Editor />} />
+        </Routes>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ const Management = () => {
   }, []);
 
   return (
-    <div className="w-full h-fullrounded-[15px] grid grid-cols-[600px_1fr] gap-3">
+    <div className="w-full h-full rounded-[15px] grid grid-cols-[600px_1fr] gap-3">
       <div className="w-full h-full bg-layout-background rounded-[15px] box-border pt-[10px]">
         <div className="flex h-[70px] items-end justify-end box-border px-[20px] relative">
           <div className=" absolute top-0 left-0 px-[20px] box-border h-full w-full 1bg-red-400">
