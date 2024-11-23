@@ -18,15 +18,16 @@ const Login = () => {
     dispatch(setPassword(s));
   };
 
-  const isAutorised = useSelector((state: any) => state.user.isAuthorized);
+  const isAuthorised = useSelector((state: any) => state.user.isAuthorized);
 
   React.useEffect(() => {
-    if (isAutorised) navigate("/home");
-  }, [isAutorised]);
-
+    if (isAuthorised) navigate("/home");
+  }, [isAuthorised]);
+  console.log("auth", isAuthorised);
   const clickLogin = () => {
     dispatch(loginUser());
-    if (isAutorised) navigate("/home");
+
+    if (isAuthorised) navigate("/home");
   };
   const clickNavigateRegister = () => {
     navigate("/auth/register");

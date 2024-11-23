@@ -48,7 +48,16 @@ class AuthController {
     } as IUser, process.env.JWT_SECRET || "dev", { expiresIn: "7d" });
     
     res.cookie("auth", token, { secure: true, sameSite: "none" });
-    res.send({ status: "success" });
+    res.send({ 
+      status: "success",
+      data: {
+        username: result.username,
+        email: result.email,
+        surname: result.surname,
+        name: result.name,
+        isAdmin: result.admin
+      } 
+    });
   }
 
   public async register(req: Request, res: Response, next: NextFunction) {
