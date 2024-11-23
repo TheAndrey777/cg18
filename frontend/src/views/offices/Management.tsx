@@ -99,12 +99,20 @@ const Management = () => {
   ];
 
   return (
-    <div className="w-full h-fullrounded-[15px]">
-      <div className="w-[600px] h-full  bg-layout-background rounded-[15px]">
-        <div className="flex">
+    <div className="w-full h-fullrounded-[15px] grid grid-cols-[600px_1fr] gap-3">
+      <div className="w-full h-full  bg-layout-background rounded-[15px] box-border pt-[10px]">
+        <div className="flex h-[70px] items-end justify-end box-border px-[20px] relative">
+          <div className=" absolute top-0 left-0 px-[20px] box-border h-full w-full 1bg-red-400">
+            <div className="text-content-1 font-semibold text-[22px]">
+              Деловой оазис (офис в центре Таганрога)
+            </div>
+            <div className="text-content-1 w-[50%] text-[14px] leading-4 mt-[5px]">
+              Данная вкладка позволяет вам легко управлять персоналом вашего
+              офиса
+            </div>
+          </div>
           <Button
             color="default"
-            variant="bordered"
             onClick={() => {
               navigate("/home/offices");
             }}
@@ -112,13 +120,12 @@ const Management = () => {
           />
           <Button
             color="default"
-            variant="bordered"
             className="px-[10px]"
             onClick={() => {}}
             text="Фильтер"
           />
+          <Button className="" onClick={() => {}} text="Добавить" />
         </div>
-        Управление сотрудниками в офисе
         <div className="w-full text-content-1">
           <div className="p-[20px]">
             <div className="grid grid-cols-[1fr_4fr_4fr] h-[50px] rounded-[10px] bg-default-100 mb-[10px] select-none">
@@ -159,6 +166,13 @@ const Management = () => {
                 </div>
               ))}
           </div>
+        </div>
+      </div>
+
+      <div className="bg-layout-background w-full h-full  rounded-[15px] text-content-1 flex items-center justify-center">
+        <div className="w-[300px]">
+          Тут для сотрудника отрисуем информацию, где находится, что за ним
+          закрепленно и тд
         </div>
       </div>
     </div>
