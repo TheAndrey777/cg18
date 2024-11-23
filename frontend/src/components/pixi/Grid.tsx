@@ -41,7 +41,7 @@ const getNearPosition = (x1: number, x2: number, mX: number) =>
 
 const POINT_SIZE = 10;
 
-const COPONENT_COLORS = [0xff000010, 0x00ffff10, 0x0000ff10];
+const COPONENT_COLORS = [0xff0000, 0x00ffff, 0x0000ff];
 let colorID = 0;
 
 let setOpen1: any;
@@ -321,13 +321,15 @@ export class Grid extends Container {
 
     this.onTimer = () => {
       if (KeyBoaurd.hasKey("Escape")) reset();
-      if (tools !== 0) return;
+
       const mX = Mouse.x(app) - 8;
       const mY = Mouse.y(app) - 8;
       if (seletedObject !== null) {
         seletedObject.x = (mX + 8) * 2;
         seletedObject.y = (mY + 8) * 2;
       }
+
+      if (tools !== 0) return;
       if (startPoint.visible === finishPoint.visible) return;
       const dx = Math.abs(startPoint.x / 2 - mX);
       const dy = Math.abs(startPoint.y / 2 - mY);
@@ -393,9 +395,11 @@ export class Grid extends Container {
       console.log(name);
 
       const color = COPONENT_COLORS[colorID++ % COPONENT_COLORS.length];
+      console.log(123);
       list.forEach((id) => {
         grid[id].name = name;
         tileContainer.children[id].tint = color;
+        tileContainer.children[id].alpha = 0.1;
       });
       console.log(list);
       if (list.length === 0) console.log;
