@@ -3,6 +3,7 @@ import { Grid } from "./Grid";
 import React, { useRef, useEffect } from "react";
 import { Application, Container, Graphics } from "pixi.js";
 import { ContextMenu } from "../navigation/context/ContextMenu";
+import KeyBoard from "../../keyboard/keyboard";
 
 interface Props {}
 
@@ -14,15 +15,15 @@ function PixiApplication(props: Props) {
   useEffect(() => {
     // On first render create our application
     const app = new Application({
-      width: 500,
-      height: 500,
+      width: 2000,
+      height: innerHeight,
       backgroundColor: 0x5bba6f,
     });
 
     // @ts-ignore
     ref.current!.appendChild(app.view);
 
-    const grid = new Grid(500, 500, 30, app);
+    const grid = new Grid(2000, innerHeight, 30, app);
     app.stage.addChild(grid);
 
     app.ticker.add((time) => {
@@ -61,7 +62,9 @@ function PixiApplication(props: Props) {
         open={open}
         onOpenChange={setOpen}
       >
-        <div>asdfalkj</div>
+        <div className="flex justify-center bg-orange-300 w-56 h-20">
+          <input className="w-8 bg-gray-200" type="text"></input>
+        </div>
       </ContextMenu>
     </div>
   );
