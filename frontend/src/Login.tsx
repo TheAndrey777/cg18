@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "../../components/button/Button";
-import { Checkbox } from "../../components/checkbox/Checkbox";
-import { Input } from "../../components/input/Input";
+import { Button } from "./components/button/Button";
+import { Checkbox } from "./components/checkbox/Checkbox";
+import { Input } from "./components/input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../redux/slices/user";
-import { setUsername, setPassword } from "../../redux/slices/user";
+import { loginUser } from "./redux/slices/user";
+import { setUsername, setPassword } from "./redux/slices/user";
 
 const Login = () => {
   const dispatch = useDispatch();
