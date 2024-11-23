@@ -4,6 +4,7 @@ import { MenuItem } from "./MenuItem";
 import { useNavigate } from "react-router-dom";
 
 import { menuicon } from "../../../assets/svg";
+import MiniProfile from "./MiniProfile";
 
 export const Menu: React.FC = () => {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ export const Menu: React.FC = () => {
           a
         )}
       >
-        <div className="mt-[10px]">
+        <div className="mt-[18px]">
           {items.map((v: any, i: number) => {
             return (
               <MenuItem
@@ -79,9 +80,8 @@ export const Menu: React.FC = () => {
             );
           })}
         </div>
+        <MiniProfile />
       </div>
-
-      <div className=" absolute "></div>
     </div>
   );
 };
