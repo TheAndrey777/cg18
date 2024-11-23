@@ -9,6 +9,7 @@ interface WorkersProps {
   workers?: any[];
 }
 const Workers: React.FC<WorkersProps> = ({ workers }) => {
+  const icons = [worker1, worker2, worker3, worker4];
   return (
     <div className="h-[40px] w-[150px] bottom-[20px] left-[280px] absolute flex">
       {workers && workers.length > 4 ? (
@@ -35,7 +36,7 @@ const Workers: React.FC<WorkersProps> = ({ workers }) => {
             <div className="h-full aspect-square absolute left-0 transition-all">
               <img
                 className="h-full aspect-square rounded-full border-solid border-[1px] border-primary box-border"
-                src={v}
+                src={icons[i % 4]}
                 alt="logo"
               />
             </div>
@@ -47,14 +48,19 @@ const Workers: React.FC<WorkersProps> = ({ workers }) => {
 };
 
 interface OfficeBlockProps {
+  workers?: any[];
   title: string;
   address?: string;
   id: number;
 }
 
-const OfficeBlock: React.FC<OfficeBlockProps> = ({ title, address, id }) => {
+const OfficeBlock: React.FC<OfficeBlockProps> = ({
+  title,
+  address,
+  id,
+  workers,
+}) => {
   const navigate = useNavigate();
-  const workers = [worker1, worker2, worker3, worker4, worker1, worker2];
   return (
     <div className="bg-layout-background w-[650px] h-[220px] rounded-[15px] mb-[15px] relative flex">
       <div className="h-full w-[280px] flex items-center justify-center select-none">

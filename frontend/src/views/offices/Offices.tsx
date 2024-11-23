@@ -40,12 +40,14 @@ const Offices = () => {
 
       {offices &&
         offices.map((v: any, i: number) => (
-          <OfficeBlock key={i} id={v.id} title={v.name} address={v.address} />
+          <OfficeBlock
+            key={i}
+            id={v.id}
+            title={v.name}
+            address={v.address}
+            workers={v.workers}
+          />
         ))}
-      {/* <OfficeBlock />
-      <OfficeBlock />
-      <OfficeBlock />
-      <OfficeBlock /> */}
     </div>
   );
 };
