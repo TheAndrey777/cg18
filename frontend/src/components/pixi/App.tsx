@@ -44,7 +44,6 @@ function PixiApplication(props: Props) {
 
   return (
     <div onContextMenu={(e) => e.preventDefault()}>
-      <span>123321</span>
       <div ref={ref} />
     </div>
   );
