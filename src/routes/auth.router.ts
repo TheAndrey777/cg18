@@ -27,6 +27,12 @@ authRouter.post(
   body("username")
     .exists().withMessage("Поле username отсутствует")
     .isLength({ min: 5, max: 32 }).withMessage("Длина поля username не соответствует ограничениям"),
+  body("name")
+    .exists().withMessage("Поле name отсутствует")
+    .isLength({ min: 2, max: 64 }).withMessage("Длина поля name не соответствует ограничениям"),
+  body("surname")
+    .exists().withMessage("Поле surname отсутствует")
+    .isLength({ min: 5, max: 64 }).withMessage("Длина поля surname не соответствует ограничениям"),
   body("email")
     .exists().withMessage("Поле email отсутствует")
     .isEmail().withMessage("Поле email должно быть почтой")

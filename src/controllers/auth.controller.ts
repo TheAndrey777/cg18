@@ -57,7 +57,13 @@ class AuthController {
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const userId = await userService.createUser(req.body.username, req.body.email, hashedPassword);
+    const userId = await userService.createUser(
+      req.body.username, 
+      req.body.name,
+      req.body.surname,
+      req.body.email, 
+      hashedPassword,
+    );
     const token = jwt.sign({
       id: userId,
       username: req.body.username,
