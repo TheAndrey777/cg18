@@ -3,7 +3,7 @@ import { cn } from "../../../lib/cn";
 
 interface MenuItemProps {
   name: string;
-  icon?: any;
+  Icon: any;
   isActive: boolean;
   opened?: boolean;
   onClick: () => void;
@@ -11,7 +11,7 @@ interface MenuItemProps {
 
 export const MenuItem: React.FC<MenuItemProps> = ({
   name,
-  icon,
+  Icon,
   isActive,
   opened,
   onClick,
@@ -29,7 +29,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       }}
     >
       <div className="h-full aspect-square flex items-center justify-center select-none">
-        <img src={icon} alt="icon" className="h-[20px] w-[20px]" />
+        <Icon className="h-[20px] w-[20px]" />
       </div>
       <div className="flex items-center text-content-1  select-none">
         {name}
