@@ -3,7 +3,7 @@ import OfficeBlock from "../../components/blocks/officeBlock/OfficeBlock";
 import { Button } from "../../components/button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { getOffice } from "../../redux/slices/offices";
-import { Modal } from "../../components/modal/Modal";
+import { Modal } from "../../components/navigation/modal/Modal";
 import { close } from "../../assets/svg";
 //import { useNavigate } from "react-router-dom";
 

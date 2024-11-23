@@ -1,7 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "../../lib/cn";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import { cn } from "../../../lib/cn";
+import { useClickOutside } from "../../../hooks/useClickOutside";
 
 type ModalBackdrop = "opaque" | "blur";
 
