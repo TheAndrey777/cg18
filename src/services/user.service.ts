@@ -6,7 +6,8 @@ class UserService {
     return await User.findOne({
       where: {
         username
-      }
+      },
+      select: ["id", "admin", "email", "username", "name", "surname", "password"]
     });
   }
 
@@ -23,6 +24,14 @@ class UserService {
       return null;
 
     return res.identifiers[0].id ?? null;
+  }
+
+  public async getUserById(id: number) {
+    return await User.findOne({
+      where: {
+        id
+      }
+    });
   }
 }
 

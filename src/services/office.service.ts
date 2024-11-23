@@ -18,6 +18,22 @@ class OfficeService {
       },
    });
   }
+
+  public async findOfficeById(id: number) {
+    return await Office.findOne({
+      where: {
+        id
+      },
+      relations: {
+        workers: true
+      }
+    });
+  }
+
+  public async addWorker(office: Office, worker: User) {
+    office.workers.push(worker);
+    await office.save();
+  }
 }
 
 export default new OfficeService;

@@ -5,3 +5,9 @@ export class InternalException extends HttpException {
     super(500, "Произошла внутренняя ошибка");
   }
 }
+
+export class NotFoundException extends HttpException {
+  constructor() {
+    super(404, "Объект не найден");
+  }
+}
