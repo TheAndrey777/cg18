@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
 import { ValidationException } from "../exceptions/validation.exception";
 import { InternalException, NotFoundException } from "../exceptions/internal.exceptions";
+import { HttpException } from "../exceptions/http.exception";
 import OfficeService from "../services/office.service";
 import UserService from "../services/user.service";
-import { HttpException } from "../exceptions/http.exception";
 
 class OfficeController {
   public async createOffice(req: Request, res: Response, next: NextFunction) {
@@ -67,6 +67,21 @@ class OfficeController {
     }
 
     await OfficeService.addWorker(office, worker);
+    res.send({ status: "success" });
+  }
+
+  public async updateOffice(req: Request, res: Response, next: NextFunction) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new ValidationException(errors.array()));
+    }
+
+    const office = await OfficeService.findOfficeById(parseInt(req.params.id));
+    if (!office) {
+      return next(new NotFoundException);
+    }
+
+    await OfficeService.updateFloorplan(office, JSON.parse(req.body.floorplan));
     res.send({ status: "success" });
   }
 }

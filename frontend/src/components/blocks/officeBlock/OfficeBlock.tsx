@@ -2,6 +2,7 @@ import { Button } from "../../button/Button";
 import { officeicon } from "../../../assets/png";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import { Tooltip } from "react-tooltip";
 
 import { worker1, worker2, worker3, worker4 } from "../../../assets/png";
 
@@ -35,11 +36,17 @@ const Workers: React.FC<WorkersProps> = ({ workers }) => {
           <div className="w-[30px] relative" key={i}>
             <div className="h-full aspect-square absolute left-0 transition-all">
               <img
-                className="h-full aspect-square rounded-full border-solid border-[1px] border-primary box-border"
+                className={
+                  "h-full aspect-square rounded-full border-solid border-[2px] border-primary box-border hover:scale-110 transition-all duration-300 worker-" +
+                  String(i)
+                }
                 src={icons[i % 4]}
                 alt="logo"
               />
             </div>
+            <Tooltip anchorSelect={".worker-" + String(i)} place="top">
+              {v.name}
+            </Tooltip>
           </div>
         ))
       )}
@@ -87,7 +94,7 @@ const OfficeBlock: React.FC<OfficeBlockProps> = ({
           text="Управление"
           size="md"
           onClick={() => {
-            navigate("/home/management");
+            navigate(`/home/management/${id}`);
           }}
         />
       </div>

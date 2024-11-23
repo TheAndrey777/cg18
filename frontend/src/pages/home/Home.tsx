@@ -12,6 +12,7 @@ const Home = () => {
         <div className="bg-yellow-3001">
           <Routes>
             <Route path="offices/*" element={<Offices />} />
+            <Route path="management/:officeId/*" element={<Management />} />
             <Route path="management/*" element={<Management />} />
             <Route path="editor/*" element={<Editor />} />
           </Routes>

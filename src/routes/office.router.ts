@@ -32,6 +32,19 @@ officeRouter.post(
   OfficeController.addWorker
 );
 
+officeRouter.put(
+  "/:id",
+  isAuthorized,
+  isAdmin,
+  param("id")
+    .exists().withMessage("Параметр id отсутствует")
+    .isInt({ min: 0, max: 1e9 }).withMessage("Параметр id должен быть числом от 1 до 1e9"),
+  body("floorplan")
+    .exists().withMessage("Поле floorplan отсутствует")
+    .isJSON().withMessage("Поле floorplan должно содержать JSON"),
+  OfficeController.updateOffice
+);
+
 officeRouter.get(
   "/",
   isAuthorized,
