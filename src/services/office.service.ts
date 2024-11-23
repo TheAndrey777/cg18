@@ -1,6 +1,7 @@
 import { InsertResult } from "typeorm";
 import { Office } from "../entities/office";
 import { User } from "../entities/user";
+import { JSONValue } from "../types/json.type";
 
 class OfficeService {
   public async createOffice(name: string, address: string, user: User): Promise<Office | null> {
@@ -28,6 +29,11 @@ class OfficeService {
         workers: true
       }
     });
+  }
+
+  public async updateFloorplan(office: Office, plan: JSONValue) {
+    office.floorplan = plan;
+    await office.save();
   }
 
   public async addWorker(office: Office, worker: User) {
