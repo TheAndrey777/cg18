@@ -2,6 +2,7 @@ import { Stage, useApp } from "@pixi/react";
 import { Grid } from "./Grid";
 import React, { useRef, useEffect } from "react";
 import { Application, Container, Graphics } from "pixi.js";
+import { ContextMenu } from "../navigation/context/ContextMenu";
 
 interface Props {}
 
@@ -40,10 +41,31 @@ function PixiApplication(props: Props) {
     };
   }, []);
 
+  const [open, setOpen] = React.useState(false);
+  const [positionX, setPositionX] = React.useState(0);
+  const [positionY, setPositionY] = React.useState(0);
+
   return (
-    <div onContextMenu={(e) => e.preventDefault()}>
+    <div
+      onContextMenu={(e) => {
+        e.preventDefault();
+        setOpen(true);
+        setPositionX(e.pageX);
+        setPositionY(e.pageY);
+        console.log("Right Click", e.pageX, e.pageY);
+      }}
+    >
       <span>123321</span>
       <div ref={ref} />
+
+      <ContextMenu
+        positionX={positionX}
+        positionY={positionY}
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <div>asdfalkj</div>
+      </ContextMenu>
     </div>
   );
 
