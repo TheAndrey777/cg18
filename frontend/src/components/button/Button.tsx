@@ -25,7 +25,7 @@ const buttonVariants = {
     },
   },
   colors: {
-    default: "bg-default",
+    default: "bg-default-300",
     primary: "bg-primary",
     secondary: "bg-secondary",
     success: "bg-success",
@@ -42,7 +42,7 @@ const buttonVariants = {
   },
   colorsHover: {
     solid: {
-      default: "group-hover:bg-default-400",
+      default: "group-hover:bg-default-200",
       primary: "group-hover:bg-primary-400",
       secondary: "group-hover:bg-secondary-400",
       success: "group-hover:bg-success-400",
@@ -67,7 +67,7 @@ const buttonVariants = {
     },
   },
   textColors: {
-    default: "text-default-200",
+    default: "text-default-700",
     primary: "text-primary-400",
     secondary: "text-secondary-400",
     success: "text-success-400",
@@ -169,7 +169,8 @@ export const Button: React.FC<ButtonProps> = ({
           className={cn(
             "text-layout-foreground transition-all duration-300",
             variant == "light" && buttonVariants.textColors[color],
-            variant == "solid" && "text-white"
+            variant == "solid" && "text-white",
+            color == "default" && "text-default-800"
           )}
         >
           {text}
