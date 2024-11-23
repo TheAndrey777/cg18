@@ -14,7 +14,10 @@ class AuthController {
       data: {
         id: req.user?.id,
         username: req.user?.username,
-        isAdmin: req.user?.isAdmin
+        name: req.user?.name,
+        surname: req.user?.surname,
+        email: req.user?.email,
+        isAdmin: req.user?.isAdmin,
       }
     });
   }
@@ -38,6 +41,9 @@ class AuthController {
     const token = jwt.sign({
       id: result.id,
       username: result.username,
+      email: result.email,
+      surname: result.surname,
+      name: result.name,
       isAdmin: result.admin
     } as IUser, process.env.JWT_SECRET || "dev", { expiresIn: "7d" });
     
@@ -67,6 +73,8 @@ class AuthController {
     const token = jwt.sign({
       id: userId,
       username: req.body.username,
+      email: req.body.email,
+      name: req.body.name,
       isAdmin: false
     } as IUser, process.env.JWT_SECRET || "dev", { expiresIn: "7d" });
 
