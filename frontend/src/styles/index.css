@@ -19,6 +19,10 @@
   font-weight: 400;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.87);
+
+  --rt-color-white: #ffffff;
+  --rt-color-dark: #4b4b4b;
+  --rt-opacity: 0.9;
 }
 
 #root {
