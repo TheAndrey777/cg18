@@ -47,20 +47,20 @@ export const Modal: React.FC<ModalProps> = ({
             exit={modalbgVariants.closed}
             transition={{ duration: 0.15 }}
             className={cn(
-              " fixed top-0 left-0 h-svh w-svw backdrop-filter transition-colors",
+              " fixed top-0 left-0 h-svh w-svw backdrop-filter transition-all  z-50",
               backdrop == "blur" && open ? "backdrop-blur-sm" : "",
               backdrop == "opaque" && open ? "bg-[#00000055]" : ""
             )}
           ></motion.div>
         )}
       </AnimatePresence>
-      <div className="fixed top-0 left-0 h-svh w-svw flex items-center justify-center pointer-events-none">
+      <div className="fixed top-0 left-0 h-svh w-svw flex items-center justify-center pointer-events-none  z-50">
         <AnimatePresence>
           {open && (
             <motion.div
               ref={ref}
               className={cn(
-                "bg-gray-400 min-h-[10rem] min-w-[15rem] rounded-md text-black pointer-events-auto",
+                "bg-gray-400 h-fit w-fit rounded-md text-black pointer-events-auto",
                 className
               )}
               initial={modalVariants.closed}

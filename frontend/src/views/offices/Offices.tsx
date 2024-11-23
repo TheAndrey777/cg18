@@ -3,12 +3,15 @@ import OfficeBlock from "../../components/blocks/officeBlock/OfficeBlock";
 import { Button } from "../../components/button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { getOffice } from "../../redux/slices/offices";
+import { Modal } from "../../components/modal/Modal";
+import { close } from "../../assets/svg";
 //import { useNavigate } from "react-router-dom";
 
 const Offices = () => {
   const dispatch = useDispatch();
   //dispatch(loginUser({ login: "123", password: "pas" }));
   const offices = useSelector((state: any) => state.office.offices);
+  const [addModalOpen, setAddModalOpen] = React.useState<boolean>(false);
 
   //const navigate = useNavigate();
   React.useEffect(() => {
@@ -32,10 +35,18 @@ const Offices = () => {
         <Button
           color="default"
           className="px-[10px]"
-          onClick={() => {}}
+          onClick={() => {
+            setAddModalOpen(true);
+          }}
           text="Фильтр"
         />
-        <Button className="" onClick={() => {}} text="Добавить" />
+        <Button
+          className=""
+          onClick={() => {
+            setAddModalOpen(true);
+          }}
+          text="Добавить"
+        />
       </div>
 
       {offices &&
@@ -48,6 +59,22 @@ const Offices = () => {
             workers={v.workers}
           />
         ))}
+
+      <Modal
+        open={addModalOpen}
+        onOpenChange={setAddModalOpen}
+        backdrop="opaque"
+        className=" overflow-hidden"
+      >
+        <div className="h-[300px] w-[500px] bg-layout-background rounded-[15px] relative">
+          <div
+            className=" cursor-pointer absolute right-[15px] top-[15px] h-[25px] w-[25px] active:scale-[0.95] hover:scale-[1.15] transition-all duration-300"
+            onClick={() => setAddModalOpen(false)}
+          >
+            <img className="h-[25px] w-[25px]" src={close} alt="close" />
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
