@@ -67,12 +67,12 @@ const initialState: UserState = {
   id: 0,
   status: "loaded",
   isAdmin: false,
-  name: "Генадий",
-  surname: "Буль",
-  email: "genadybooool@gmail.ru",
+  name: "",
+  surname: "",
+  email: "",
   isAuthorized: false,
-  password: "123",
-  username: "booool",
+  password: "",
+  username: "",
 };
 
 const userSlice = createSlice({

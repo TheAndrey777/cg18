@@ -20,6 +20,8 @@ const Register = () => {
     dispatch(setPassword(s));
   };
 
+  const { username, email } = useSelector((state: any) => state.user);
+
   const [repeatPassword, setRepeatPassword] = React.useState<string>("");
 
   const isAuthorized = useSelector((state: any) => state.user.isAuthorized);
@@ -54,6 +56,7 @@ const Register = () => {
             radius="sm"
             className="w-[22rem]"
             onChange={changeUsername}
+            defaultState={username}
           />
           <Input
             required
@@ -62,6 +65,7 @@ const Register = () => {
             radius="sm"
             className="w-[22rem] mt-[15px]"
             onChange={changeEmail}
+            defaultState={email}
           />
           <Input
             required
