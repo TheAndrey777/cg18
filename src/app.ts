@@ -12,7 +12,7 @@ import "./strategies/jwt.strategy";
 const app: Application = express();
 
 const origins = process.env.NODE_ENV == "development" ? 
-  [ "http://192.168.0.108:5173", "http://localhost:5173", "http://localhost:8000", "http://82.146.43.148" ] : [];
+  [ "http://192.168.0.108:5173", "http://localhost:5173", "http://localhost:8000" ] : [];
 
 app.use(cors({ origin: origins, credentials: true }));
 
