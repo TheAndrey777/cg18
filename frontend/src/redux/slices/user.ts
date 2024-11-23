@@ -4,9 +4,11 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 export const loginUser: any = createAsyncThunk(
   "api/auth/login",
-  async ({ login, password }: any, { rejectWithValue }: any) => {
+  async (_, { rejectWithValue, getState }: any) => {
+    const { user } = getState() as { user: UserState };
+
     return await axios
-      .post(`api/auth/login`, { username: login, password: password })
+      .post(`api/auth/login`, { username: user.login, password: user.password })
       .then((res: any) => {
         console.log(res);
         return { payload: res.data };
@@ -19,12 +21,16 @@ export const loginUser: any = createAsyncThunk(
 
 export const registerUser: any = createAsyncThunk(
   "api/auth/register",
-  async ({ login, email, password }: any, { rejectWithValue }: any) => {
+  async (_, { rejectWithValue, getState }: any) => {
+    const { user } = getState() as { user: UserState };
+
     return await axios
       .post(`api/auth/register`, {
-        username: login,
-        password: password,
-        email: email,
+        login: user.login,
+        password: user.password,
+        email: user.email,
+        name: user.name,
+        surname: user.surname,
       })
       .then((res: any) => {
         console.log(res);
@@ -42,13 +48,28 @@ export const getUser: any = createAsyncThunk("api/auth/me", async () => {
   return data;
 });
 
-const initialState = {
+interface UserState {
+  id: number;
+  status: string;
+  isAdmin: boolean;
+  name: string;
+  surname: string;
+  email: string;
+  isAuthorized: boolean;
+  password: string;
+  login: string;
+}
+
+const initialState: UserState = {
   id: 0,
   status: "loaded",
   isAdmin: false,
-  username: "Генадий Буль",
+  name: "Генадий",
+  surname: "Буль",
   email: "genadybooool@gmail.ru",
   isAuthorized: false,
+  password: "123",
+  login: "booool",
 };
 
 const userSlice = createSlice({
@@ -58,6 +79,21 @@ const userSlice = createSlice({
     setRedirectPath: (state, action: PayloadAction<any>) => {
       console.log(state, action);
       //state.rederectPath.value = action.payload.location;
+    },
+    setName: (state, action: PayloadAction<string>) => {
+      state.name = action.payload;
+    },
+    setSurname: (state, action: PayloadAction<string>) => {
+      state.surname = action.payload;
+    },
+    setPassword: (state, action: PayloadAction<string>) => {
+      state.password = action.payload;
+    },
+    setLogin: (state, action: PayloadAction<string>) => {
+      state.login = action.payload;
+    },
+    setEmail: (state, action: PayloadAction<string>) => {
+      state.email = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -105,6 +141,13 @@ const userSlice = createSlice({
   },
 });
 
-export const { setRedirectPath } = userSlice.actions;
+export const {
+  setRedirectPath,
+  setEmail,
+  setLogin,
+  setName,
+  setPassword,
+  setSurname,
+} = userSlice.actions;
 
 export const userReducer = userSlice.reducer;

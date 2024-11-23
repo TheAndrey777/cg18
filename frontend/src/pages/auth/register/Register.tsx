@@ -1,29 +1,37 @@
-import { Button } from "../../components/button/Button";
-import { Checkbox } from "../../components/checkbox/Checkbox";
-import { Input } from "../../components/input/Input";
+import { Button } from "../../../components/button/Button";
+import { Checkbox } from "../../../components/checkbox/Checkbox";
+import { Input } from "../../../components/input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../redux/slices/user";
+import { setEmail, setLogin, setPassword } from "../../../redux/slices/user";
 import React from "react";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [login, setLogin] = React.useState<string>("");
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+  const changeEmail = (s: string) => {
+    dispatch(setEmail(s));
+  };
+  const changeLogin = (s: string) => {
+    dispatch(setLogin(s));
+  };
+  const changePassword = (s: string) => {
+    dispatch(setPassword(s));
+  };
+
   const [repeatPassword, setRepeatPassword] = React.useState<string>("");
 
-  const isAutorised = useSelector((state: any) => state.user.isAuthorized);
+  const isAuthorized = useSelector((state: any) => state.user.isAuthorized);
 
   React.useEffect(() => {
-    if (isAutorised) navigate("/home");
-  }, [isAutorised]);
+    if (isAuthorized) navigate("/home");
+  }, [isAuthorized]);
 
   const clickRegister = () => {
-    dispatch(registerUser({ login: login, password: password, email: email }));
-    if (isAutorised) navigate("/home");
+    // dispatch(registerUser({ login: login, password: password, email: email }));
+    // if (isAutorised) navigate("/home");
+    navigate("complete");
   };
   const clickNavigateLogin = () => {
     navigate("/auth/login");
@@ -32,11 +40,11 @@ const Register = () => {
     <div className="h-full w-full bg-default-100 flex items-center justify-center">
       <div className=" bg-layout-background w-[25rem] h-[38rem] rounded-[15px] box-border p-[25px] relative">
         <div className="text-content-1 w-full h-[3.125rem] text-[28px] font-bold text-center">
-          Добро пожаловать!
+          Регистрация аккаунта
         </div>
         <div className="text-content-1  w-full h-[3.4375rem] text-[12px] text-center mt-[15px]">
           Для начала работы вам необходимо создать аккаунт. Заполните поля ниже
-          и нажмите кнопку зарегистрироваться
+          и нажмите кнопку продолжить
         </div>
 
         <div className="mt-[15px]">
@@ -45,7 +53,7 @@ const Register = () => {
             label="Логин"
             radius="sm"
             className="w-[22rem]"
-            onChange={setLogin}
+            onChange={changeLogin}
           />
           <Input
             required
@@ -53,7 +61,7 @@ const Register = () => {
             type="email"
             radius="sm"
             className="w-[22rem] mt-[15px]"
-            onChange={setEmail}
+            onChange={changeEmail}
           />
           <Input
             required
@@ -61,7 +69,7 @@ const Register = () => {
             type="password"
             radius="sm"
             className="w-[22rem] mt-[15px]"
-            onChange={setPassword}
+            onChange={changePassword}
           />
           <Input
             required
@@ -91,7 +99,7 @@ const Register = () => {
             className="w-full mb-[8px]"
             size="lg"
             onClick={clickRegister}
-            text="Создать аккаунт"
+            text="Продолжить"
           />
           <Button
             variant="bordered"

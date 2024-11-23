@@ -1,9 +1,10 @@
 import { Switch } from "./components/switch/Switch";
 import { Routes, Route } from "react-router-dom";
 
-import Register from "./pages/auth/Register";
 import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
+import Register from "./pages/auth/register/Register";
+import CompleteRegister from "./pages/auth/register/CompleteRegister";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <Routes>
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth/register/complete" element={<CompleteRegister />} />
         <Route path="/home/*" element={<Home />} />
         <Route path="*" element={<Home />} />
       </Routes>

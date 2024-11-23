@@ -1,5 +1,6 @@
 import React from "react";
 import { cn } from "../../../lib/cn";
+
 interface MenuItemProps {
   name: string;
   icon?: any;
