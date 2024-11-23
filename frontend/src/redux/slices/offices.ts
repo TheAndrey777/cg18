@@ -17,13 +17,15 @@ export const createOffice: any = createAsyncThunk(
 );
 
 export const getOffice: any = createAsyncThunk("/api/office/get", async () => {
+  console.log("get");
   const { data } = await axios.get("/api/office");
+  console.log(data);
   return data;
 });
 
 const initialState = {
   status: "",
-  value: {},
+  offices: [],
 };
 
 const officeSlice = createSlice({
@@ -56,7 +58,7 @@ const officeSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(getOffice.fulfilled, (state, { payload }) => {
-      console.log(payload);
+      state.offices = payload.offices;
       state.status = "loaded";
     });
     builder.addCase(getOffice.rejected, (state) => {
@@ -67,4 +69,4 @@ const officeSlice = createSlice({
 
 export const { setRedirectPath } = officeSlice.actions;
 
-export const userReducer = officeSlice.reducer;
+export const officeReducer = officeSlice.reducer;

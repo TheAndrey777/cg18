@@ -46,7 +46,13 @@ const Workers: React.FC<WorkersProps> = ({ workers }) => {
   );
 };
 
-const OfficeBlock = () => {
+interface OfficeBlockProps {
+  title: string;
+  address?: string;
+  id: number;
+}
+
+const OfficeBlock: React.FC<OfficeBlockProps> = ({ title, address, id }) => {
   const navigate = useNavigate();
   const workers = [worker1, worker2, worker3, worker4, worker1, worker2];
   return (
@@ -59,13 +65,15 @@ const OfficeBlock = () => {
         />
       </div>
       <div className="w-full box-border p-[20px] pl-0">
-        <div className="text-content-1 font-medium text-[20px]">
-          Деловой оазис (офис в центре Таганрога)
-        </div>
-        <div className="text-content-1 text-[12px] font-semibold">Адрес:</div>
-        <div className="text-content-1 text-[12px] ml-[5px]">
-          г. Таганрог, ул. Чехова, 22А
-        </div>
+        <div className="text-content-1 font-medium text-[20px]">{title}</div>
+        {address && address != "" && (
+          <>
+            <div className="text-content-1 text-[12px] font-semibold">
+              Адрес:
+            </div>
+            <div className="text-content-1 text-[12px] ml-[5px]">{address}</div>
+          </>
+        )}
       </div>
       <Workers workers={workers} />
       <div className="absolute right-5 bottom-5">

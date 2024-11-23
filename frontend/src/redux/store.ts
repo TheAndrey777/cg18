@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userReducer } from "./slices/user";
-
+import { officeReducer } from "./slices/offices";
 //import { useDispatch } from "react-redux";
 //const dispatch = useDispatch();
 //dispatch(loginUser({ login: "123", password: "pas" }));
@@ -8,6 +8,7 @@ import { userReducer } from "./slices/user";
 
 const store = configureStore({
   reducer: {
+    office: officeReducer,
     user: userReducer,
   },
 });
