@@ -50,7 +50,7 @@ export const isInter = (v1: Vector, v2: Vector) => {
   const v2_2 = new Vector(v2.sx, v2.sy, v1.fx, v1.fy);
 
   return !(
-    getSign(getVectorMult(v1, v1_1)) * getSign(getVectorMult(v1, v1_2)) >= 0 ||
-    getSign(getVectorMult(v2, v2_1)) * getSign(getVectorMult(v2, v2_2)) >= 0
+    getSign(getVectorMult(v1, v1_1)) * getSign(getVectorMult(v1, v1_2)) > 0 ||
+    getSign(getVectorMult(v2, v2_1)) * getSign(getVectorMult(v2, v2_2)) > 0
   );
 };
