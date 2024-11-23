@@ -34,7 +34,7 @@ export const Menu: React.FC = () => {
       },
     },
     {
-      name: "Пока хз",
+      name: "Пока ?",
       icon: menuicon,
       isActive: false,
       onClick: () => {
@@ -48,7 +48,7 @@ export const Menu: React.FC = () => {
   return (
     <div
       className={cn(
-        "w-[13rem] h-full transition-all relative overflow-hidden",
+        "w-[13rem] h-full transition-all relative overflow-hidden ",
         a
       )}
       onClick={() => {
@@ -58,26 +58,30 @@ export const Menu: React.FC = () => {
     >
       <div
         className={cn(
-          "bg-layout-background h-[calc(100%-50px)] w-[13rem] fixed top-[25px] left-[25px] transition-all px-[10px] box-border",
+          "bg-layout-background h-[calc(100%-40px)] w-[13rem] fixed top-[20px] left-[20px]  transition-all px-[10px] box-border rounded-[15px]",
           a
         )}
       >
-        {items.map((v: any, i: number) => {
-          return (
-            <MenuItem
-              key={i}
-              name={v.name}
-              icon={v.icon}
-              opened={a == "w-[60px]"}
-              isActive={i == active}
-              onClick={() => {
-                setactive(i);
-                v.onClick();
-              }}
-            />
-          );
-        })}
+        <div className="mt-[20px]">
+          {items.map((v: any, i: number) => {
+            return (
+              <MenuItem
+                key={i}
+                name={v.name}
+                icon={v.icon}
+                opened={a == "w-[60px]"}
+                isActive={i == active}
+                onClick={() => {
+                  setactive(i);
+                  v.onClick();
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
+
+      <div className=" absolute "></div>
     </div>
   );
 };

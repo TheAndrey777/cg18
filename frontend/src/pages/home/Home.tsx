@@ -6,7 +6,7 @@ import Management from "../../views/offices/Management";
 
 const Home = () => {
   return (
-    <div className="bg-default-100 min-h-full w-full relative grid grid-cols-[auto_1fr] gap-[20px] p-[25px] box-border ">
+    <div className="bg-default-100 min-h-full w-full relative grid grid-cols-[auto_1fr] gap-[20px] p-[20px] box-border ">
       <Menu />
       <div className="bg-green-3001 w-full">
         <div className="bg-yellow-3001">

@@ -18,8 +18,9 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   return (
     <div
       className={cn(
-        "h-[40px] w-[calc(100%-20px)] min-w-[40px] flex overflow-hidden cursor-pointer mb-[8px] rounded-[5px] transition-all duration-300",
+        "h-[40px] w-[calc(100%-20px)] min-w-[40px] flex overflow-hidden cursor-pointer mb-[8px] rounded-[5px] transition-all duration-300 ",
         isActive && "bg-default-100",
+        !isActive && "hover:scale-[1.05] hover:bg-default-50 active:scale-100",
         isActive && !opened && "ml-[10px]"
       )}
       onClick={() => {
