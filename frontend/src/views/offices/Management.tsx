@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { cn } from "../../lib/cn";
-import { getOffice } from "../../redux/slices/offices";
+import { getOffice, inviteUser } from "../../redux/slices/offices";
 import { Modal } from "../../components/navigation/modal/Modal";
 import { Input } from "../../components/input/Input";
 import { close } from "../../assets/svg";
@@ -31,7 +31,7 @@ const Management = () => {
   );
 
   const users = useSelector((state: any) => state.user.users);
-  const [validUsers, setValidUsers] = React.useState([]);
+  const [validUsers, setValidUsers] = React.useState<any[]>([]);
   console.log(users);
   console.log("val", validUsers);
 
@@ -215,7 +215,13 @@ const Management = () => {
                   size="md"
                   disabled={createStatus == "loading"}
                   onClick={() => {
-                    //dispatch(createOffice({ name: name, address: address }));
+                    if (activeValid < validUsers.length)
+                      dispatch(
+                        inviteUser({
+                          officeId: officeId,
+                          userId: validUsers[activeValid].id,
+                        })
+                      );
                   }}
                   text="Пригласить"
                 />

@@ -20,7 +20,7 @@ const Workers: React.FC<WorkersProps> = ({ workers }) => {
               <div className="h-full aspect-square absolute left-0 hover:left-[-10px] transition-all">
                 <img
                   className="h-full aspect-square rounded-full border-solid border-[1px] border-primary box-border  cursor-pointer"
-                  src={v}
+                  src={icons[i % 4]}
                   alt="logo"
                 />
               </div>
