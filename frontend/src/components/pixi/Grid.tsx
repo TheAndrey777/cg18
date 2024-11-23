@@ -6,11 +6,13 @@ import { Vector, isInter } from "../../math/math";
 
 import { Container } from "pixi.js";
 import { Wall } from "./Wall";
+import { colorRoom } from "../../math/graphs";
 
 interface Tile1 {
   x: number;
   y: number;
   color: number;
+  name: string;
 }
 
 interface Wall1 {
@@ -28,9 +30,13 @@ const POINT_SIZE = 10;
 
 export class Grid extends Container {
   public onTimer = () => {};
+  // public setTileSize = (tileSize: number) => {};
+  private tileSize: number;
 
-  constructor(width: number, height: number, size: number, app: any) {
+  constructor(width: number, height: number, tileSize: number, app: any) {
     super();
+
+    this.tileSize = tileSize;
 
     const startPoint = new Point({
       texture: getPointTexture({
@@ -67,6 +73,30 @@ export class Grid extends Container {
     const walls = new Array<Wall1>(0);
     const wallContainer = new Container();
 
+    let h: number = (height / this.tileSize) * 2;
+    let w: number = (width / this.tileSize) * 2;
+    let grid: Tile1[] = [];
+    const lineSize: number = 1;
+    for (let i = 0; i < h; i++)
+      for (let j = 0; j < w; j++)
+        grid.push({
+          x: j * this.tileSize,
+          y: i * this.tileSize,
+          color: 0xffffff,
+          name: "",
+        });
+
+    const tileTexture = getRectangleTexture({
+      lineSize: lineSize,
+      width: this.tileSize,
+      height: this.tileSize,
+      color: 0xffffff,
+      app: app,
+    });
+
+    const tileContainer = new Container();
+    this.scale.set(0.5);
+
     const addWall = () => {
       selectWall.visible = false;
       const v = new Vector(
@@ -80,7 +110,6 @@ export class Grid extends Container {
         console.log(321);
         return;
       }
-      console.log(123);
       let isFound: boolean = false;
       walls.forEach((wall) => {
         if (isInter(new Vector(wall.sx, wall.sy, wall.fx, wall.fy), v))
@@ -125,6 +154,26 @@ export class Grid extends Container {
       if (e.button == 2) {
         startPoint.visible = finishPoint.visible = false;
         selectWall.visible = false;
+
+        const name = "Кухня";
+        const list = colorRoom(
+          Math.floor((mX / this.tileSize) * 2),
+          Math.floor((mY / this.tileSize) * 2),
+          w,
+          h,
+          this.tileSize,
+          walls
+          // tileContainer
+        );
+
+        list.forEach((id) => {
+          grid[id].name = name;
+          // console.log(tileContainer);
+          tileContainer.children[id].tint = 0xf5ab56;
+        });
+        console.log(list);
+        if (list.length === 0) console.log;
+        ("Error");
       } else {
         if (!startPoint.visible) {
           startPoint.x = getNearPosition(x1, x2, mX) - POINT_SIZE - 1.5;
@@ -148,33 +197,11 @@ export class Grid extends Container {
       }
     };
 
-    let h: number = (height / size) * 2;
-    let w: number = (width / size) * 2;
-    let grid: Tile1[] = [];
-    const lineSize: number = 1;
-    for (let i = 0; i < h; i++)
-      for (let j = 0; j < w; j++)
-        grid.push({
-          x: j * size,
-          y: i * size,
-          color: 0xffffff,
-        });
-
-    const tileTexture = getRectangleTexture({
-      lineSize: lineSize,
-      width: size,
-      height: size,
-      color: 0xffffff,
-      app: app,
-    });
-
-    const tileContainer = new Container();
-    this.scale.set(0.5);
     tileContainer.addChild(
       ...grid.map((val, id) => {
         return new Tile({
           texture: tileTexture,
-          size: size,
+          size: this.tileSize,
           x: val.x,
           y: val.y,
           app: app,
@@ -204,16 +231,26 @@ export class Grid extends Container {
 
       let isFound = false;
       walls.forEach((wall) => {
-        if (isInter(new Vector(wall.sx, wall.sy, wall.fx, wall.fy), v))
+        if (
+          isInter(
+            new Vector(
+              wall.sx + 2.5,
+              wall.sy + 2.5,
+              wall.fx + 2.5,
+              wall.fy + 2.5
+            ),
+            v
+          )
+        )
           isFound = true;
       });
 
       selectWall.visible = true;
       selectWall.update({
-        sx: startPoint.x + POINT_SIZE + 2.5,
-        sy: startPoint.y + POINT_SIZE + 2.5,
-        fx: x + POINT_SIZE + 2.5,
-        fy: y + POINT_SIZE + 2.5,
+        sx: v.sx,
+        sy: v.sy,
+        fx: v.fx,
+        fy: v.fy,
         type: isFound ? 1 : 2,
         angle: dx > dy ? 0 : 1,
         app: app,
@@ -221,6 +258,15 @@ export class Grid extends Container {
     };
 
     app.stage.addEve;
+
+    // this.setTileSize = (tileSize) => {
+    //   this.tileSize = tileSize;
+
+    //   const nextGrid = [];
+    //   grid.forEach((tile, id) => {
+    //     nextGrid.push(new Tile({texture, }));
+    //   });
+    // };
 
     this.addChild(tileContainer);
     this.addChild(wallContainer);

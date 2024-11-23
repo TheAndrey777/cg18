@@ -56,7 +56,7 @@ export class Wall extends Sprite {
       hTexture = getWallTexture({ angle: 1, app: props.app });
     if (wTexture !== null)
       wTexture = getWallTexture({ angle: 0, app: props.app });
-    // console.log(this.texture);
+
     this.x = (props.sx + props.fx) / 2 + 2;
     this.y = (props.sy + props.fy) / 2 + 2;
 
@@ -69,9 +69,6 @@ export class Wall extends Sprite {
 
     this.interactive = true;
     this.anchor.set(0.5);
-
-    console.log(this.texture, this.x, this.y);
-    console.log(this);
   }
 
   public update(props: Props) {
