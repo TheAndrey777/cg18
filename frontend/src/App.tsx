@@ -2,7 +2,7 @@ import { Switch } from "./components/switch/Switch";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/home/Home";
-import Login from "./Login";
+import Login from "./pages/auth/Login";
 import Register from "./pages/auth/register/Register";
 import CompleteRegister from "./pages/auth/register/CompleteRegister";
 
