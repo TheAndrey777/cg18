@@ -16,7 +16,6 @@ const Offices = () => {
 
   //const navigate = useNavigate();
   React.useEffect(() => {
-    console.log(123);
     dispatch(getOffice());
   }, []);
 

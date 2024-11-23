@@ -94,7 +94,7 @@ const OfficeBlock: React.FC<OfficeBlockProps> = ({
           text="Управление"
           size="md"
           onClick={() => {
-            navigate("/home/management");
+            navigate(`/home/management/${id}`);
           }}
         />
       </div>
