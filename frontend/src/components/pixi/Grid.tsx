@@ -11,10 +11,14 @@ import { colorRoom } from "../../math/graphs";
 import KeyBoaurd from "../../keyboard/keyboard";
 import { Monitor } from "./objects/Monitor";
 
+let reset: any;
+
 let tools = 0;
 
-const setTools = (id: number) => {
+export const setTools = (id: number) => {
   tools = id;
+  console.log(id);
+  reset();
 };
 
 interface Tile1 {
@@ -31,10 +35,6 @@ interface Wall1 {
   fy: number;
   type: number;
 }
-
-let tool = 0;
-
-export const toolChange = (id: number) => {};
 
 const getNearPosition = (x1: number, x2: number, mX: number) =>
   mX - x1 / 2 < x2 / 2 - mX ? x1 : x2;
@@ -246,23 +246,58 @@ export class Grid extends Container {
         if (list.length === 0) console.log;
         ("Error");
       } else {
-        if (!startPoint.visible) {
-          startPoint.x = getNearPosition(x1, x2, mX) - POINT_SIZE - 1.5;
-          startPoint.y = getNearPosition(y1, y2, mY) - POINT_SIZE - 1.5;
-          startPoint.visible = true;
-        } else if (!finishPoint.visible) {
-          finishPoint.x = getNearPosition(x1, x2, mX) - POINT_SIZE - 1.5;
-          finishPoint.y = getNearPosition(y1, y2, mY) - POINT_SIZE - 1.5;
-          finishPoint.visible = true;
+        if (tools === 0) {
+          if (!startPoint.visible) {
+            startPoint.x = getNearPosition(x1, x2, mX) - POINT_SIZE - 1.5;
+            startPoint.y = getNearPosition(y1, y2, mY) - POINT_SIZE - 1.5;
+            startPoint.visible = true;
+          } else if (!finishPoint.visible) {
+            finishPoint.x = getNearPosition(x1, x2, mX) - POINT_SIZE - 1.5;
+            finishPoint.y = getNearPosition(y1, y2, mY) - POINT_SIZE - 1.5;
+            finishPoint.visible = true;
 
-          if (addWall()) {
-            startPoint.x = finishPoint.x;
-            startPoint.y = finishPoint.y;
+            if (addWall()) {
+              startPoint.x = finishPoint.x;
+              startPoint.y = finishPoint.y;
+            }
+            finishPoint.visible = false;
+          } else {
+            startPoint.visible = false;
+            finishPoint.visible = false;
           }
-          finishPoint.visible = false;
-        } else {
-          startPoint.visible = false;
-          finishPoint.visible = false;
+        }
+        if (tools === 1) {
+          addObject(
+            new Table({
+              x: Math.round((mX / tileSize) * 2) * tileSize,
+              y: Math.round((mY / tileSize) * 2) * tileSize,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            })
+          );
+        }
+        if (tools === 3) {
+          addObject(
+            new Monitor({
+              x: Math.round((mX / tileSize) * 2) * tileSize,
+              y: Math.round((mY / tileSize) * 2) * tileSize,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            })
+          );
+        }
+        if (tools === 4) {
+          addObject(
+            new Door({
+              x: Math.round((mX / tileSize) * 2) * tileSize,
+              y: Math.round((mY / tileSize) * 2) * tileSize,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            })
+          );
         }
       }
     };
@@ -281,46 +316,8 @@ export class Grid extends Container {
     );
 
     this.onTimer = () => {
-      if (KeyBoaurd.hasKey("Escape")) {
-        startPoint.visible = finishPoint.visible = false;
-        selectWall.visible = false;
-
-        if (seletedObject !== null) deleteObject(seletedObject);
-        seletedObject = null;
-      }
-      if (KeyBoaurd.onKey("Enter")) {
-        addObject(
-          new Table({
-            x: 100,
-            y: 100,
-            app: app,
-            onObjectClickDown: onObjectClickDown,
-            onObjectClickUp: onObjectClickUp,
-          })
-        );
-      }
-      if (KeyBoaurd.onKey("KeyD")) {
-        addObject(
-          new Door({
-            x: 100,
-            y: 100,
-            app: app,
-            onObjectClickDown: onObjectClickDown,
-            onObjectClickUp: onObjectClickUp,
-          })
-        );
-      }
-      if (KeyBoaurd.onKey("Tab")) {
-        addObject(
-          new Monitor({
-            x: 100,
-            y: 100,
-            app: app,
-            onObjectClickDown: onObjectClickDown,
-            onObjectClickUp: onObjectClickUp,
-          })
-        );
-      }
+      if (KeyBoaurd.hasKey("Escape")) reset();
+      if (tools !== 0) return;
       const mX = Mouse.x(app) - 8;
       const mY = Mouse.y(app) - 8;
       if (seletedObject !== null) {
@@ -369,6 +366,14 @@ export class Grid extends Container {
         angle: dx > dy ? 0 : 1,
         app: app,
       });
+    };
+
+    reset = () => {
+      startPoint.visible = finishPoint.visible = false;
+      selectWall.visible = false;
+
+      if (seletedObject !== null) deleteObject(seletedObject);
+      seletedObject = null;
     };
 
     this.addChild(tileContainer);

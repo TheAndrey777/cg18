@@ -1,6 +1,7 @@
 import React from "react";
 import ElementSelectorItem from "./ElementSelectorItem";
 import { menuicon } from "../../assets/svg";
+import { setTools } from "../../components/pixi/Grid";
 
 const ElementSelector = () => {
   const [currentElement, setElement] = React.useState(0);
@@ -40,7 +41,10 @@ const ElementSelector = () => {
             title={elem.title}
             icon={elem.icon}
             isActive={currentElement === i}
-            onClick={() => setElement(i)}
+            onClick={() => {
+              setElement(i);
+              setTools(i);
+            }}
           />
         );
       })}
