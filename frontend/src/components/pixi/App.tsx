@@ -5,15 +5,7 @@ import { Application, Container, Graphics } from "pixi.js";
 import KeyBoard from "../../keyboard/keyboard";
 import { ContextMenu } from "../navigation/context/ContextMenu";
 
-let tool = 0;
-
-export const toolChange = (id: number) => {};
-
 interface Props {}
-
-export const toolChange = (id: number) => {
-  console.log(id);
-};
 
 function PixiApplication(props: Props) {
   const {} = props;
@@ -21,6 +13,10 @@ function PixiApplication(props: Props) {
   const width = window.innerWidth / 1.5;
   const height = window.innerWidth / 1.5;
   const ref = useRef(null);
+
+  const [open, setOpen] = React.useState(false);
+  const [positionX, setPositionX] = React.useState(0);
+  const [positionY, setPositionY] = React.useState(0);
 
   useEffect(() => {
     // On first render create our application
@@ -37,6 +33,11 @@ function PixiApplication(props: Props) {
     ref.current!.appendChild(app.view);
 
     const grid = new Grid(width, height, 40, app);
+    grid.setHooks({
+      setOpen: setOpen,
+      setPositionX: setPositionX,
+      setPositionY: setPositionY,
+    });
     app.stage.addChild(grid);
 
     app.ticker.add((time) => {
@@ -51,9 +52,6 @@ function PixiApplication(props: Props) {
     };
   }, []);
 
-  const [open, setOpen] = React.useState(false);
-  const [positionX, setPositionX] = React.useState(0);
-  const [positionY, setPositionY] = React.useState(0);
   return (
     <div
       onContextMenu={(e) => {
