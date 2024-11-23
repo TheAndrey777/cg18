@@ -9,8 +9,8 @@ interface Props {}
 function PixiApplication(props: Props) {
   const {} = props;
 
-  const width = window.innerWidth;
-  const height = window.innerWidth;
+  const width = window.innerWidth / 1.5;
+  const height = window.innerWidth / 1.5;
   const ref = useRef(null);
 
   useEffect(() => {
