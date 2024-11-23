@@ -33,6 +33,10 @@ class UserService {
       }
     });
   }
+
+  public async getAllUsers() {
+    return await User.find();
+  }
 }
 
 export default new UserService;

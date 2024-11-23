@@ -4,8 +4,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { errorHandler } from "./middlewares/error.middleware";
 import { authRouter } from "./routes/auth.router";
-import "./strategies/jwt.strategy";
 import { officeRouter } from "./routes/office.router";
+import { userRouter } from "./routes/user.router";
+import "./strategies/jwt.strategy";
+
 
 const app: Application = express();
 
@@ -20,6 +22,7 @@ app.use(bodyParser.json());
 
 app.use("/api/auth", authRouter);
 app.use("/api/office", officeRouter);
+app.use("/api/user", userRouter);
 
 app.use(errorHandler);
 
