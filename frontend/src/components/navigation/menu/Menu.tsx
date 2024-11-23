@@ -1,41 +1,44 @@
 import React from "react";
 import { cn } from "../../../lib/cn";
 import { MenuItem } from "./MenuItem";
+import { useNavigate } from "react-router-dom";
 
 import { menuicon } from "../../../assets/svg";
 
 export const Menu: React.FC = () => {
+  const navigate = useNavigate();
+
   const items = [
     {
       name: "Профиль",
       icon: menuicon,
       isActive: false,
-      onclick: () => {
-        console.log("click");
+      onClick: () => {
+        navigate("/home/proffile");
       },
     },
     {
-      name: "Профиль",
+      name: "Офисы",
       icon: menuicon,
       isActive: false,
-      onclick: () => {
-        console.log("click");
+      onClick: () => {
+        navigate("/home/offices");
       },
     },
     {
-      name: "Профиль",
+      name: "Редактор",
       icon: menuicon,
       isActive: false,
-      onclick: () => {
-        console.log("click");
+      onClick: () => {
+        navigate("/home/editor");
       },
     },
     {
-      name: "Профиль",
+      name: "Пока хз",
       icon: menuicon,
       isActive: false,
-      onclick: () => {
-        console.log("click");
+      onClick: () => {
+        navigate("/home/editor");
       },
     },
   ];
@@ -55,7 +58,7 @@ export const Menu: React.FC = () => {
     >
       <div
         className={cn(
-          "bg-layout-background h-[calc(100%-50px)] w-[13rem] fixed top-[25px] left-[25px] transition-all px-[10px] box-border   ",
+          "bg-layout-background h-[calc(100%-50px)] w-[13rem] fixed top-[25px] left-[25px] transition-all px-[10px] box-border",
           a
         )}
       >
@@ -69,6 +72,7 @@ export const Menu: React.FC = () => {
               isActive={i == active}
               onClick={() => {
                 setactive(i);
+                v.onClick();
               }}
             />
           );
