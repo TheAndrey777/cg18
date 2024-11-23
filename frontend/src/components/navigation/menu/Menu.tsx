@@ -62,7 +62,7 @@ export const Menu: React.FC = () => {
           a
         )}
       >
-        <div className="mt-[20px]">
+        <div className="mt-[10px]">
           {items.map((v: any, i: number) => {
             return (
               <MenuItem
