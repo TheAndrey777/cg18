@@ -41,11 +41,27 @@ const getNearPosition = (x1: number, x2: number, mX: number) =>
 
 const POINT_SIZE = 10;
 
+const COPONENT_COLORS = [0xff000010, 0x00ffff10, 0x0000ff10];
+let colorID = 0;
+
+let setOpen1: any;
+let setPositionX1: any;
+let setPositionY1: any;
+export let startDFS: any;
+
 export class Grid extends Container {
   public onTimer = () => {};
+  public setHooks = (setOpen: any, setPositionX: any, setPositionY: any) => {
+    setOpen1 = setOpen;
+    setPositionX1 = setPositionX;
+    setPositionY1 = setPositionY;
+  };
 
   constructor(width: number, height: number, tileSize: number, app: any) {
     super();
+
+    let mX1: number;
+    let mY1: number;
 
     const heavyObject = [];
     const lightObject = [];
@@ -226,24 +242,12 @@ export class Grid extends Container {
         startPoint.visible = finishPoint.visible = false;
         selectWall.visible = false;
 
-        const name = "Кухня";
-        const list = colorRoom(
-          Math.floor((mX / tileSize) * 2),
-          Math.floor((mY / tileSize) * 2),
-          w,
-          h,
-          tileSize,
-          walls
-          // tileContainer
-        );
+        setOpen1(true);
+        setPositionX1(Mouse.innerX(app));
+        setPositionY1(Mouse.innerY(app));
 
-        list.forEach((id) => {
-          grid[id].name = name;
-          // console.log(tileContainer);
-          tileContainer.children[id].tint = 0xf5ab56;
-        });
-        console.log(list);
-        if (list.length === 0) console.log;
+        mX1 = mX;
+        mY1 = mY;
         ("Error");
       } else {
         if (tools === 0) {
@@ -374,6 +378,27 @@ export class Grid extends Container {
 
       if (seletedObject !== null) deleteObject(seletedObject);
       seletedObject = null;
+    };
+
+    startDFS = (name: string) => {
+      const list = colorRoom(
+        Math.floor((mX1 / tileSize) * 2),
+        Math.floor((mY1 / tileSize) * 2),
+        w,
+        h,
+        tileSize,
+        walls
+      );
+
+      console.log(name);
+
+      const color = COPONENT_COLORS[colorID++ % COPONENT_COLORS.length];
+      list.forEach((id) => {
+        grid[id].name = name;
+        tileContainer.children[id].tint = color;
+      });
+      console.log(list);
+      if (list.length === 0) console.log;
     };
 
     this.addChild(tileContainer);

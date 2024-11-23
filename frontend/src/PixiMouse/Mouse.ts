@@ -15,4 +15,14 @@ export const Mouse = {
     let scale = app.stage.scale;
     return pointer.screenY * scale.y;
   },
+
+  innerX: (app: any) => {
+    const pointer = app.renderer.plugins.interaction.pointer;
+    return pointer.pageX;
+  },
+
+  innerY: (app: any) => {
+    const pointer = app.renderer.plugins.interaction.pointer;
+    return pointer.pageY;
+  },
 };
