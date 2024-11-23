@@ -27,7 +27,6 @@ function PixiApplication(props: Props) {
     app.stage.addChild(grid);
 
     app.ticker.add((time) => {
-      grid.setTileSize(15);
       grid.onTimer();
       KeyBoard.onTimer();
     }, 15);
