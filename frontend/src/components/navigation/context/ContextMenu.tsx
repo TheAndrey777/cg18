@@ -67,7 +67,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
             <motion.div
               ref={ref}
               className={cn(
-                "bg-gray-400 h-fit w-fit rounded-md text-black pointer-events-auto",
+                " h-fit w-fit rounded-md text-black pointer-events-auto",
                 className
               )}
               initial={contextMenuVariants.closed}

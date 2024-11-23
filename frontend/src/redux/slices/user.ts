@@ -47,8 +47,11 @@ export const registerUser: any = createAsyncThunk(
 
 export const getUser: any = createAsyncThunk("api/auth/me", async () => {
   const { data } = await axios.get("api/auth/me");
+  return data;
+});
 
-  //console.log(data);
+export const getAllUsers: any = createAsyncThunk("api/user", async () => {
+  const { data } = await axios.get("api/user");
   return data;
 });
 
@@ -163,6 +166,18 @@ const userSlice = createSlice({
       state.status = "loaded";
     });
     builder.addCase(getUser.rejected, (state) => {
+      state.status = "error";
+    });
+
+    // *getAllUsers
+    builder.addCase(getAllUsers.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
+      console.log(payload);
+      state.status = "loaded";
+    });
+    builder.addCase(getAllUsers.rejected, (state) => {
       state.status = "error";
     });
   },
