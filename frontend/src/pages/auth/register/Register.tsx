@@ -3,7 +3,7 @@ import { Checkbox } from "../../../components/checkbox/Checkbox";
 import { Input } from "../../../components/input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setEmail, setLogin, setPassword } from "../../../redux/slices/user";
+import { setEmail, setUsername, setPassword } from "../../../redux/slices/user";
 import React from "react";
 
 const Register = () => {
@@ -13,8 +13,8 @@ const Register = () => {
   const changeEmail = (s: string) => {
     dispatch(setEmail(s));
   };
-  const changeLogin = (s: string) => {
-    dispatch(setLogin(s));
+  const changeUsername = (s: string) => {
+    dispatch(setUsername(s));
   };
   const changePassword = (s: string) => {
     dispatch(setPassword(s));
@@ -53,7 +53,7 @@ const Register = () => {
             label="Логин"
             radius="sm"
             className="w-[22rem]"
-            onChange={changeLogin}
+            onChange={changeUsername}
           />
           <Input
             required

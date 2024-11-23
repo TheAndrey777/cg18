@@ -8,7 +8,10 @@ export const loginUser: any = createAsyncThunk(
     const { user } = getState() as { user: UserState };
 
     return await axios
-      .post(`api/auth/login`, { username: user.login, password: user.password })
+      .post(`api/auth/login`, {
+        username: user.username,
+        password: user.password,
+      })
       .then((res: any) => {
         console.log(res);
         return { payload: res.data };
@@ -26,7 +29,7 @@ export const registerUser: any = createAsyncThunk(
 
     return await axios
       .post(`api/auth/register`, {
-        username: user.login,
+        username: user.username,
         password: user.password,
         email: user.email,
         name: user.name,
@@ -57,7 +60,7 @@ interface UserState {
   email: string;
   isAuthorized: boolean;
   password: string;
-  login: string;
+  username: string;
 }
 
 const initialState: UserState = {
@@ -69,7 +72,7 @@ const initialState: UserState = {
   email: "genadybooool@gmail.ru",
   isAuthorized: false,
   password: "123",
-  login: "booool",
+  username: "booool",
 };
 
 const userSlice = createSlice({
@@ -89,8 +92,8 @@ const userSlice = createSlice({
     setPassword: (state, action: PayloadAction<string>) => {
       state.password = action.payload;
     },
-    setLogin: (state, action: PayloadAction<string>) => {
-      state.login = action.payload;
+    setUsername: (state, action: PayloadAction<string>) => {
+      state.username = action.payload;
     },
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
@@ -144,7 +147,7 @@ const userSlice = createSlice({
 export const {
   setRedirectPath,
   setEmail,
-  setLogin,
+  setUsername,
   setName,
   setPassword,
   setSurname,
