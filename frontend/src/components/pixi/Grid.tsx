@@ -3,6 +3,7 @@ import { Point, getPointTexture } from "./Point";
 import { Tile, getRectangleTexture } from "./Tile";
 import { Vector, isInter } from "../../math/math";
 import { Table } from "./objects/Table";
+import { Door } from "./objects/Door";
 
 import { Container } from "pixi.js";
 import { Wall } from "./Wall";
@@ -41,7 +42,15 @@ export class Grid extends Container {
     const heavyObjectContainer = new Container();
     const lightObjectContainer = new Container();
 
+    const doors = [];
+    const doorContainer = new Container();
+
     const addObject = (object: any) => {
+      if (object instanceof Door) {
+        doors.push(object);
+        doorContainer.addChild(object);
+        return;
+      }
       if (!object.weight) {
         lightObject.push(object);
         lightObjectContainer.addChild(object);
@@ -198,8 +207,8 @@ export class Grid extends Container {
           w,
           h,
           tileSize,
-          walls,
-          tileContainer
+          walls
+          // tileContainer
         );
 
         list.forEach((id) => {
@@ -252,9 +261,19 @@ export class Grid extends Container {
         selectWall.visible = false;
       }
       if (KeyBoaurd.onKey("Enter")) {
-        console.log("Enter");
         addObject(
           new Table({
+            x: 100,
+            y: 100,
+            app: app,
+            onObjectClickDown: onObjectClickDown,
+            onObjectClickUp: onObjectClickUp,
+          })
+        );
+      }
+      if (KeyBoaurd.onKey("KeyD")) {
+        addObject(
+          new Door({
             x: 100,
             y: 100,
             app: app,
@@ -328,6 +347,7 @@ export class Grid extends Container {
     this.addChild(heavyObjectContainer);
     this.addChild(lightObjectContainer);
     this.addChild(wallContainer);
+    this.addChild(doorContainer);
     this.addChild(selectWall);
     this.addChild(pointContainer);
   }

@@ -12,6 +12,8 @@ interface Props {
   angle: number;
   app: any;
   type: number;
+  onWallClickDown?: any;
+  onWallClickUp?: any;
 }
 
 interface textureProps {
@@ -57,8 +59,8 @@ export class Wall extends Sprite {
     if (wTexture !== null)
       wTexture = getWallTexture({ angle: 0, app: props.app });
 
-    this.x = (props.sx + props.fx) / 2 + 2;
-    this.y = (props.sy + props.fy) / 2 + 2;
+    this.x = Math.floor(props.sx + props.fx) / 2 + 2;
+    this.y = Math.floor(props.sy + props.fy) / 2 + 2;
 
     const dx = Math.abs(props.sx - props.fx);
     const dy = Math.abs(props.sy - props.fy);
@@ -79,8 +81,8 @@ export class Wall extends Sprite {
 
     this.tint = COLORS[props.type];
 
-    this.x = (props.sx + props.fx) / 2;
-    this.y = (props.sy + props.fy) / 2;
+    this.x = Math.floor(props.sx + props.fx) / 2;
+    this.y = Math.floor(props.sy + props.fy) / 2;
 
     const dx = Math.abs(props.sx - props.fx);
     const dy = Math.abs(props.sy - props.fy);
