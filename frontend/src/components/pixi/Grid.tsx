@@ -1,20 +1,11 @@
 import { Mouse } from "../../PixiMouse/Mouse";
 import { Point, getPointTexture } from "./Point";
-// import { Wall, getWallTexture } from "./Wall";
 import { Tile, getRectangleTexture } from "./Tile";
 import { Sprite } from "pixi.js";
-// import { Container, useApp, PixiRef, Sprite, PixiComponent } from "@pixi/react";
-// import React, { useState } from "react";
 import { Vector, isInter } from "../../math/math";
 
 import { Container } from "pixi.js";
 import { Wall } from "./Wall";
-
-// interface Props {
-//   width: number;
-//   height: number;
-//   size: number;
-// }
 
 interface Tile1 {
   x: number;
@@ -36,6 +27,8 @@ const getNearPosition = (x1: number, x2: number, mX: number) =>
 const POINT_SIZE = 10;
 
 export class Grid extends Container {
+  public onTimer = () => {};
+
   constructor(width: number, height: number, size: number, app: any) {
     super();
 
@@ -56,6 +49,17 @@ export class Grid extends Container {
       }),
     });
 
+    const selectWall = new Wall({
+      sx: 0,
+      sy: 0,
+      fx: 0,
+      fy: 0,
+      app: app,
+      angle: 0,
+      type: 2,
+    });
+    selectWall.visible = false;
+
     const pointContainer = new Container();
     pointContainer.addChild(startPoint);
     pointContainer.addChild(finishPoint);
@@ -64,6 +68,7 @@ export class Grid extends Container {
     const wallContainer = new Container();
 
     const addWall = () => {
+      selectWall.visible = false;
       const v = new Vector(
         startPoint.x + POINT_SIZE,
         startPoint.y + POINT_SIZE,
@@ -71,6 +76,11 @@ export class Grid extends Container {
         finishPoint.y + POINT_SIZE
       );
 
+      if (Math.abs(v.sx - v.fx) > 15 && Math.abs(v.sy - v.fy) > 15) {
+        console.log(321);
+        return;
+      }
+      console.log(123);
       let isFound: boolean = false;
       walls.forEach((wall) => {
         if (isInter(new Vector(wall.sx, wall.sy, wall.fx, wall.fy), v))
@@ -79,10 +89,10 @@ export class Grid extends Container {
 
       if (!isFound) {
         const wall = {
-          sx: startPoint.x,
-          sy: startPoint.y,
-          fx: finishPoint.x,
-          fy: finishPoint.y,
+          sx: startPoint.x + 2.5,
+          sy: startPoint.y + 2.5,
+          fx: finishPoint.x + 2.5,
+          fy: finishPoint.y + 2.5,
           type: 1,
         };
         walls.push(wall);
@@ -93,10 +103,12 @@ export class Grid extends Container {
             fx: v.fx,
             fy: v.fy,
             app: app,
+            angle: Math.abs(v.sx - v.fx) < Math.abs(v.sy - v.fy) ? 1 : 0,
             type: 1,
           })
         );
       }
+      return !isFound;
     };
 
     const onTileClick = (
@@ -107,10 +119,8 @@ export class Grid extends Container {
       x2: number,
       y2: number
     ) => {
-      console.log({ button: e.button });
       const mX: number = Mouse.x(app);
       const mY: number = Mouse.y(app);
-      console.log(Mouse.x(app), Mouse.y(app));
 
       if (e.button == 2) {
         if (startPoint.visible) startPoint.visible = false;
@@ -125,9 +135,7 @@ export class Grid extends Container {
           finishPoint.y = getNearPosition(y1, y2, mY) - POINT_SIZE - 1.5;
           finishPoint.visible = true;
 
-          console.log(finishPoint.x, finishPoint.y);
-
-          addWall();
+          if (!addWall()) finishPoint.visible = startPoint.visible = false;
         } else {
           startPoint.visible = false;
           finishPoint.visible = false;
@@ -170,150 +178,35 @@ export class Grid extends Container {
       })
     );
 
+    this.onTimer = () => {
+      if (startPoint.visible === finishPoint.visible) return;
+      const mX = Mouse.x(app);
+      const mY = Mouse.y(app);
+      const dx = Math.abs(startPoint.x / 2 - mX);
+      const dy = Math.abs(startPoint.y / 2 - mY);
+
+      let x: number = startPoint.x;
+      let y: number = startPoint.y;
+      if (dx > dy) x = mX * 2;
+      else y = mY * 2;
+
+      selectWall.visible = true;
+      selectWall.update({
+        sx: startPoint.x + POINT_SIZE + 2.5,
+        sy: startPoint.y + POINT_SIZE + 2.5,
+        fx: x + POINT_SIZE + 2.5,
+        fy: y + POINT_SIZE + 2.5,
+        type: 1,
+        angle: dx > dy ? 0 : 1,
+        app: app,
+      });
+    };
+
+    app.stage.addEve;
+
     this.addChild(tileContainer);
     this.addChild(wallContainer);
+    this.addChild(selectWall);
     this.addChild(pointContainer);
   }
 }
-
-// type IPoint = PixiRef<typeof Point>;
-// type IContainer = PixiRef<typeof Container>;
-
-// const getNearPosition = (x1: number, x2: number, mX: number) =>
-//   mX - x1 / 2 < x2 / 2 - mX ? x1 : x2;
-
-// export const Grid = (props: Props) => {
-//   const { height, width, size } = props;
-
-//   const pointRefS = React.useRef<IPoint>(null);
-//   const pointRefF = React.useRef<IPoint>(null);
-//   const containerRefF = React.useRef<IContainer>(null);
-//   const POINT_SIZE = 10;
-
-//   const [walls, setWalls] = useState<Wall1[]>([]);
-
-//   console.log(walls);
-
-//   const addWall = () => {
-//     const v = new Vector(
-//       pointRefS.current!.x,
-//       pointRefS.current!.y,
-//       pointRefF.current!.x,
-//       pointRefF.current!.y
-//     );
-
-//     let isFound: boolean = false;
-//     walls.forEach((wall) => {
-//       if (isInter(new Vector(wall.sx, wall.sy, wall.fx, wall.fy), v))
-//         isFound = true;
-//     });
-
-//     if (!isFound) {
-//       const wall = { sx: v.sx, sy: v.sy, fx: v.fx, fy: v.fy, type: 1 };
-//       //      setWalls([...walls, wall]);
-//     }
-//   };
-
-//   const app = useApp();
-//   const onClick = (
-//     e: any,
-//     app: any,
-//     x1: number,
-//     y1: number,
-//     x2: number,
-//     y2: number
-//   ) => {
-//     const mX: number = Mouse.x(app);
-//     const mY: number = Mouse.y(app);
-//     console.log(Mouse.x(app), Mouse.y(app));
-
-//     if (e.button == 2) {
-//       if (pointRefS.current!.visible) pointRefS.current!.visible = false;
-//       if (pointRefF.current!.visible) pointRefF.current!.visible = false;
-//     } else {
-//       if (!pointRefS.current!.visible) {
-//         pointRefS.current!.x = getNearPosition(x1, x2, mX) - POINT_SIZE - 1.5;
-//         pointRefS.current!.y = getNearPosition(y1, y2, mY) - POINT_SIZE - 1.5;
-//         pointRefS.current!.visible = true;
-//       } else if (!pointRefF.current!.visible) {
-//         pointRefF.current!.x = getNearPosition(x1, x2, mX) - POINT_SIZE - 1.5;
-//         pointRefF.current!.y = getNearPosition(y1, y2, mY) - POINT_SIZE - 1.5;
-//         pointRefF.current!.visible = true;
-
-//         addWall();
-//       } else {
-//         if (pointRefS.current!.visible) pointRefS.current!.visible = false;
-//         if (pointRefF.current!.visible) pointRefF.current!.visible = false;
-//       }
-//     }
-//   };
-
-//   let h: number = (height / size) * 2;
-//   let w: number = (width / size) * 2;
-
-//   let grid: Tile[] = [];
-//   const lineSize: number = 1;
-//   for (let i = 0; i < h; i++)
-//     for (let j = 0; j < w; j++)
-//       grid.push({
-//         x: j * size,
-//         y: i * size,
-//         color: 0xffffff,
-//       });
-
-//   const rectangleTexture = getRectangleTexture({
-//     lineSize: lineSize,
-//     width: size,
-//     height: size,
-//     color: 0xffffff,
-//   });
-
-//   return (
-//     <Container ref={containerRefF} scale={0.5}>
-//       {grid.map((item, id) => (
-//         <Rectangle
-//           key={id}
-//           texture={rectangleTexture}
-//           width={size}
-//           height={size}
-//           x={item.x}
-//           y={item.y}
-//           onClick={onClick}
-//           app={app}
-//         />
-//       ))}
-//       {walls.map((wall, id) => (
-//         <Wall
-//           key={id}
-//           texture={getWallTexture({
-//             sx: wall.sx,
-//             sy: wall.sy,
-//             fx: wall.fx,
-//             fy: wall.fy,
-//             type: wall.type,
-//           })}
-//         />
-//       ))}
-//       <Point
-//         ref={pointRefS}
-//         texture={getPointTexture({
-//           size: POINT_SIZE,
-//           color: 0xfdba74,
-//           borderColor: 0xff0000,
-//         })}
-//         x={100}
-//         y={100}
-//       />
-//       <Point
-//         ref={pointRefF}
-//         texture={getPointTexture({
-//           size: POINT_SIZE,
-//           color: 0x00ff00,
-//           borderColor: 0xffff00,
-//         })}
-//         x={200}
-//         y={200}
-//       />
-//     </Container>
-//   );
-// };/

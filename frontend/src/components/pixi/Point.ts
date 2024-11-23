@@ -27,5 +27,6 @@ export class Point extends Sprite {
   constructor(props: Props) {
     super(props.texture);
     this.visible = false;
+    this.y = this.x = -1000;
   }
 }

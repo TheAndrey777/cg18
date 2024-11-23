@@ -21,9 +21,15 @@ function PixiApplication(props: Props) {
     // Add app to DOM
     ref.current!.appendChild(app.view);
 
-    app.stage.addChild(new Grid(500, 500, 30, app));
+    const grid = new Grid(500, 500, 30, app);
+    app.stage.addChild(grid);
 
-    app.ticker.add(() => {}, 100);
+    let smTime = 0;
+    app.ticker.add((time) => {
+      smTime += time;
+      smTime = 0;
+      grid.onTimer();
+    }, 15);
 
     // Start the PixiJS app
     app.start();

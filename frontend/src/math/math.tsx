@@ -35,12 +35,12 @@ export const min = (x: number, y: number) => {
 export const isInter = (v1: Vector, v2: Vector) => {
   if (
     max(min(v1.sx, v1.fx), min(v2.sx, v2.fx)) >
-    min(max(v1.sx, v1.fx), max(v2.sx, v2.fx))
+    min(max(v1.sx, v1.fx), max(v2.sx, v2.fx)) - 6
   )
     return false;
   if (
     max(min(v1.sy, v1.fy), min(v2.sy, v2.fy)) >
-    min(max(v1.sy, v1.fy), max(v2.sy, v2.fy))
+    min(max(v1.sy, v1.fy), max(v2.sy, v2.fy)) - 6
   )
     return false;
 

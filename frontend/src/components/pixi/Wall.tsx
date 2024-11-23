@@ -9,17 +9,34 @@ interface Props {
   sy: number;
   fx: number;
   fy: number;
+  angle: number;
   app: any;
   type: number;
 }
 
-export const getWallTexture = (props: Props) => {
+interface textureProps {
+  angle: number;
+  app: any;
+}
+
+let hTexture: any = null;
+let wTexture: any = null;
+
+export const getWallTexture = (props: textureProps) => {
   const g = new Graphics();
   g.beginFill(0x000000);
-  g.lineStyle(5, 0x000000, 1);
-  console.log(props.sx, props.sy, props.fx, props.fy);
-  g.moveTo(props.sx, props.sy);
-  g.lineTo(props.fx, props.fy);
+  g.lineStyle(4, 0x000000, 1);
+
+  if (hTexture !== null && props.angle) return hTexture;
+  if (wTexture !== null && !props.angle) return wTexture;
+  // g.moveTo(props.sx, props.sy);
+  // g.lineTo(props.fx, props.fy);
+
+  // console.log((props.sx + props.fx) / 2, (props.sy + props.fy) / 2);
+
+  g.moveTo(0, 0);
+  if (!props.angle) g.lineTo(200, 0);
+  else g.lineTo(0, 200);
   g.endFill();
 
   return props.app.renderer.generateTexture(g);
@@ -29,17 +46,50 @@ export class Wall extends Sprite {
   constructor(props: Props) {
     super(
       getWallTexture({
-        sx: props.sx,
-        sy: props.sy,
-        fx: props.fx,
-        fy: props.fy,
+        angle: props.angle,
         app: props.app,
-        type: 1,
       })
     );
-    this.x = (props.sx + props.fx) / 2;
-    this.y = (props.sy + props.fy) / 2;
+
+    if (hTexture !== null)
+      hTexture = getWallTexture({ angle: 1, app: props.app });
+    if (wTexture !== null)
+      wTexture = getWallTexture({ angle: 0, app: props.app });
+    // console.log(this.texture);
+    this.x = (props.sx + props.fx) / 2 + 2;
+    this.y = (props.sy + props.fy) / 2 + 2;
+
+    const dx = Math.abs(props.sx - props.fx);
+    const dy = Math.abs(props.sy - props.fy);
+
+    this.height = this.width = 4;
+    if (!props.angle) this.width = dx;
+    else this.height = dy;
+
     this.interactive = true;
     this.anchor.set(0.5);
+
+    console.log(this.texture, this.x, this.y);
+    console.log(this);
+  }
+
+  public update(props: Props) {
+    this.texture = getWallTexture({
+      angle: props.angle,
+      app: props.app,
+    });
+
+    this.x = (props.sx + props.fx) / 2;
+    this.y = (props.sy + props.fy) / 2;
+
+    const dx = Math.abs(props.sx - props.fx);
+    const dy = Math.abs(props.sy - props.fy);
+
+    this.height = this.width = 4;
+    if (!props.angle) this.width = dx;
+    else this.height = dy;
+
+    this.anchor.set(0.5);
+    this.visible = true;
   }
 }
