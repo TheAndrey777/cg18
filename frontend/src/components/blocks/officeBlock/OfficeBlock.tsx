@@ -1,5 +1,6 @@
 import { Button } from "../../button/Button";
 import { officeicon } from "../../../assets/png";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 
 import { worker1, worker2, worker3, worker4 } from "../../../assets/png";
@@ -13,10 +14,9 @@ const Workers: React.FC<WorkersProps> = ({ workers }) => {
       {workers && workers.length > 4 ? (
         <>
           {workers.slice(0, 4).map((v: any, i: number) => (
-            <div className="w-[20px] relative">
+            <div className="w-[20px] relative" key={i}>
               <div className="h-full aspect-square absolute left-0 hover:left-[-10px] transition-all">
                 <img
-                  key={i}
                   className="h-full aspect-square rounded-full border-solid border-[1px] border-primary box-border  cursor-pointer"
                   src={v}
                   alt="logo"
@@ -31,10 +31,9 @@ const Workers: React.FC<WorkersProps> = ({ workers }) => {
       ) : (
         workers &&
         workers.map((v: any, i: number) => (
-          <div className="w-[30px] relative">
+          <div className="w-[30px] relative" key={i}>
             <div className="h-full aspect-square absolute left-0 transition-all">
               <img
-                key={i}
                 className="h-full aspect-square rounded-full border-solid border-[1px] border-primary box-border"
                 src={v}
                 alt="logo"
@@ -48,6 +47,7 @@ const Workers: React.FC<WorkersProps> = ({ workers }) => {
 };
 
 const OfficeBlock = () => {
+  const navigate = useNavigate();
   const workers = [worker1, worker2, worker3, worker4, worker1, worker2];
   return (
     <div className="bg-layout-background w-[650px] h-[220px] rounded-[15px] mb-[15px] relative flex">
@@ -72,7 +72,9 @@ const OfficeBlock = () => {
         <Button
           text="Управление"
           size="md"
-          onClick={() => console.log("123 click")}
+          onClick={() => {
+            navigate("/home/management");
+          }}
         />
       </div>
     </div>
