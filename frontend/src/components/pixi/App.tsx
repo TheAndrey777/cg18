@@ -9,13 +9,15 @@ interface Props {}
 function PixiApplication(props: Props) {
   const {} = props;
 
+  const width = window.innerWidth;
+  const height = window.innerWidth;
   const ref = useRef(null);
 
   useEffect(() => {
     // On first render create our application
     const app = new Application({
-      width: 500,
-      height: 500,
+      width: width,
+      height: height,
       backgroundColor: 0x5bba6f,
       antialias: true,
       autoDensity: true,
@@ -25,7 +27,7 @@ function PixiApplication(props: Props) {
     // @ts-ignore
     ref.current!.appendChild(app.view);
 
-    const grid = new Grid(500, 500, 30, app);
+    const grid = new Grid(width, height, 40, app);
     app.stage.addChild(grid);
 
     app.ticker.add((time) => {
