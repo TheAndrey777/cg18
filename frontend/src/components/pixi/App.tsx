@@ -11,6 +11,10 @@ export const toolChange = (id: number) => {};
 
 interface Props {}
 
+export const toolChange = (id: number) => {
+  console.log(id);
+};
+
 function PixiApplication(props: Props) {
   const {} = props;
 
