@@ -122,7 +122,7 @@ const Management = () => {
             color="default"
             className="px-[10px]"
             onClick={() => {}}
-            text="Фильтер"
+            text="Фильтр"
           />
           <Button className="" onClick={() => {}} text="Добавить" />
         </div>
