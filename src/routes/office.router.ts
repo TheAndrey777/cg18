@@ -18,3 +18,9 @@ officeRouter.post(
     .isLength({ min: 5, max: 64 }).withMessage("Длина поля address не соответствует ограничениям"),
   OfficeController.createOffice
 );
+
+officeRouter.get(
+  "/",
+  isAuthorized,
+  OfficeController.getAllOffices
+);

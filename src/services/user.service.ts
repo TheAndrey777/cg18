@@ -10,11 +10,13 @@ class UserService {
     });
   }
 
-  public async createUser(username: string, email: string, password: string): Promise<number | null>  {
+  public async createUser(username: string, name: string, surname: string, email: string, password: string): Promise<number | null>  {
     const res: InsertResult = await User.insert({
       username,
       email,
       password,
+      name,
+      surname,
       admin: false
     });
     if (!res?.identifiers?.length)

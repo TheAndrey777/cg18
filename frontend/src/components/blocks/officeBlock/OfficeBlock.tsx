@@ -60,11 +60,11 @@ const OfficeBlock = () => {
       </div>
       <div className="w-full box-border p-[20px] pl-0">
         <div className="text-content-1 font-medium text-[20px]">
-          Рабовладельческое отделение №2
+          Деловой оазис (офис в центре Таганрога)
         </div>
         <div className="text-content-1 text-[12px] font-semibold">Адрес:</div>
         <div className="text-content-1 text-[12px] ml-[5px]">
-          г. Таганрог, ул. И я кричу, остановите катку
+          г. Таганрог, ул. Чехова, 22А
         </div>
       </div>
       <Workers workers={workers} />
