@@ -16,6 +16,20 @@ export const createOffice: any = createAsyncThunk(
   }
 );
 
+export const inviteUser: any = createAsyncThunk(
+  "/api/office/invite",
+  async ({ officeId, userId }: any, { rejectWithValue }: any) => {
+    return await axios
+      .post(`/api/office/${officeId}`, { workerId: userId })
+      .then((res: any) => {
+        return { payload: res.data };
+      })
+      .catch((e: any) => {
+        return rejectWithValue({ data: e.response.data });
+      });
+  }
+);
+
 export const getOffice: any = createAsyncThunk("/api/office/get", async () => {
   console.log("get");
   const { data } = await axios.get("/api/office");
@@ -56,6 +70,17 @@ const officeSlice = createSlice({
         console.log(v);
       });
       state.add.status = "error";
+    });
+
+    // *inviteUser
+    builder.addCase(inviteUser.pending, (state) => {
+      state.get.status = "loading";
+    });
+    builder.addCase(inviteUser.fulfilled, (state) => {
+      state.get.status = "loaded";
+    });
+    builder.addCase(inviteUser.rejected, (state) => {
+      state.get.status = "error";
     });
 
     // *getUser
