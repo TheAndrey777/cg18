@@ -4,6 +4,8 @@ import { MenuItem } from "./MenuItem";
 import { useNavigate } from "react-router-dom";
 
 import { menuicon } from "../../../assets/svg";
+import { IoPerson } from "react-icons/io5";
+
 import MiniProfile from "./MiniProfile";
 
 export const Menu: React.FC = () => {
@@ -65,13 +67,14 @@ export const Menu: React.FC = () => {
           a
         )}
       >
+        <IoPerson />
         <div className="mt-[18px]">
           {items.map((v: any, i: number) => {
             return (
               <MenuItem
                 key={i}
                 name={v.name}
-                icon={v.icon}
+                Icon={IoPerson}
                 opened={a == "w-[60px]"}
                 isActive={i == active}
                 onClick={() => {

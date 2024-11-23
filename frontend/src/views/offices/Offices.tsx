@@ -6,14 +6,16 @@ import { createOffice, getOffice } from "../../redux/slices/offices";
 import { Modal } from "../../components/navigation/modal/Modal";
 import { close } from "../../assets/svg";
 import { Input } from "../../components/input/Input";
+import Spiner from "../../components/spiner/Spiner";
 //import { useNavigate } from "react-router-dom";
 
 const Offices = () => {
   const dispatch = useDispatch();
   //dispatch(loginUser({ login: "123", password: "pas" }));
   const offices = useSelector((state: any) => state.office.offices);
+  const createStatus = useSelector((state: any) => state.office.add.status);
   const [addModalOpen, setAddModalOpen] = React.useState<boolean>(false);
-
+  console.log(createStatus);
   //const navigate = useNavigate();
   React.useEffect(() => {
     dispatch(getOffice());
@@ -70,6 +72,11 @@ const Offices = () => {
         className=" overflow-hidden"
       >
         <div className="h-[350px] w-[500px] bg-layout-background rounded-[15px] relative">
+          {createStatus == "loading" && (
+            <div className=" absolute h-full w-full flex items-center justify-center bg-layout-divider z-50">
+              <Spiner />
+            </div>
+          )}
           <div
             className=" cursor-pointer absolute right-[15px] top-[15px] h-[25px] w-[25px] active:scale-[0.95] hover:scale-[1.15] transition-all duration-300 z-40 "
             onClick={() => setAddModalOpen(false)}
@@ -115,6 +122,7 @@ const Offices = () => {
                 />
                 <Button
                   size="md"
+                  disabled={createStatus == "loading"}
                   onClick={() => {
                     dispatch(createOffice({ name: name, address: address }));
                   }}

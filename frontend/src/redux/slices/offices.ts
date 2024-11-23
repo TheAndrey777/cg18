@@ -24,8 +24,13 @@ export const getOffice: any = createAsyncThunk("/api/office/get", async () => {
 });
 
 const initialState = {
-  status: "",
   offices: [],
+  add: {
+    status: "none",
+  },
+  get: {
+    status: "none",
+  },
 };
 
 const officeSlice = createSlice({
@@ -40,29 +45,29 @@ const officeSlice = createSlice({
   extraReducers: (builder) => {
     // *createOffice
     builder.addCase(createOffice.pending, (state) => {
-      state.status = "loading";
+      state.add.status = "loading";
     });
     builder.addCase(createOffice.fulfilled, (state, { payload }) => {
       console.log(payload);
-      state.status = "loaded";
+      state.add.status = "loaded";
     });
     builder.addCase(createOffice.rejected, (state, { payload }) => {
       payload.data.errors.map((v: any) => {
         console.log(v);
       });
-      state.status = "error";
+      state.add.status = "error";
     });
 
     // *getUser
     builder.addCase(getOffice.pending, (state) => {
-      state.status = "loading";
+      state.get.status = "loading";
     });
     builder.addCase(getOffice.fulfilled, (state, { payload }) => {
       state.offices = payload.offices;
-      state.status = "loaded";
+      state.get.status = "loaded";
     });
     builder.addCase(getOffice.rejected, (state) => {
-      state.status = "error";
+      state.get.status = "error";
     });
   },
 });
