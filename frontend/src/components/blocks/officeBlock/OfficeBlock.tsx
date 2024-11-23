@@ -5,6 +5,8 @@ import React from "react";
 import { Tooltip } from "react-tooltip";
 
 import { worker1, worker2, worker3, worker4 } from "../../../assets/png";
+import { useDispatch } from "react-redux";
+import { setActiveOffice } from "../../../redux/slices/storage";
 
 interface WorkersProps {
   workers?: any[];
@@ -67,6 +69,7 @@ const OfficeBlock: React.FC<OfficeBlockProps> = ({
   id,
   workers,
 }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <div className="bg-layout-background w-[650px] h-[220px] rounded-[15px] mb-[15px] relative flex">
@@ -94,6 +97,7 @@ const OfficeBlock: React.FC<OfficeBlockProps> = ({
           text="Управление"
           size="md"
           onClick={() => {
+            dispatch(setActiveOffice({ id, name: title }));
             navigate(`/home/management/${id}`);
           }}
         />
