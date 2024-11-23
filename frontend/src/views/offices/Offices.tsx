@@ -1,9 +1,9 @@
 import OfficeBlock from "../../components/blocks/officeBlock/OfficeBlock";
 import { Button } from "../../components/button/Button";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 const Offices = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   return (
     <div className="w-full h-full">
       <div className="flex h-[70px] w-[650px] items-end justify-end box-border px-[20px] relative mb-[20px]">
