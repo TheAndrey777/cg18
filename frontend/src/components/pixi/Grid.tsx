@@ -104,7 +104,7 @@ export class Grid extends Container {
             fy: v.fy,
             app: app,
             angle: Math.abs(v.sx - v.fx) < Math.abs(v.sy - v.fy) ? 1 : 0,
-            type: 1,
+            type: 0,
           })
         );
       }
@@ -123,8 +123,8 @@ export class Grid extends Container {
       const mY: number = Mouse.y(app);
 
       if (e.button == 2) {
-        if (startPoint.visible) startPoint.visible = false;
-        if (finishPoint.visible) finishPoint.visible = false;
+        startPoint.visible = finishPoint.visible = false;
+        selectWall.visible = false;
       } else {
         if (!startPoint.visible) {
           startPoint.x = getNearPosition(x1, x2, mX) - POINT_SIZE - 1.5;
@@ -135,7 +135,12 @@ export class Grid extends Container {
           finishPoint.y = getNearPosition(y1, y2, mY) - POINT_SIZE - 1.5;
           finishPoint.visible = true;
 
-          if (!addWall()) finishPoint.visible = startPoint.visible = false;
+          if (!addWall()) startPoint.visible = false;
+          else {
+            startPoint.x = finishPoint.x;
+            startPoint.y = finishPoint.y;
+          }
+          finishPoint.visible = false;
         } else {
           startPoint.visible = false;
           finishPoint.visible = false;
@@ -180,8 +185,8 @@ export class Grid extends Container {
 
     this.onTimer = () => {
       if (startPoint.visible === finishPoint.visible) return;
-      const mX = Mouse.x(app);
-      const mY = Mouse.y(app);
+      const mX = Mouse.x(app) - 8;
+      const mY = Mouse.y(app) - 8;
       const dx = Math.abs(startPoint.x / 2 - mX);
       const dy = Math.abs(startPoint.y / 2 - mY);
 
@@ -190,13 +195,26 @@ export class Grid extends Container {
       if (dx > dy) x = mX * 2;
       else y = mY * 2;
 
+      const v = new Vector(
+        startPoint.x + POINT_SIZE + 2.5,
+        startPoint.y + POINT_SIZE + 2.5,
+        x + POINT_SIZE + 2.5,
+        y + POINT_SIZE + 2.5
+      );
+
+      let isFound = false;
+      walls.forEach((wall) => {
+        if (isInter(new Vector(wall.sx, wall.sy, wall.fx, wall.fy), v))
+          isFound = true;
+      });
+
       selectWall.visible = true;
       selectWall.update({
         sx: startPoint.x + POINT_SIZE + 2.5,
         sy: startPoint.y + POINT_SIZE + 2.5,
         fx: x + POINT_SIZE + 2.5,
         fy: y + POINT_SIZE + 2.5,
-        type: 1,
+        type: isFound ? 1 : 2,
         angle: dx > dy ? 0 : 1,
         app: app,
       });

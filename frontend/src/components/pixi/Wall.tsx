@@ -2,7 +2,7 @@ import React from "react";
 import { PixiComponent, useApp } from "@pixi/react";
 import { Graphics, Sprite } from "pixi.js";
 
-const COLORS = [0x000000, 0xff0000];
+const COLORS = [0x111111, 0xff0000, 0x00ff00];
 
 interface Props {
   sx: number;
@@ -24,8 +24,7 @@ let wTexture: any = null;
 
 export const getWallTexture = (props: textureProps) => {
   const g = new Graphics();
-  g.beginFill(0x000000);
-  g.lineStyle(4, 0x000000, 1);
+  g.lineStyle(4, 0xffffff, 1);
 
   if (hTexture !== null && props.angle) return hTexture;
   if (wTexture !== null && !props.angle) return wTexture;
@@ -50,6 +49,8 @@ export class Wall extends Sprite {
         app: props.app,
       })
     );
+
+    this.tint = COLORS[props.type];
 
     if (hTexture !== null)
       hTexture = getWallTexture({ angle: 1, app: props.app });
@@ -79,6 +80,8 @@ export class Wall extends Sprite {
       app: props.app,
     });
 
+    this.tint = COLORS[props.type];
+
     this.x = (props.sx + props.fx) / 2;
     this.y = (props.sy + props.fy) / 2;
 
@@ -90,6 +93,7 @@ export class Wall extends Sprite {
     else this.height = dy;
 
     this.anchor.set(0.5);
+    this.alpha = 0.5;
     this.visible = true;
   }
 }

@@ -18,7 +18,7 @@ function PixiApplication(props: Props) {
       backgroundColor: 0x5bba6f,
     });
 
-    // Add app to DOM
+    // @ts-ignore
     ref.current!.appendChild(app.view);
 
     const grid = new Grid(500, 500, 30, app);
