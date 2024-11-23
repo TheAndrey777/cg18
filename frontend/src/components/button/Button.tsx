@@ -126,7 +126,7 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <label
       className={cn(
-        "grid relative cursor-pointer select-none group w-fit box-border",
+        "grid relative cursor-pointer select-none group w-fit box-border hover:scale-[1.05] transition-all",
         buttonVariants.size[size],
         disabled && "pointer-events-none opacity-50",
         className
