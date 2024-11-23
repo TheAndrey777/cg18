@@ -51,9 +51,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
             exit={contextMenuVariants.closed}
             transition={{ duration: 0.15 }}
             className={cn(
-              " fixed top-0 left-0 h-svh w-svw backdrop-filter transition-all  z-50",
-              backdrop == "blur" && open ? "backdrop-blur-sm" : "",
-              backdrop == "opaque" && open ? "bg-[#00000055]" : ""
+              " fixed top-0 left-0 h-svh w-svw transition-all  z-50"
             )}
           ></motion.div>
         )}
@@ -67,7 +65,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
             <motion.div
               ref={ref}
               className={cn(
-                "bg-gray-400 h-fit w-fit rounded-md text-black pointer-events-auto",
+                "h-fit w-fit rounded-md text-black pointer-events-auto",
                 className
               )}
               initial={contextMenuVariants.closed}
