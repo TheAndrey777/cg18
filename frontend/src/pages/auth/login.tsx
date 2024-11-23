@@ -5,13 +5,18 @@ import { Input } from "../../components/input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/slices/user";
+import { setUsername, setPassword } from "../../redux/slices/user";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [login, setLogin] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+  const changeUsername = (s: string) => {
+    dispatch(setUsername(s));
+  };
+  const changePassword = (s: string) => {
+    dispatch(setPassword(s));
+  };
 
   const isAutorised = useSelector((state: any) => state.user.isAuthorized);
 
@@ -20,7 +25,7 @@ const Login = () => {
   }, [isAutorised]);
 
   const clickLogin = () => {
-    dispatch(loginUser({ login: login, password: password }));
+    dispatch(loginUser());
     if (isAutorised) navigate("/home");
   };
   const clickNavigateRegister = () => {
@@ -43,7 +48,7 @@ const Login = () => {
             label="Логин"
             radius="sm"
             className="w-[22rem]"
-            onChange={setLogin}
+            onChange={changeUsername}
           />
           <Input
             required
@@ -51,7 +56,7 @@ const Login = () => {
             type="password"
             radius="sm"
             className="w-[22rem] mt-[15px]"
-            onChange={setPassword}
+            onChange={changePassword}
           />
 
           <Checkbox
