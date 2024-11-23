@@ -29,7 +29,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       }}
     >
       <div className="h-full aspect-square flex items-center justify-center select-none">
-        <Icon className="h-[20px] w-[20px]" />
+        <Icon className="h-[20px] w-[20px] text-default-300" />
       </div>
       <div className="flex items-center text-content-1  select-none">
         {name}

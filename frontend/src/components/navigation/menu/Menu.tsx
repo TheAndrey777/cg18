@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 import { menuicon } from "../../../assets/svg";
 import { IoPerson } from "react-icons/io5";
+import { FaListUl } from "react-icons/fa6";
+import { FaEdit } from "react-icons/fa";
+import { FaGear } from "react-icons/fa6";
 
 import MiniProfile from "./MiniProfile";
 
@@ -14,7 +17,7 @@ export const Menu: React.FC = () => {
   const items = [
     {
       name: "Профиль",
-      icon: menuicon,
+      icon: IoPerson,
       isActive: false,
       onClick: () => {
         navigate("/home/proffile");
@@ -22,7 +25,7 @@ export const Menu: React.FC = () => {
     },
     {
       name: "Офисы",
-      icon: menuicon,
+      icon: FaListUl,
       isActive: false,
       onClick: () => {
         navigate("/home/offices");
@@ -30,15 +33,15 @@ export const Menu: React.FC = () => {
     },
     {
       name: "Редактор",
-      icon: menuicon,
+      icon: FaEdit,
       isActive: false,
       onClick: () => {
         navigate("/home/editor");
       },
     },
     {
-      name: "Пока ?",
-      icon: menuicon,
+      name: "Настройки",
+      icon: FaGear,
       isActive: false,
       onClick: () => {
         navigate("/home/editor");
@@ -67,14 +70,13 @@ export const Menu: React.FC = () => {
           a
         )}
       >
-        <IoPerson />
         <div className="mt-[18px]">
           {items.map((v: any, i: number) => {
             return (
               <MenuItem
                 key={i}
                 name={v.name}
-                Icon={IoPerson}
+                Icon={v.icon}
                 opened={a == "w-[60px]"}
                 isActive={i == active}
                 onClick={() => {
