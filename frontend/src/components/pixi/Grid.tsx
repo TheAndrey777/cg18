@@ -32,7 +32,6 @@ const POINT_SIZE = 10;
 
 export class Grid extends Container {
   public onTimer = () => {};
-  public setTileSize = (tileSize: number) => {};
 
   constructor(width: number, height: number, tileSize: number, app: any) {
     super();
