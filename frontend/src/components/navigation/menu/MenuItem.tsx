@@ -5,7 +5,7 @@ interface MenuItemProps {
   icon?: any;
   isActive: boolean;
   opened?: boolean;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({
@@ -22,7 +22,9 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         isActive && "bg-default-100",
         isActive && !opened && "ml-[10px]"
       )}
-      onClick={onClick}
+      onClick={() => {
+        onClick();
+      }}
     >
       <div className="h-full aspect-square flex items-center justify-center select-none">
         <img src={icon} alt="icon" className="h-[20px] w-[20px]" />

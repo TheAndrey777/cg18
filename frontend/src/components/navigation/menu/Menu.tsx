@@ -1,41 +1,44 @@
 import React from "react";
 import { cn } from "../../../lib/cn";
 import { MenuItem } from "./MenuItem";
+import { useNavigate } from "react-router-dom";
 
 import { menuicon } from "../../../assets/svg";
 
 export const Menu: React.FC = () => {
+  const navigate = useNavigate();
+
   const items = [
     {
       name: "Профиль",
       icon: menuicon,
       isActive: false,
-      onclick: () => {
-        console.log("click");
+      onClick: () => {
+        navigate("/home/proffile");
       },
     },
     {
       name: "Офисы",
       icon: menuicon,
       isActive: false,
-      onclick: () => {
-        console.log("click");
+      onClick: () => {
+        navigate("/home/offices");
       },
     },
     {
       name: "Редактор",
       icon: menuicon,
       isActive: false,
-      onclick: () => {
-        console.log("click");
+      onClick: () => {
+        navigate("/home/editor");
       },
     },
     {
-      name: "Профиль",
+      name: "Пока хз",
       icon: menuicon,
       isActive: false,
-      onclick: () => {
-        console.log("click");
+      onClick: () => {
+        navigate("/home/editor");
       },
     },
   ];
@@ -69,6 +72,7 @@ export const Menu: React.FC = () => {
               isActive={i == active}
               onClick={() => {
                 setactive(i);
+                v.onClick();
               }}
             />
           );
