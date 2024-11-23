@@ -11,6 +11,12 @@ import { colorRoom } from "../../math/graphs";
 import KeyBoaurd from "../../keyboard/keyboard";
 import { Monitor } from "./objects/Monitor";
 
+let tools = 0;
+
+const setTools = (id: number) => {
+  tools = id;
+};
+
 interface Tile1 {
   x: number;
   y: number;
@@ -25,6 +31,10 @@ interface Wall1 {
   fy: number;
   type: number;
 }
+
+let tool = 0;
+
+export const toolChange = (id: number) => {};
 
 const getNearPosition = (x1: number, x2: number, mX: number) =>
   mX - x1 / 2 < x2 / 2 - mX ? x1 : x2;
@@ -57,6 +67,22 @@ export class Grid extends Container {
       } else {
         heavyObjectContainer.addChild(object);
         heavyObject.push(object);
+      }
+    };
+
+    const deleteObject = (object: any) => {
+      if (object instanceof Door) {
+        doors.splice(doors.indexOf(object), 1);
+        doorContainer.removeChild(object);
+        return;
+      }
+
+      if (object.weight) {
+        heavyObject.splice(heavyObject.indexOf(object), 1);
+        heavyObjectContainer.removeChild(object);
+      } else {
+        lightObject.splice(lightObject.indexOf(object), 1);
+        lightObjectContainer.removeChild(object);
       }
     };
 
@@ -141,7 +167,6 @@ export class Grid extends Container {
     this.scale.set(0.5);
 
     const addWall = () => {
-      selectWall.visible = false;
       const v = new Vector(
         startPoint.x + POINT_SIZE,
         startPoint.y + POINT_SIZE,
@@ -160,6 +185,7 @@ export class Grid extends Container {
       });
 
       if (!isFound) {
+        selectWall.visible = false;
         const wall = {
           sx: startPoint.x + 2.5,
           sy: startPoint.y + 2.5,
@@ -229,8 +255,7 @@ export class Grid extends Container {
           finishPoint.y = getNearPosition(y1, y2, mY) - POINT_SIZE - 1.5;
           finishPoint.visible = true;
 
-          if (!addWall()) startPoint.visible = false;
-          else {
+          if (addWall()) {
             startPoint.x = finishPoint.x;
             startPoint.y = finishPoint.y;
           }
@@ -259,6 +284,9 @@ export class Grid extends Container {
       if (KeyBoaurd.hasKey("Escape")) {
         startPoint.visible = finishPoint.visible = false;
         selectWall.visible = false;
+
+        if (seletedObject !== null) deleteObject(seletedObject);
+        seletedObject = null;
       }
       if (KeyBoaurd.onKey("Enter")) {
         addObject(

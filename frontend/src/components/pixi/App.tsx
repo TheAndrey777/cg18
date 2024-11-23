@@ -5,6 +5,10 @@ import { Application, Container, Graphics } from "pixi.js";
 import KeyBoard from "../../keyboard/keyboard";
 import { ContextMenu } from "../navigation/context/ContextMenu";
 
+let tool = 0;
+
+export const toolChange = (id: number) => {};
+
 interface Props {}
 
 function PixiApplication(props: Props) {
