@@ -15,7 +15,7 @@ export const Menu: React.FC = () => {
       },
     },
     {
-      name: "Профиль",
+      name: "Офисы",
       icon: menuicon,
       isActive: false,
       onclick: () => {
@@ -23,7 +23,7 @@ export const Menu: React.FC = () => {
       },
     },
     {
-      name: "Профиль",
+      name: "Редактор",
       icon: menuicon,
       isActive: false,
       onclick: () => {
