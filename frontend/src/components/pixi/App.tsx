@@ -2,6 +2,7 @@ import { Stage, useApp } from "@pixi/react";
 import { Grid } from "./Grid";
 import React, { useRef, useEffect } from "react";
 import { Application, Container, Graphics } from "pixi.js";
+import KeyBoard from "../../keyboard/keyboard";
 
 interface Props {}
 
@@ -24,18 +25,15 @@ function PixiApplication(props: Props) {
     const grid = new Grid(500, 500, 30, app);
     app.stage.addChild(grid);
 
-    let smTime = 0;
     app.ticker.add((time) => {
-      smTime += time;
-      smTime = 0;
+      grid.setTileSize(15);
       grid.onTimer();
+      KeyBoard.onTimer();
     }, 15);
 
-    // Start the PixiJS app
     app.start();
 
     return () => {
-      // On unload completely destroy the application and all of it's children
       app.destroy(true, true);
     };
   }, []);
@@ -46,15 +44,6 @@ function PixiApplication(props: Props) {
       <div ref={ref} />
     </div>
   );
-
-  // return (
-  //   <div onContextMenu={(e) => e.preventDefault()}>
-  //     <span>123321</span>
-  //     <Stage width={500} height={500} renderOnComponentChange={true}>
-  //       <Grid size={20} height={500} width={500}></Grid>
-  //     </Stage>
-  //   </div>
-  // );
 }
 
 export default PixiApplication;

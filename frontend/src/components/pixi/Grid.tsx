@@ -1,12 +1,14 @@
 import { Mouse } from "../../PixiMouse/Mouse";
 import { Point, getPointTexture } from "./Point";
 import { Tile, getRectangleTexture } from "./Tile";
-import { Sprite } from "pixi.js";
 import { Vector, isInter } from "../../math/math";
+import { Table } from "./objects/Table";
 
 import { Container } from "pixi.js";
 import { Wall } from "./Wall";
 import { colorRoom } from "../../math/graphs";
+import KeyBoaurd from "../../keyboard/keyboard";
+import { Monitor } from "./objects/Monitor";
 
 interface Tile1 {
   x: number;
@@ -30,13 +32,46 @@ const POINT_SIZE = 10;
 
 export class Grid extends Container {
   public onTimer = () => {};
-  // public setTileSize = (tileSize: number) => {};
-  private tileSize: number;
+  public setTileSize = (tileSize: number) => {};
 
   constructor(width: number, height: number, tileSize: number, app: any) {
     super();
 
-    this.tileSize = tileSize;
+    const heavyObject = [];
+    const lightObject = [];
+    const heavyObjectContainer = new Container();
+    const lightObjectContainer = new Container();
+
+    const addObject = (object: any) => {
+      if (!object.weight) {
+        lightObject.push(object);
+        lightObjectContainer.addChild(object);
+      } else {
+        heavyObjectContainer.addChild(object);
+        heavyObject.push(object);
+      }
+    };
+
+    let seletedObject: any = null;
+    const onObjectClickDown = (e: any, object: any) => {
+      startPoint.visible = finishPoint.visible = selectWall.visible = false;
+      if (e.button === 0) {
+        if (seletedObject === null) seletedObject = object;
+        console.log(seletedObject);
+      }
+    };
+
+    const onObjectClickUp = (e: any, object: any) => {
+      startPoint.visible = finishPoint.visible = selectWall.visible = false;
+      if (e.button === 0) {
+        if (seletedObject !== null) {
+          seletedObject.x = Math.round(seletedObject.x / tileSize) * tileSize;
+          seletedObject.y = Math.round(seletedObject.y / tileSize) * tileSize;
+          console.log(seletedObject);
+          seletedObject = null;
+        }
+      }
+    };
 
     const startPoint = new Point({
       texture: getPointTexture({
@@ -73,23 +108,23 @@ export class Grid extends Container {
     const walls = new Array<Wall1>(0);
     const wallContainer = new Container();
 
-    let h: number = (height / this.tileSize) * 2;
-    let w: number = (width / this.tileSize) * 2;
+    let h: number = (height / tileSize) * 2;
+    let w: number = (width / tileSize) * 2;
     let grid: Tile1[] = [];
     const lineSize: number = 1;
     for (let i = 0; i < h; i++)
       for (let j = 0; j < w; j++)
         grid.push({
-          x: j * this.tileSize,
-          y: i * this.tileSize,
+          x: j * tileSize,
+          y: i * tileSize,
           color: 0xffffff,
           name: "",
         });
 
     const tileTexture = getRectangleTexture({
       lineSize: lineSize,
-      width: this.tileSize,
-      height: this.tileSize,
+      width: tileSize,
+      height: tileSize,
       color: 0xffffff,
       app: app,
     });
@@ -151,17 +186,19 @@ export class Grid extends Container {
       const mX: number = Mouse.x(app);
       const mY: number = Mouse.y(app);
 
+      if (seletedObject !== null) return;
+
       if (e.button == 2) {
         startPoint.visible = finishPoint.visible = false;
         selectWall.visible = false;
 
         const name = "Кухня";
         const list = colorRoom(
-          Math.floor((mX / this.tileSize) * 2),
-          Math.floor((mY / this.tileSize) * 2),
+          Math.floor((mX / tileSize) * 2),
+          Math.floor((mY / tileSize) * 2),
           w,
           h,
-          this.tileSize,
+          tileSize,
           walls
           // tileContainer
         );
@@ -201,7 +238,7 @@ export class Grid extends Container {
       ...grid.map((val, id) => {
         return new Tile({
           texture: tileTexture,
-          size: this.tileSize,
+          size: tileSize,
           x: val.x,
           y: val.y,
           app: app,
@@ -211,9 +248,40 @@ export class Grid extends Container {
     );
 
     this.onTimer = () => {
-      if (startPoint.visible === finishPoint.visible) return;
+      if (KeyBoaurd.hasKey("Escape")) {
+        startPoint.visible = finishPoint.visible = false;
+        selectWall.visible = false;
+      }
+      if (KeyBoaurd.onKey("Enter")) {
+        console.log("Enter");
+        addObject(
+          new Table({
+            x: 100,
+            y: 100,
+            app: app,
+            onObjectClickDown: onObjectClickDown,
+            onObjectClickUp: onObjectClickUp,
+          })
+        );
+      }
+      if (KeyBoaurd.onKey("Tab")) {
+        addObject(
+          new Monitor({
+            x: 100,
+            y: 100,
+            app: app,
+            onObjectClickDown: onObjectClickDown,
+            onObjectClickUp: onObjectClickUp,
+          })
+        );
+      }
       const mX = Mouse.x(app) - 8;
       const mY = Mouse.y(app) - 8;
+      if (seletedObject !== null) {
+        seletedObject.x = (mX + 8) * 2;
+        seletedObject.y = (mY + 8) * 2;
+      }
+      if (startPoint.visible === finishPoint.visible) return;
       const dx = Math.abs(startPoint.x / 2 - mX);
       const dy = Math.abs(startPoint.y / 2 - mY);
 
@@ -257,18 +325,9 @@ export class Grid extends Container {
       });
     };
 
-    app.stage.addEve;
-
-    // this.setTileSize = (tileSize) => {
-    //   this.tileSize = tileSize;
-
-    //   const nextGrid = [];
-    //   grid.forEach((tile, id) => {
-    //     nextGrid.push(new Tile({texture, }));
-    //   });
-    // };
-
     this.addChild(tileContainer);
+    this.addChild(heavyObjectContainer);
+    this.addChild(lightObjectContainer);
     this.addChild(wallContainer);
     this.addChild(selectWall);
     this.addChild(pointContainer);
