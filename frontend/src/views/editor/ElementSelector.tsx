@@ -29,7 +29,7 @@ const ElementSelector = () => {
   ];
 
   return (
-    <div className="w-[350px] h-full bg-layout-background rounded-[15px] p-[15px] mr-[20px]">
+    <div className="w-[260px] h-full bg-layout-background rounded-[15px] p-[15px] mr-[20px]">
       <div className="text-content-1 mb-[20px] text-[22px] font-semibold pl-[20px]">
         Элементы:
       </div>

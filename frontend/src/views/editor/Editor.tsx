@@ -3,9 +3,9 @@ import ElementSelector from "./ElementSelector";
 
 const Editor = () => {
   return (
-    <div className="w-full h-full grid grid-cols-[300px_1fr]">
+    <div className="w-full h-full grid grid-cols-[300px_1fr] overflow-hidden relative">
       <ElementSelector />
-      <div className="overflow-x-scroll">
+      <div className="h-full">
         <PixiApplication />
       </div>
     </div>
