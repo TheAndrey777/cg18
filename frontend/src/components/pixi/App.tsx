@@ -15,15 +15,15 @@ function PixiApplication(props: Props) {
   useEffect(() => {
     // On first render create our application
     const app = new Application({
-      width: 2000,
-      height: innerHeight,
+      width: 1000,
+      height: 1000,
       backgroundColor: 0x5bba6f,
     });
 
     // @ts-ignore
     ref.current!.appendChild(app.view);
 
-    const grid = new Grid(2000, innerHeight, 30, app);
+    const grid = new Grid(1000, 1000, 30, app);
     app.stage.addChild(grid);
 
     app.ticker.add((time) => {
@@ -62,7 +62,7 @@ function PixiApplication(props: Props) {
         open={open}
         onOpenChange={setOpen}
       >
-        <div className="flex justify-center bg-orange-300 w-56 h-20">
+        <div className="flex bor justify-center bg-orange-300 w-56 h-20">
           <input className="w-8 bg-gray-200" type="text"></input>
         </div>
       </ContextMenu>

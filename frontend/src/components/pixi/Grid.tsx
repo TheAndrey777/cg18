@@ -199,8 +199,8 @@ export class Grid extends Container {
           w,
           h,
           tileSize,
-          walls
-          // tileContainer
+          walls,
+          tileContainer
         );
 
         list.forEach((id) => {

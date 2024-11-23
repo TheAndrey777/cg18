@@ -5,7 +5,7 @@ type directions = {
   left: number;
 };
 
-// let tiles;
+let tiles: any;
 
 export function colorRoom(
   x: number,
@@ -13,10 +13,10 @@ export function colorRoom(
   w: number,
   h: number,
   size: number,
-  walls: any
-  //   containetOfTiles: any
+  walls: any,
+  containetOfTiles: any
 ) {
-  //   tiles = containetOfTiles;
+  tiles = containetOfTiles;
   let directions: directions[][] = [];
   for (let i = 0; i < h; i++) {
     directions.push([]);
@@ -82,6 +82,7 @@ function dfs(x: number, y: number, used: any, directions: any, list: any) {
   if (y >= used.length || x >= used[0].length) return;
   if (used[y][x] == 2) return;
   used[y][x] = 2;
+  // tiles.children[used.length * y + x].tint = 0xff00ff;
 
   if (directions[y][x].left && dfs(x - 1, y, used, directions, list)) return;
   if (directions[y][x].right && dfs(x + 1, y, used, directions, list)) return;
