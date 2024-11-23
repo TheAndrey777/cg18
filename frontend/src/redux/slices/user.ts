@@ -47,7 +47,8 @@ export const registerUser: any = createAsyncThunk(
 
 export const getUser: any = createAsyncThunk("api/auth/me", async () => {
   const { data } = await axios.get("api/auth/me");
-  console.log(data);
+
+  //console.log(data);
   return data;
 });
 
@@ -105,7 +106,16 @@ const userSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
-      state.isAuthorized = payload.payload.status === "success";
+      if (payload.payload.status === "success") {
+        const data = payload.payload.data;
+        state.isAuthorized = true;
+        state.username = data.username;
+        state.isAdmin = data.isAdmin;
+        state.name = data.name;
+        state.surname = data.surname;
+        state.email = data.email;
+        localStorage.setItem("user", JSON.stringify(state));
+      }
       state.status = "loaded";
     });
     builder.addCase(loginUser.rejected, (state, { payload }) => {
@@ -120,7 +130,11 @@ const userSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(registerUser.fulfilled, (state, { payload }) => {
-      state.isAuthorized = payload.payload.status === "success";
+      console.log(payload.payload.status);
+      if (payload.payload.status === "success") {
+        state.isAuthorized = true;
+        localStorage.setItem("user", JSON.stringify(state));
+      }
       state.status = "loaded";
     });
     builder.addCase(registerUser.rejected, (state, { payload }) => {
@@ -135,7 +149,17 @@ const userSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
-      state.isAuthorized = payload.status === "success";
+      if (payload.payload.status === "success") {
+        const data = payload.payload.data;
+        state.isAuthorized = true;
+        state.username = data.username;
+        state.isAdmin = data.isAdmin;
+        state.id = data.id;
+        state.name = data.name;
+        state.surname = data.surname;
+        state.email = data.email;
+        localStorage.setItem("user", JSON.stringify(state));
+      }
       state.status = "loaded";
     });
     builder.addCase(getUser.rejected, (state) => {
