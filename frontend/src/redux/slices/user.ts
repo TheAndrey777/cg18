@@ -65,6 +65,7 @@ interface UserState {
   isAuthorized: boolean;
   password: string;
   username: string;
+  users: any[];
 }
 
 const initialState: UserState = {
@@ -77,6 +78,7 @@ const initialState: UserState = {
   isAuthorized: false,
   password: "",
   username: "",
+  users: [],
 };
 
 const userSlice = createSlice({
@@ -174,7 +176,8 @@ const userSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
-      console.log(payload);
+      console.log(123, payload);
+      state.users = payload.users;
       state.status = "loaded";
     });
     builder.addCase(getAllUsers.rejected, (state) => {

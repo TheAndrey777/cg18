@@ -42,6 +42,7 @@ body {
 
 *::-webkit-scrollbar {
   width: 3px; /* ширина scrollbar */
+  height: 3px;
 }
 *::-webkit-scrollbar-track {
   background: var(--color-default-200); /* цвет дорожки */
