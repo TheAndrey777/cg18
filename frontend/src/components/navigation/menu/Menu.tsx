@@ -45,7 +45,9 @@ export const Menu: React.FC = () => {
   ];
 
   const [a, seta] = React.useState("");
-  const [active, setactive] = React.useState(0);
+  const [active, setactive] = React.useState(
+    Number(localStorage.getItem("openedView"))
+  );
   return (
     <div
       className={cn(
@@ -74,6 +76,7 @@ export const Menu: React.FC = () => {
                 isActive={i == active}
                 onClick={() => {
                   setactive(i);
+                  localStorage.setItem("openedView", JSON.stringify(i));
                   v.onClick();
                 }}
               />
