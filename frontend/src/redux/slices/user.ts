@@ -127,10 +127,7 @@ const userSlice = createSlice({
         state.status = "error";
       }
     });
-    builder.addCase(loginUser.rejected, (state, { payload }) => {
-      payload.data.errors.map((v: any) => {
-        console.log(v);
-      });
+    builder.addCase(loginUser.rejected, (state) => {
       state.status = "error";
     });
 
@@ -145,10 +142,7 @@ const userSlice = createSlice({
       }
       state.status = "loaded";
     });
-    builder.addCase(registerUser.rejected, (state, { payload }) => {
-      payload.data.errors.map((v: any) => {
-        console.log(v);
-      });
+    builder.addCase(registerUser.rejected, (state) => {
       state.status = "error";
     });
 
@@ -156,20 +150,18 @@ const userSlice = createSlice({
     builder.addCase(getUser.pending, (state) => {
       state.status = "loading";
     });
-    builder.addCase(getUser.fulfilled, (state, { payload }) => {
+    builder.addCase(getUser.fulfilled, (state, payload) => {
       if (payload.payload.status === "success") {
-        toast.success(payload.payload.message);
-        const data = payload.payload.data;
         state.isAuthorized = true;
+        console.log(state.isAuthorized);
+        const data = payload.payload.data;
         state.username = data.username;
         state.isAdmin = data.isAdmin;
         state.id = data.id;
         state.name = data.name;
         state.surname = data.surname;
         state.email = data.email;
-        localStorage.setItem("user", JSON.stringify(state));
       }
-      if (payload.data.message) toast.error(payload.data.message);
       state.status = "loaded";
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {

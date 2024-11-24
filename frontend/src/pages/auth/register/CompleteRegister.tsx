@@ -14,7 +14,7 @@ export const CompleteRegister = () => {
 
   const completeRegister = () => {
     dispatch(registerUser());
-    if (isAuthorized) navigate("/home");
+    if (isAuthorized) navigate("/home/offices");
     //navigate("/home");
   };
 
@@ -27,7 +27,7 @@ export const CompleteRegister = () => {
   };
 
   React.useEffect(() => {
-    if (isAuthorized) navigate("/home");
+    if (isAuthorized) navigate("/home/offices");
   }, [isAuthorized]);
 
   return (

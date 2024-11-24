@@ -28,7 +28,7 @@ const Register = () => {
 
   React.useEffect(() => {
     console.log(123, isAuthorized);
-    if (isAuthorized) navigate("/home");
+    if (isAuthorized) navigate("/home/offices");
   }, [isAuthorized]);
 
   const clickRegister = () => {

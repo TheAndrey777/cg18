@@ -21,8 +21,8 @@ const MiniProfile = () => {
         </div>
 
         <div className="text-content-1 flex items-center font-medium text-[16px]">
-          {/* {name} */}
-          {activeOfficeName}
+          {name}
+          {/* {activeOfficeName} */}
         </div>
 
         <div className="absolute right-[15px] h-[15px] w-[15px]">
