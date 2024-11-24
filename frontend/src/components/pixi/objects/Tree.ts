@@ -22,7 +22,7 @@ const getMonitorTexture = (props: TextureProps) => {
 };
 
 export class Tree extends Sprite {
-  public name = "tree";
+  public name = "Растение";
   public weight = 0;
   public fixed = 0;
 

@@ -4,6 +4,7 @@ interface PackedTile {
   x: number;
   y: number;
   roomName: number;
+  name: number;
 }
 
 interface PackedWall {
@@ -19,7 +20,7 @@ interface PackedObject {
   rotation: number;
   name: string;
 }
-
+let id1 = 1;
 export const packTiles = (tiles: any) => {
   const packedTiles = Array<PackedTile>(0);
   tiles.forEach((tile: any) => {
@@ -28,7 +29,12 @@ export const packTiles = (tiles: any) => {
       if (packedTile.roomName === tile.tint) isFound = true;
     });
     if (!isFound)
-      packedTiles.push({ x: tile.x, y: tile.y, roomName: tile.tint });
+      packedTiles.push({
+        x: tile.x,
+        y: tile.y,
+        roomName: tile.tint,
+        name: tile.name || "Комната" + id1++,
+      });
   });
   return packedTiles;
 };

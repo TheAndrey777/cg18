@@ -30,13 +30,13 @@ const getMonitorTexture = (props: TextureProps) => {
 };
 
 export class Door extends Sprite {
-  public name = "door";
+  public name = "Дверь";
   public weight = 0;
   public fixed = 0;
 
   constructor(props: Props) {
     super(getMonitorTexture({ app: props.app }));
-    console.log("Door");
+    console.log("Дверь");
 
     this.anchor.set(0.5);
     this.x = props.x;

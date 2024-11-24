@@ -28,7 +28,7 @@ export class ChairMini extends Sprite {
 
   constructor(props: Props) {
     super(getMonitorTexture({ app: props.app }));
-    console.log("ChairMini");
+    console.log("Стул");
 
     this.anchor.set(0.5);
     this.x = props.x;

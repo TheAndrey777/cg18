@@ -23,7 +23,7 @@ const getTableTexture = (props: TextureProps) => {
 };
 
 export class Table extends Sprite {
-  public name = "Table";
+  public name = "Стол";
   public weight = 1;
   public fixed = 0;
 

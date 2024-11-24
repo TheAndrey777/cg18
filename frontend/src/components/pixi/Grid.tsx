@@ -155,6 +155,12 @@ export class Grid extends Container {
           seletedObject = null;
         }
       }
+      if (e.button === 2) {
+        setOpenMes1(true);
+        setPositionXMes1(Mouse.innerX(app));
+        setPositionYMes1(Mouse.innerY(app));
+        setMessage1("Это " + object.name);
+      }
     };
 
     const startPoint = new Point({
@@ -281,7 +287,7 @@ export class Grid extends Container {
           setOpenMes1(true);
           setPositionXMes1(Mouse.innerX(app));
           setPositionYMes1(Mouse.innerY(app));
-          setMessage1("Это классная зона кужни");
+          setMessage1("Это " + obj.name);
         } else {
           setOpen1(true);
           setPositionX1(Mouse.innerX(app));
@@ -484,7 +490,7 @@ export class Grid extends Container {
 
       const color = COPONENT_COLORS[colorID++ % COPONENT_COLORS.length];
       list.forEach((id) => {
-        grid[id].name = name;
+        tileContainer.children[id].name = name;
         tileContainer.children[id].tint = color;
         tileContainer.children[id].alpha = 0.3;
       });
@@ -534,7 +540,7 @@ export class Grid extends Container {
 
       if (packObject)
         packObject.forEach((object: any) => {
-          if (object.name == "door") {
+          if (object.name == "door" || object.name == "Дверь") {
             const obj = new Door({
               x: object.x,
               y: object.y,
@@ -545,7 +551,7 @@ export class Grid extends Container {
             obj.rotation = object.rotation;
             addObject(obj);
           }
-          if (object.name == "monitor") {
+          if (object.name == "monitor" || object.name == "Компьютер") {
             const obj = new Monitor({
               x: object.x,
               y: object.y,
@@ -557,7 +563,7 @@ export class Grid extends Container {
             addObject(obj);
           }
 
-          if (object.name == "Table") {
+          if (object.name == "Table" || object.name == "Стол") {
             const obj = new Table({
               x: object.x,
               y: object.y,
@@ -568,7 +574,7 @@ export class Grid extends Container {
             obj.rotation = object.rotation;
             addObject(obj);
           }
-          if (object.name == "tree") {
+          if (object.name == "tree" || object.name == "Растение") {
             const obj = new Tree({
               x: object.x,
               y: object.y,
@@ -579,18 +585,7 @@ export class Grid extends Container {
             obj.rotation = object.rotation;
             addObject(obj);
           }
-          if (object.name == "tree") {
-            const obj = new Tree({
-              x: object.x,
-              y: object.y,
-              app: app,
-              onObjectClickDown: onObjectClickDown,
-              onObjectClickUp: onObjectClickUp,
-            });
-            obj.rotation = object.rotation;
-            addObject(obj);
-          }
-          if (object.name == "chair") {
+          if (object.name === "chair" || object.name === "Кресло") {
             const obj = new Chair({
               x: object.x,
               y: object.y,
@@ -601,7 +596,7 @@ export class Grid extends Container {
             obj.rotation = object.rotation;
             addObject(obj);
           }
-          if (object.name == "ChairMini") {
+          if (object.name === "ChairMini" || object.name === "Стул") {
             const obj = new ChairMini({
               x: object.x,
               y: object.y,
