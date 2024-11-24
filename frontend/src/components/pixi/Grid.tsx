@@ -10,6 +10,9 @@ import { Wall } from "./Wall";
 import { colorRoom } from "../../math/graphs";
 import KeyBoaurd from "../../keyboard/keyboard";
 import { Monitor } from "./objects/Monitor";
+import { useDispatch, useSelector } from "react-redux";
+import { sendPacket } from "../../redux/slices/packet";
+import { createPacket } from "../../packetCreator/packetCreator";
 
 let reset: any;
 
@@ -47,17 +50,29 @@ let colorID = 0;
 let setOpen1: any;
 let setPositionX1: any;
 let setPositionY1: any;
+let dispatch1: any;
 export let startDFS: any;
 
 export class Grid extends Container {
   public onTimer = () => {};
-  public setHooks = (setOpen: any, setPositionX: any, setPositionY: any) => {
+  public setHooks = (
+    setOpen: any,
+    setPositionX: any,
+    setPositionY: any,
+    dispatch: any
+  ) => {
     setOpen1 = setOpen;
     setPositionX1 = setPositionX;
     setPositionY1 = setPositionY;
   };
 
-  constructor(width: number, height: number, tileSize: number, app: any) {
+  constructor(
+    width: number,
+    height: number,
+    tileSize: number,
+    app: any,
+    dispatch: any
+  ) {
     super();
 
     let mX1: number;
@@ -321,7 +336,18 @@ export class Grid extends Container {
 
     this.onTimer = () => {
       if (KeyBoaurd.hasKey("Escape")) reset();
-
+      if (KeyBoaurd.onKey("KeyS")) {
+        const packData = createPacket({
+          tiles: grid,
+          walls: walls,
+          lightObjects: lightObject,
+          heavyObjects: heavyObject,
+          doors: doors,
+        });
+        console.log(packData);
+        dispatch(sendPacket({ officeId: 2, floorplan: packData }));
+        // sendPacket({});
+      }
       const mX = Mouse.x(app) - 8;
       const mY = Mouse.y(app) - 8;
       if (seletedObject !== null) {
@@ -399,7 +425,7 @@ export class Grid extends Container {
       list.forEach((id) => {
         grid[id].name = name;
         tileContainer.children[id].tint = color;
-        tileContainer.children[id].alpha = 0.1;
+        tileContainer.children[id].alpha = 0.3;
       });
       console.log(list);
       if (list.length === 0) console.log;

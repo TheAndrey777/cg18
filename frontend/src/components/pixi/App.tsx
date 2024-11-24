@@ -5,6 +5,7 @@ import { Application, Container, Graphics } from "pixi.js";
 import KeyBoard from "../../keyboard/keyboard";
 import { ContextMenu } from "../navigation/context/ContextMenu";
 import { Modal } from "../navigation/modal/Modal";
+import { useDispatch, useSelector } from "react-redux";
 
 import Spiner from "../spiner/Spiner";
 import { close } from "../../assets/svg";
@@ -25,6 +26,9 @@ function PixiApplication(props: Props) {
   const [positionY, setPositionY] = React.useState(0);
   const [name, setName] = React.useState("");
   const [addModalOpen, setAddModalOpen] = React.useState<boolean>(false);
+  const dispatch = useDispatch();
+  // const packet = useSelector((state: any) => state!.packet);
+  // packet.send
 
   useEffect(() => {
     // On first render create our application
@@ -40,7 +44,7 @@ function PixiApplication(props: Props) {
     // @ts-ignore
     ref.current!.appendChild(app.view);
 
-    const grid = new Grid(width, height, 40, app);
+    const grid = new Grid(width, height, 40, app, dispatch);
     grid.setHooks(setOpen, setPositionX, setPositionY);
     app.stage.addChild(grid);
     ``;

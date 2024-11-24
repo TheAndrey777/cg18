@@ -30,6 +30,7 @@ const getMonitorTexture = (props: TextureProps) => {
 };
 
 export class Door extends Sprite {
+  public name = "door";
   public weight = 0;
   public fixed = 0;
 

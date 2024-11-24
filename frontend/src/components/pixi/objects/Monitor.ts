@@ -23,6 +23,7 @@ const getMonitorTexture = (props: TextureProps) => {
 };
 
 export class Monitor extends Sprite {
+  public name = "monitor";
   public weight = 0;
   public fixed = 0;
 
