@@ -113,6 +113,7 @@ const userSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
       if (payload.payload.status === "success") {
+        toast.success("Авторизация успешна");
         const data = payload.payload.data;
         state.isAuthorized = true;
         state.username = data.username;
@@ -120,9 +121,11 @@ const userSlice = createSlice({
         state.name = data.name;
         state.surname = data.surname;
         state.email = data.email;
-        localStorage.setItem("user", JSON.stringify(state));
+        state.status = "loaded";
+      } else {
+        toast.error("Неверный логин или пароль");
+        state.status = "error";
       }
-      state.status = "loaded";
     });
     builder.addCase(loginUser.rejected, (state, { payload }) => {
       payload.data.errors.map((v: any) => {
