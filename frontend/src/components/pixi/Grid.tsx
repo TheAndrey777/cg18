@@ -440,70 +440,73 @@ export class Grid extends Container {
       console.log(packObject, packTiles, packedWalls);
 
       walls = [];
-      packedWalls.forEach((wall: any) => {
-        wallContainer.addChild(
-          new Wall({
-            sx: wall.sx - 2.5 + POINT_SIZE,
-            sy: wall.sy - 2.5 + POINT_SIZE,
-            fx: wall.fx - 2.5 + POINT_SIZE,
-            fy: wall.fy - 2.5 + POINT_SIZE,
+      if (packedWalls)
+        packedWalls.forEach((wall: any) => {
+          wallContainer.addChild(
+            new Wall({
+              sx: wall.sx - 2.5 + POINT_SIZE,
+              sy: wall.sy - 2.5 + POINT_SIZE,
+              fx: wall.fx - 2.5 + POINT_SIZE,
+              fy: wall.fy - 2.5 + POINT_SIZE,
+              type: 0,
+              angle: Math.abs(wall.sx - wall.fx) < 10 ? 1 : 0,
+              app: app,
+            })
+          );
+          walls.push({
+            sx: wall.sx,
+            sy: wall.sy,
+            fx: wall.fx,
+            fy: wall.fy,
             type: 0,
-            angle: Math.abs(wall.sx - wall.fx) < 10 ? 1 : 0,
-            app: app,
-          })
-        );
-        walls.push({
-          sx: wall.sx,
-          sy: wall.sy,
-          fx: wall.fx,
-          fy: wall.fy,
-          type: 0,
+          });
         });
-      });
 
       console.log("packTiles", packTiles);
-      packTiles.forEach((tile: any) => {
-        mX1 = tile.x;
-        mY1 = tile.y;
-        if (tile.name !== "") startDFS(tile.name);
-      });
+      if (packTiles)
+        packTiles.forEach((tile: any) => {
+          mX1 = tile.x;
+          mY1 = tile.y;
+          if (tile.name !== "") startDFS(tile.name);
+        });
 
-      packObject.forEach((object: any) => {
-        if (object.name == "door") {
-          const obj = new Door({
-            x: object.x,
-            y: object.y,
-            app: app,
-            onObjectClickDown: onObjectClickDown,
-            onObjectClickUp: onObjectClickUp,
-          });
-          obj.rotation = object.rotation;
-          addObject(obj);
-        }
-        if (object.name == "monitor") {
-          const obj = new Monitor({
-            x: object.x,
-            y: object.y,
-            app: app,
-            onObjectClickDown: onObjectClickDown,
-            onObjectClickUp: onObjectClickUp,
-          });
-          obj.rotation = object.rotation;
-          addObject(obj);
-        }
+      if (packObject)
+        packObject.forEach((object: any) => {
+          if (object.name == "door") {
+            const obj = new Door({
+              x: object.x,
+              y: object.y,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            });
+            obj.rotation = object.rotation;
+            addObject(obj);
+          }
+          if (object.name == "monitor") {
+            const obj = new Monitor({
+              x: object.x,
+              y: object.y,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            });
+            obj.rotation = object.rotation;
+            addObject(obj);
+          }
 
-        if (object.name == "Table") {
-          const obj = new Table({
-            x: object.x,
-            y: object.y,
-            app: app,
-            onObjectClickDown: onObjectClickDown,
-            onObjectClickUp: onObjectClickUp,
-          });
-          obj.rotation = object.rotation;
-          addObject(obj);
-        }
-      });
+          if (object.name == "Table") {
+            const obj = new Table({
+              x: object.x,
+              y: object.y,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            });
+            obj.rotation = object.rotation;
+            addObject(obj);
+          }
+        });
       console.log(wallContainer);
     };
 
