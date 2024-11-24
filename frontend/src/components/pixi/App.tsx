@@ -11,6 +11,7 @@ import Spiner from "../spiner/Spiner";
 import { close } from "../../assets/svg";
 import { Input } from "../input/Input";
 import { Button } from "../button/Button";
+import { useParams } from "react-router-dom";
 
 interface Props {}
 
@@ -31,6 +32,9 @@ function PixiApplication(props: Props) {
   // packet.send
 
   const offices = useSelector((state: any) => state.office.offices);
+  const { officeId } = useParams();
+
+  const item = offices.filter((x: any) => x.id == officeId);
 
   useEffect(() => {
     // On first render create our application
@@ -48,6 +52,8 @@ function PixiApplication(props: Props) {
 
     const grid = new Grid(width, height, 40, app, dispatch);
     grid.setHooks(setOpen, setPositionX, setPositionY);
+    grid.loadItem(item);
+
     app.stage.addChild(grid);
     ``;
 

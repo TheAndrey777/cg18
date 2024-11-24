@@ -54,6 +54,7 @@ let dispatch1: any;
 export let startDFS: any;
 
 export class Grid extends Container {
+  public loadItem = () => {};
   public onTimer = () => {};
   public setHooks = (
     setOpen: any,
@@ -170,7 +171,7 @@ export class Grid extends Container {
     pointContainer.addChild(startPoint);
     pointContainer.addChild(finishPoint);
 
-    const walls = new Array<Wall1>(0);
+    let walls = new Array<Wall1>(0);
     const wallContainer = new Container();
 
     let h: number = (height / tileSize) * 2;
@@ -410,25 +411,100 @@ export class Grid extends Container {
 
     startDFS = (name: string) => {
       const list = colorRoom(
-        Math.floor((mX1 / tileSize) * 2),
-        Math.floor((mY1 / tileSize) * 2),
+        Math.floor(mX1 / tileSize),
+        Math.floor(mY1 / tileSize),
         w,
         h,
         tileSize,
         walls
+        // tileContainer
       );
 
       console.log(name);
 
       const color = COPONENT_COLORS[colorID++ % COPONENT_COLORS.length];
-      console.log(123);
       list.forEach((id) => {
         grid[id].name = name;
         tileContainer.children[id].tint = color;
         tileContainer.children[id].alpha = 0.3;
       });
-      console.log(list);
-      if (list.length === 0) console.log;
+      if (list.length === 0) console.log("Error");
+    };
+
+    this.loadItem = (item: any) => {
+      console.log(item);
+      item = item[0];
+      if (!item) return;
+      if (!item.floorplan) return;
+      const { packObject, packTiles, packedWalls } = item.floorplan;
+      console.log(packObject, packTiles, packedWalls);
+
+      walls = [];
+      packedWalls.forEach((wall: any) => {
+        wallContainer.addChild(
+          new Wall({
+            sx: wall.sx - 2.5 + POINT_SIZE,
+            sy: wall.sy - 2.5 + POINT_SIZE,
+            fx: wall.fx - 2.5 + POINT_SIZE,
+            fy: wall.fy - 2.5 + POINT_SIZE,
+            type: 0,
+            angle: Math.abs(wall.sx - wall.fx) < 10 ? 1 : 0,
+            app: app,
+          })
+        );
+        walls.push({
+          sx: wall.sx,
+          sy: wall.sy,
+          fx: wall.fx,
+          fy: wall.fy,
+          type: 0,
+        });
+      });
+
+      console.log("packTiles", packTiles);
+      packTiles.forEach((tile: any) => {
+        mX1 = tile.x;
+        mY1 = tile.y;
+        if (tile.name !== "") startDFS(tile.name);
+      });
+
+      packObject.forEach((object: any) => {
+        if (object.name == "door") {
+          const obj = new Door({
+            x: object.x,
+            y: object.y,
+            app: app,
+            onObjectClickDown: onObjectClickDown,
+            onObjectClickUp: onObjectClickUp,
+          });
+          obj.rotation = object.rotation;
+          addObject(obj);
+        }
+        if (object.name == "monitor") {
+          const obj = new Monitor({
+            x: object.x,
+            y: object.y,
+            app: app,
+            onObjectClickDown: onObjectClickDown,
+            onObjectClickUp: onObjectClickUp,
+          });
+          obj.rotation = object.rotation;
+          addObject(obj);
+        }
+
+        if (object.name == "Table") {
+          const obj = new Table({
+            x: object.x,
+            y: object.y,
+            app: app,
+            onObjectClickDown: onObjectClickDown,
+            onObjectClickUp: onObjectClickUp,
+          });
+          obj.rotation = object.rotation;
+          addObject(obj);
+        }
+      });
+      console.log(wallContainer);
     };
 
     this.addChild(tileContainer);

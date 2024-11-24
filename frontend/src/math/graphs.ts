@@ -13,10 +13,10 @@ export function colorRoom(
   w: number,
   h: number,
   size: number,
-  walls: any,
-  containetOfTiles: any
+  walls: any
+  // containetOfTiles: any
 ) {
-  tiles = containetOfTiles;
+  // tiles = containetOfTiles;
   let directions: directions[][] = [];
   for (let i = 0; i < h; i++) {
     directions.push([]);
@@ -32,7 +32,6 @@ export function colorRoom(
 
     let horizontal = cy == ty;
 
-    console.log(wall, { cx: cx, cy: cy, tx: tx, ty: ty });
     if (horizontal) {
       for (let i = Math.min(cx, tx) + 1; i <= Math.max(cx, tx); i++) {
         directions[cy][i].down = 0;
@@ -46,7 +45,7 @@ export function colorRoom(
     }
   });
 
-  console.log(directions);
+  // console.log(directions);
 
   let used: number[][] = [];
   for (let i = 0; i < h; i++) {
@@ -54,6 +53,7 @@ export function colorRoom(
     for (let j = 0; j < w; j++) used[i].push(0);
   }
 
+  console.log("dfs start with", x, y);
   if (dfsCheck(x, y, used, directions)) return [];
 
   let list: number[] = [];
@@ -67,6 +67,7 @@ function dfsCheck(x: number, y: number, used: any, directions: any) {
   if (y >= used.length || x >= used[0].length) return true;
   if (used[y][x]) return false;
   used[y][x] = 1;
+  // tiles.children[used.length * y + x].tint = 0xff00ff;
 
   if (directions[y][x].left && dfsCheck(x - 1, y, used, directions))
     return true;
@@ -84,10 +85,12 @@ function dfs(x: number, y: number, used: any, directions: any, list: any) {
   used[y][x] = 2;
   // tiles.children[used.length * y + x].tint = 0xff00ff;
 
+  // setTimeout(() => {
   if (directions[y][x].left && dfs(x - 1, y, used, directions, list)) return;
   if (directions[y][x].right && dfs(x + 1, y, used, directions, list)) return;
   if (directions[y][x].up && dfs(x, y - 1, used, directions, list)) return;
   if (directions[y][x].down && dfs(x, y + 1, used, directions, list)) return;
+  // }, 100);
 
   list.push(y * used.length + x);
 }
