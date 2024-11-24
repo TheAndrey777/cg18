@@ -66,18 +66,18 @@ export class Grid extends Container {
     setOpen: any,
     setPositionX: any,
     setPositionY: any,
-    setMessage: any,
     setPositionXMes: any,
     setPositionYMes: any,
+    setMessage: any,
     setOpenMes: any
   ) => {
     setOpen1 = setOpen;
     setPositionX1 = setPositionX;
     setPositionY1 = setPositionY;
-    setOpenMes1: setOpenMes;
-    setPositionXMes1: setPositionXMes;
-    setPositionYMes1: setPositionYMes;
-    setMessage1: setMessage;
+    setPositionXMes1 = setPositionXMes;
+    setPositionYMes1 = setPositionYMes;
+    setOpenMes1 = setOpenMes;
+    setMessage1 = setMessage;
   };
 
   constructor(
@@ -276,7 +276,7 @@ export class Grid extends Container {
           setOpenMes1(true);
           setPositionXMes1(Mouse.innerX(app));
           setPositionYMes1(Mouse.innerY(app));
-          setMessage1(obj.name);
+          setMessage1("Это классная зона кужни");
         } else {
           setOpen1(true);
           setPositionX1(Mouse.innerX(app));

@@ -145,13 +145,13 @@ function PixiApplication(props: Props) {
         </div>
       </Modal>
       <ContextMenu
-        open={open}
+        open={openMes}
         onOpenChange={setOpenMes}
         positionX={positionXMes}
         positionY={positionYMes}
       >
-        <div className=" bg-layout-background rounded-[10px] h-fit w-[160px] border-solid border-[1px] border-default-300 p-[5px]">
-          <div className="text-center  leading-5">{message}</div>
+        <div className=" opacity-80 bg-layout-background bg-gray-400 rounded-[10px] h-fit w-[100px] border-solid border-[1px] border-default-300 p-[5px]">
+          <div className=" text-center  leading-1">{message}</div>
           <div className="grid grid-cols-2 gap-3 h-[40px] w-full place-items-center"></div>
         </div>
       </ContextMenu>
