@@ -52,9 +52,8 @@ const officeSlice = createSlice({
   name: "office",
   initialState,
   reducers: {
-    setRedirectPath: (state, action: PayloadAction<any>) => {
+    setAddStatus: (state, action: PayloadAction<any>) => {
       console.log(state, action);
-      //state.rederectPath.value = action.payload.location;
     },
   },
   extraReducers: (builder) => {
@@ -107,6 +106,6 @@ const officeSlice = createSlice({
   },
 });
 
-export const { setRedirectPath } = officeSlice.actions;
+export const { setAddStatus } = officeSlice.actions;
 
 export const officeReducer = officeSlice.reducer;

@@ -2,7 +2,11 @@ import React from "react";
 import OfficeBlock from "../../components/blocks/officeBlock/OfficeBlock";
 import { Button } from "../../components/button/Button";
 import { useSelector, useDispatch } from "react-redux";
-import { createOffice, getOffice } from "../../redux/slices/offices";
+import {
+  createOffice,
+  getOffice,
+  setAddStatus,
+} from "../../redux/slices/offices";
 import { Modal } from "../../components/navigation/modal/Modal";
 import { close } from "../../assets/svg";
 import { Input } from "../../components/input/Input";
@@ -14,12 +18,20 @@ const Offices = () => {
   //dispatch(loginUser({ login: "123", password: "pas" }));
   const offices = useSelector((state: any) => state.office.offices);
   const createStatus = useSelector((state: any) => state.office.add.status);
+
   const [addModalOpen, setAddModalOpen] = React.useState<boolean>(false);
   console.log(createStatus);
   //const navigate = useNavigate();
   React.useEffect(() => {
     dispatch(getOffice());
   }, []);
+
+  React.useEffect(() => {
+    if (createStatus == "loaded") {
+      setAddModalOpen(false);
+      dispatch(setAddStatus("none"));
+    }
+  }, [createStatus]);
 
   const [name, setName] = React.useState("");
   const [address, setAddress] = React.useState("");
