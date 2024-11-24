@@ -11,7 +11,7 @@ export class Office extends BaseEntity {
     type: "varchar",
     length: 32,
     nullable: false,
-    unique: true
+    unique: false
   })
   name!: string;
 
