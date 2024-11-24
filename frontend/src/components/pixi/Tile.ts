@@ -29,6 +29,7 @@ export const getRectangleTexture = (props: TextureProps) => {
 };
 
 export class Tile extends Sprite {
+  public name123 = "";
   constructor(props: Props) {
     super(props.texture);
 
@@ -42,7 +43,8 @@ export class Tile extends Sprite {
         this.x,
         this.y,
         this.x + this.width,
-        this.y + this.height
+        this.y + this.height,
+        this
       );
     });
   }

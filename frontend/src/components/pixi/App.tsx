@@ -25,6 +25,12 @@ function PixiApplication(props: Props) {
   const [open, setOpen] = React.useState(false);
   const [positionX, setPositionX] = React.useState(0);
   const [positionY, setPositionY] = React.useState(0);
+
+  const [openMes, setOpenMes] = React.useState(false);
+  const [positionXMes, setPositionXMes] = React.useState(0);
+  const [positionYMes, setPositionYMes] = React.useState(0);
+  const [message, setMessage] = React.useState("");
+
   const [name, setName] = React.useState("");
   const [addModalOpen, setAddModalOpen] = React.useState<boolean>(false);
   const dispatch = useDispatch();
@@ -51,11 +57,18 @@ function PixiApplication(props: Props) {
     ref.current!.appendChild(app.view);
 
     const grid = new Grid(width, height, 40, app, dispatch);
-    grid.setHooks(setOpen, setPositionX, setPositionY);
+    grid.setHooks(
+      setOpen,
+      setPositionX,
+      setPositionY,
+      setPositionXMes,
+      setPositionYMes,
+      setMessage,
+      setOpenMes
+    );
     grid.loadItem(item);
 
     app.stage.addChild(grid);
-    ``;
 
     app.ticker.add((time) => {
       grid.onTimer();
@@ -131,6 +144,17 @@ function PixiApplication(props: Props) {
           </div>
         </div>
       </Modal>
+      <ContextMenu
+        open={open}
+        onOpenChange={setOpenMes}
+        positionX={positionXMes}
+        positionY={positionYMes}
+      >
+        <div className=" bg-layout-background rounded-[10px] h-fit w-[160px] border-solid border-[1px] border-default-300 p-[5px]">
+          <div className="text-center  leading-5">{message}</div>
+          <div className="grid grid-cols-2 gap-3 h-[40px] w-full place-items-center"></div>
+        </div>
+      </ContextMenu>
 
       <ContextMenu
         open={open}

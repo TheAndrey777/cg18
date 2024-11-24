@@ -92,5 +92,5 @@ function dfs(x: number, y: number, used: any, directions: any, list: any) {
   if (directions[y][x].down && dfs(x, y + 1, used, directions, list)) return;
   // }, 100);
 
-  list.push(y * used.length + x);
+  list.push(y * used[0].length + x);
 }

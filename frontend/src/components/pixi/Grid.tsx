@@ -50,6 +50,12 @@ let colorID = 0;
 let setOpen1: any;
 let setPositionX1: any;
 let setPositionY1: any;
+
+let setOpenMes1: any;
+let setPositionXMes1: any;
+let setPositionYMes1: any;
+let setMessage1: any;
+
 let dispatch1: any;
 export let startDFS: any;
 
@@ -60,11 +66,18 @@ export class Grid extends Container {
     setOpen: any,
     setPositionX: any,
     setPositionY: any,
-    dispatch: any
+    setMessage: any,
+    setPositionXMes: any,
+    setPositionYMes: any,
+    setOpenMes: any
   ) => {
     setOpen1 = setOpen;
     setPositionX1 = setPositionX;
     setPositionY1 = setPositionY;
+    setOpenMes1: setOpenMes;
+    setPositionXMes1: setPositionXMes;
+    setPositionYMes1: setPositionYMes;
+    setMessage1: setMessage;
   };
 
   constructor(
@@ -247,7 +260,8 @@ export class Grid extends Container {
       x1: number,
       y1: number,
       x2: number,
-      y2: number
+      y2: number,
+      obj: any
     ) => {
       const mX: number = Mouse.x(app);
       const mY: number = Mouse.y(app);
@@ -258,13 +272,19 @@ export class Grid extends Container {
         startPoint.visible = finishPoint.visible = false;
         selectWall.visible = false;
 
-        setOpen1(true);
-        setPositionX1(Mouse.innerX(app));
-        setPositionY1(Mouse.innerY(app));
+        if (obj.tint != 0xffffff) {
+          setOpenMes1(true);
+          setPositionXMes1(Mouse.innerX(app));
+          setPositionYMes1(Mouse.innerY(app));
+          setMessage1(obj.name);
+        } else {
+          setOpen1(true);
+          setPositionX1(Mouse.innerX(app));
+          setPositionY1(Mouse.innerY(app));
+        }
 
-        mX1 = mX;
-        mY1 = mY;
-        ("Error");
+        mX1 = mX * 2;
+        mY1 = mY * 2;
       } else {
         if (tools === 0) {
           if (!startPoint.visible) {
