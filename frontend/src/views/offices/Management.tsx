@@ -77,6 +77,7 @@ const Management = () => {
               className=""
               onClick={() => {
                 setAddModalOpen(true);
+                dispatch(getAllUsers());
               }}
               text="Добавить"
             />

@@ -2,10 +2,12 @@ import React from "react";
 import ElementSelectorItem from "./ElementSelectorItem";
 import { menuicon } from "../../assets/svg";
 import { setTools } from "../../components/pixi/Grid";
-
+import { useSelector } from "react-redux";
 const ElementSelector = () => {
   const [currentElement, setElement] = React.useState(0);
 
+  const name = useSelector((state: any) => state.storage.activeOffice.name);
+  console.log(name);
   const elements = [
     {
       title: "Линия",
@@ -30,9 +32,9 @@ const ElementSelector = () => {
   ];
 
   return (
-    <div className="w-[350px] h-full bg-layout-background rounded-[15px] p-[15px] mr-[20px]">
-      <div className="text-content-1 mb-[20px] text-[22px] font-semibold pl-[20px]">
-        Элементы:
+    <div className="w-[280px] h-full bg-layout-background rounded-[15px] p-[15px] mr-[20px] box-border">
+      <div className="text-content-1 mb-[10px]  h-[30px] text-[20px] font-semibold pl-[10px] overflow-hidden text-ellipsis truncate">
+        {name}
       </div>
       {elements.map((elem: any, i: number) => {
         return (

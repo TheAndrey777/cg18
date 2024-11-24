@@ -29,6 +29,7 @@ const Offices = () => {
   React.useEffect(() => {
     if (createStatus == "loaded") {
       setAddModalOpen(false);
+      dispatch(getOffice());
       dispatch(setAddStatus("none"));
     }
   }, [createStatus]);
