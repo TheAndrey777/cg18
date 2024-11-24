@@ -4,6 +4,7 @@ import ElementSelector from "./ElementSelector";
 import { useDispatch } from "react-redux";
 import { getOffice } from "../../redux/slices/offices";
 import React from "react";
+import { setMenuActiveId } from "../../redux/slices/storage";
 
 const Editor = () => {
   const { officeId } = useParams();
@@ -11,6 +12,7 @@ const Editor = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    dispatch(setMenuActiveId({ id: 2 }));
     dispatch(getOffice());
   }, []);
 

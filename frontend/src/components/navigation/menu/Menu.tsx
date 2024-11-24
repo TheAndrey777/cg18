@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "../../../lib/cn";
 import { MenuItem } from "./MenuItem";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
 import { menuicon } from "../../../assets/svg";
 import { IoPerson } from "react-icons/io5";
 import { FaListUl } from "react-icons/fa6";
@@ -10,9 +10,11 @@ import { FaEdit } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 
 import MiniProfile from "./MiniProfile";
+import { setMenuActiveId } from "../../../redux/slices/storage";
 
 export const Menu: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const items = [
     {
@@ -50,9 +52,8 @@ export const Menu: React.FC = () => {
   ];
 
   const [a, seta] = React.useState("");
-  const [active, setactive] = React.useState(
-    Number(localStorage.getItem("openedView"))
-  );
+  const active = useSelector((state: any) => state.storage.menu.activeId);
+
   return (
     <div
       className={cn(
@@ -80,7 +81,7 @@ export const Menu: React.FC = () => {
                 opened={a == "w-[60px]"}
                 isActive={i == active}
                 onClick={() => {
-                  setactive(i);
+                  dispatch(setMenuActiveId({ id: i }));
                   localStorage.setItem("openedView", JSON.stringify(i));
                   v.onClick();
                 }}

@@ -6,7 +6,10 @@ import { Tooltip } from "react-tooltip";
 
 import { worker1, worker2, worker3, worker4 } from "../../../assets/png";
 import { useDispatch } from "react-redux";
-import { setActiveOffice } from "../../../redux/slices/storage";
+import {
+  setActiveOffice,
+  setMenuActiveId,
+} from "../../../redux/slices/storage";
 
 interface WorkersProps {
   workers?: any[];
@@ -107,6 +110,7 @@ const OfficeBlock: React.FC<OfficeBlockProps> = ({
           size="md"
           className="w-[125px]"
           onClick={() => {
+            dispatch(setMenuActiveId({ id: 2 }));
             dispatch(setActiveOffice({ id, name: title }));
             navigate(`/home/editor/${id}`);
           }}

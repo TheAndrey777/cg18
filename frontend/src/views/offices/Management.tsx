@@ -11,6 +11,7 @@ import { close } from "../../assets/svg";
 import Spiner from "../../components/spiner/Spiner";
 import { worker1, worker2, worker3, worker4 } from "../../assets/png";
 import { getAllUsers } from "../../redux/slices/user";
+import { setMenuActiveId } from "../../redux/slices/storage";
 
 const Management = () => {
   const createStatus = useSelector((state: any) => state.office.add.status);
@@ -31,11 +32,13 @@ const Management = () => {
   );
 
   const users = useSelector((state: any) => state.user.users);
+  const offices = useSelector((state: any) => state.office.offices);
   const [validUsers, setValidUsers] = React.useState<any[]>([]);
   console.log(users);
   console.log("val", validUsers);
 
   React.useEffect(() => {
+    dispatch(setMenuActiveId({ id: 1 }));
     dispatch(getOffice());
     dispatch(getAllUsers());
   }, []);
@@ -128,10 +131,54 @@ const Management = () => {
           </div>
         </div>
 
-        <div className="bg-layout-background w-full h-full  rounded-[15px] text-content-1 flex items-center justify-center">
-          <div className="w-[300px]">
-            Тут для сотрудника отрисуем информацию, где находится, что за ним
-            закрепленно и тд
+        <div className="bg-layout-background w-full h-full  rounded-[15px] text-content-1 flex justify-center relative">
+          <div className="w-full h-full">
+            <div className="text-content-1 m-[20px] mb-0">
+              Ответственный за оборудование
+            </div>
+            <div className="w-full text-content-1">
+              <div className="p-[20px]">
+                <div className="grid grid-cols-[1fr_4fr_4fr] h-[50px] rounded-[10px] bg-default-100 mb-[10px] select-none">
+                  <div className="h-full w-full flex items-center justify-center text-content-1">
+                    #
+                  </div>
+                  <div className="h-full w-full flex items-center pl-[10px] box-border text-content-1">
+                    Имя сотрудника
+                  </div>
+                  <div className="h-full w-full flex items-center  pl-[10px] box-border text-content-1">
+                    Тип оборудования
+                  </div>
+                </div>
+
+                {offices[0].floorplan.packObject.map((v: any, i: number) => (
+                  <div
+                    key={i}
+                    className={cn(
+                      "grid grid-cols-[1fr_4fr_4fr] h-[40px] cursor-pointer hover:bg-default-100 hover:scale-[1.02] active:scale-[.98] transition-all text-content-1 rounded-[10px]",
+                      active == i && "bg-default-100"
+                    )}
+                    onClick={() => setActive(i)}
+                  >
+                    <div className="h-[40px] w-full flex items-center justify-center ">
+                      {i + 1}
+                    </div>
+                    <div className="h-[40px] w-full flex items-center pl-[10px] box-border">
+                      <img
+                        className=" select-none h-[30px] w-[30px] rounded-full border-solid border-[2px] border-primary box-border m-[5px] mr-[10px]"
+                        src={icons[0]}
+                        alt="logo"
+                      />
+                      {workers[0].workers[0].name +
+                        " " +
+                        workers[0].workers[0].surname}
+                    </div>
+                    <div className="h-[40px] w-full flex items-center  pl-[10px] box-border">
+                      {v.name}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
