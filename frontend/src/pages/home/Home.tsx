@@ -14,6 +14,7 @@ const Home = () => {
           <Route path="management/:officeId/*" element={<Management />} />
           <Route path="management/*" element={<Management />} />
           <Route path="editor/*" element={<Editor />} />
+          <Route path="editor/:officeId/*" element={<Editor />} />
         </Routes>
       </div>
     </div>

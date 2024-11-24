@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit/react";
 import axios from "../../axios";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 export const createOffice: any = createAsyncThunk(
   "/api/office",
@@ -62,13 +63,15 @@ const officeSlice = createSlice({
       state.add.status = "loading";
     });
     builder.addCase(createOffice.fulfilled, (state, { payload }) => {
-      console.log(payload);
-      state.add.status = "loaded";
+      if (payload.payload.status == "success") {
+        toast.success("Офис был успешно создан");
+        state.add.status = "loaded";
+      } else {
+        state.add.status = "error";
+      }
     });
     builder.addCase(createOffice.rejected, (state, { payload }) => {
-      payload.data.errors.map((v: any) => {
-        console.log(v);
-      });
+      if (payload.data.message) toast.error(payload.data.message);
       state.add.status = "error";
     });
 
@@ -76,10 +79,16 @@ const officeSlice = createSlice({
     builder.addCase(inviteUser.pending, (state) => {
       state.get.status = "loading";
     });
-    builder.addCase(inviteUser.fulfilled, (state) => {
-      state.get.status = "loaded";
+    builder.addCase(inviteUser.fulfilled, (state, { payload }) => {
+      if (payload.payload.status == "success") {
+        toast.success("Пользователь добавлен в компанию");
+        state.get.status = "loaded";
+      } else {
+        state.get.status = "error";
+      }
     });
-    builder.addCase(inviteUser.rejected, (state) => {
+    builder.addCase(inviteUser.rejected, (state, { payload }) => {
+      if (payload.data.message) toast.error(payload.data.message);
       state.get.status = "error";
     });
 
@@ -91,7 +100,8 @@ const officeSlice = createSlice({
       state.offices = payload.offices;
       state.get.status = "loaded";
     });
-    builder.addCase(getOffice.rejected, (state) => {
+    builder.addCase(getOffice.rejected, (state, { payload }) => {
+      if (payload.data.message) toast.error(payload.data.message);
       state.get.status = "error";
     });
   },

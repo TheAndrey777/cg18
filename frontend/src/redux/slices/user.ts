@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit/react";
 import axios from "../../axios";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 export const loginUser: any = createAsyncThunk(
   "api/auth/login",
@@ -155,6 +156,7 @@ const userSlice = createSlice({
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       if (payload.payload.status === "success") {
+        toast.success(payload.payload.message);
         const data = payload.payload.data;
         state.isAuthorized = true;
         state.username = data.username;
@@ -165,9 +167,11 @@ const userSlice = createSlice({
         state.email = data.email;
         localStorage.setItem("user", JSON.stringify(state));
       }
+      if (payload.data.message) toast.error(payload.data.message);
       state.status = "loaded";
     });
-    builder.addCase(getUser.rejected, (state) => {
+    builder.addCase(getUser.rejected, (state, { payload }) => {
+      if (payload.data.message) toast.error(payload.data.message);
       state.status = "error";
     });
 
@@ -176,11 +180,11 @@ const userSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
-      console.log(123, payload);
       state.users = payload.users;
       state.status = "loaded";
     });
-    builder.addCase(getAllUsers.rejected, (state) => {
+    builder.addCase(getAllUsers.rejected, (state, { payload }) => {
+      if (payload.data.message) toast.error(payload.data.message);
       state.status = "error";
     });
   },

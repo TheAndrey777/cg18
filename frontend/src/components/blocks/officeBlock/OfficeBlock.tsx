@@ -94,11 +94,21 @@ const OfficeBlock: React.FC<OfficeBlockProps> = ({
       <Workers workers={workers} />
       <div className="absolute right-5 bottom-5">
         <Button
+          className="my-[10px] w-[125px]"
           text="Управление"
           size="md"
           onClick={() => {
             dispatch(setActiveOffice({ id, name: title }));
             navigate(`/home/management/${id}`);
+          }}
+        />
+        <Button
+          text="Редактор"
+          size="md"
+          className="w-[125px]"
+          onClick={() => {
+            dispatch(setActiveOffice({ id, name: title }));
+            navigate(`/home/editor/${id}`);
           }}
         />
       </div>
