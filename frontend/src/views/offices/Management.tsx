@@ -41,7 +41,8 @@ const Management = () => {
   }, []);
 
   React.useEffect(() => {
-    setValidUsers(users.filter((s: any) => s.email.includes(username)));
+    if (username == "") setValidUsers(users);
+    else setValidUsers(users.filter((s: any) => s.email.includes(username)));
   }, [username]);
 
   return (

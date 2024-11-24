@@ -96,6 +96,7 @@ const officeSlice = createSlice({
       state.get.status = "loading";
     });
     builder.addCase(getOffice.fulfilled, (state, { payload }) => {
+      console.log(payload.offices);
       state.offices = payload.offices;
       state.get.status = "loaded";
     });
