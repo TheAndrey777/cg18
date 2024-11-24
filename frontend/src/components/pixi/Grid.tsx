@@ -59,6 +59,8 @@ let setMessage1: any;
 let dispatch1: any;
 export let startDFS: any;
 
+let id: any;
+
 export class Grid extends Container {
   public loadItem = () => {};
   public onTimer = () => {};
@@ -359,14 +361,16 @@ export class Grid extends Container {
       if (KeyBoaurd.hasKey("Escape")) reset();
       if (KeyBoaurd.onKey("KeyS")) {
         const packData = createPacket({
-          tiles: grid,
+          tiles: tileContainer.children,
           walls: walls,
           lightObjects: lightObject,
           heavyObjects: heavyObject,
           doors: doors,
         });
         console.log(packData);
-        dispatch(sendPacket({ officeId: 2, floorplan: packData }));
+        dispatch(
+          sendPacket({ officeId: id > 0 ? id : 15, floorplan: packData })
+        );
         // sendPacket({});
       }
       const mX = Mouse.x(app) - 8;
@@ -451,11 +455,13 @@ export class Grid extends Container {
       if (list.length === 0) console.log("Error");
     };
 
+    console.log();
     this.loadItem = (item: any) => {
       console.log(item);
       item = item[0];
       if (!item) return;
       if (!item.floorplan) return;
+      id = item.id;
       const { packObject, packTiles, packedWalls } = item.floorplan;
       console.log(packObject, packTiles, packedWalls);
 

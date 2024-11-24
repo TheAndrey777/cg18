@@ -3,7 +3,7 @@ import { sendPacket } from "../redux/slices/packet";
 interface PackedTile {
   x: number;
   y: number;
-  roomName: string;
+  roomName: number;
 }
 
 interface PackedWall {
@@ -25,10 +25,10 @@ export const packTiles = (tiles: any) => {
   tiles.forEach((tile: any) => {
     let isFound = false;
     packedTiles.forEach((packedTile) => {
-      if (packedTile.roomName === tile.name) isFound = true;
+      if (packedTile.roomName === tile.tint) isFound = true;
     });
     if (!isFound)
-      packedTiles.push({ x: tile.x, y: tile.y, roomName: tile.name });
+      packedTiles.push({ x: tile.x, y: tile.y, roomName: tile.tint });
   });
   return packedTiles;
 };
