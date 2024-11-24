@@ -4,6 +4,8 @@ import { Tile, getRectangleTexture } from "./Tile";
 import { Vector, isInter } from "../../math/math";
 import { Table } from "./objects/Table";
 import { Door } from "./objects/Door";
+import { Tree } from "./objects/Tree";
+import { Chair } from "./objects/Chair";
 
 import { Container } from "pixi.js";
 import { Wall } from "./Wall";
@@ -13,6 +15,7 @@ import { Monitor } from "./objects/Monitor";
 import { useDispatch, useSelector } from "react-redux";
 import { sendPacket } from "../../redux/slices/packet";
 import { createPacket } from "../../packetCreator/packetCreator";
+import { ChairMini } from "./objects/ChairMini";
 
 let reset: any;
 
@@ -319,6 +322,17 @@ export class Grid extends Container {
             })
           );
         }
+        if (tools === 2) {
+          addObject(
+            new ChairMini({
+              x: Math.round((mX / tileSize) * 2) * tileSize,
+              y: Math.round((mY / tileSize) * 2) * tileSize,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            })
+          );
+        }
         if (tools === 3) {
           addObject(
             new Monitor({
@@ -333,6 +347,28 @@ export class Grid extends Container {
         if (tools === 4) {
           addObject(
             new Door({
+              x: Math.round((mX / tileSize) * 2) * tileSize,
+              y: Math.round((mY / tileSize) * 2) * tileSize,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            })
+          );
+        }
+        if (tools === 5) {
+          addObject(
+            new Tree({
+              x: Math.round((mX / tileSize) * 2) * tileSize,
+              y: Math.round((mY / tileSize) * 2) * tileSize,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            })
+          );
+        }
+        if (tools === 6) {
+          addObject(
+            new Chair({
               x: Math.round((mX / tileSize) * 2) * tileSize,
               y: Math.round((mY / tileSize) * 2) * tileSize,
               app: app,
@@ -523,6 +559,50 @@ export class Grid extends Container {
 
           if (object.name == "Table") {
             const obj = new Table({
+              x: object.x,
+              y: object.y,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            });
+            obj.rotation = object.rotation;
+            addObject(obj);
+          }
+          if (object.name == "tree") {
+            const obj = new Tree({
+              x: object.x,
+              y: object.y,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            });
+            obj.rotation = object.rotation;
+            addObject(obj);
+          }
+          if (object.name == "tree") {
+            const obj = new Tree({
+              x: object.x,
+              y: object.y,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            });
+            obj.rotation = object.rotation;
+            addObject(obj);
+          }
+          if (object.name == "chair") {
+            const obj = new Chair({
+              x: object.x,
+              y: object.y,
+              app: app,
+              onObjectClickDown: onObjectClickDown,
+              onObjectClickUp: onObjectClickUp,
+            });
+            obj.rotation = object.rotation;
+            addObject(obj);
+          }
+          if (object.name == "ChairMini") {
+            const obj = new ChairMini({
               x: object.x,
               y: object.y,
               app: app,

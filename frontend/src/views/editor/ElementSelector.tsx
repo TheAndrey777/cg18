@@ -29,6 +29,14 @@ const ElementSelector = () => {
       title: "Дверь",
       icon: menuicon,
     },
+    {
+      title: "Растение",
+      icon: menuicon,
+    },
+    {
+      title: "Кресло",
+      icon: menuicon,
+    },
   ];
 
   return (
