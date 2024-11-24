@@ -11,6 +11,7 @@ import { Modal } from "../../components/navigation/modal/Modal";
 import { close } from "../../assets/svg";
 import { Input } from "../../components/input/Input";
 import Spiner from "../../components/spiner/Spiner";
+import { setMenuActiveId } from "../../redux/slices/storage";
 //import { useNavigate } from "react-router-dom";
 
 const Offices = () => {
@@ -23,6 +24,7 @@ const Offices = () => {
   console.log(createStatus);
   //const navigate = useNavigate();
   React.useEffect(() => {
+    dispatch(setMenuActiveId({ id: 1 }));
     dispatch(getOffice());
   }, []);
 
