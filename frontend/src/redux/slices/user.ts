@@ -136,10 +136,9 @@ const userSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(registerUser.fulfilled, (state, { payload }) => {
-      console.log(payload.payload.status);
       if (payload.payload.status === "success") {
+        console.log(payload.payload);
         state.isAuthorized = true;
-        localStorage.setItem("user", JSON.stringify(state));
       }
       state.status = "loaded";
     });

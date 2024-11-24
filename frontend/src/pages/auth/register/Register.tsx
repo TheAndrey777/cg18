@@ -27,6 +27,7 @@ const Register = () => {
   const isAuthorized = useSelector((state: any) => state.user.isAuthorized);
 
   React.useEffect(() => {
+    console.log(123, isAuthorized);
     if (isAuthorized) navigate("/home");
   }, [isAuthorized]);
 

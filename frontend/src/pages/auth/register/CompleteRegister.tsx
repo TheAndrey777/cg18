@@ -26,6 +26,10 @@ export const CompleteRegister = () => {
     dispatch(setName(s));
   };
 
+  React.useEffect(() => {
+    if (isAuthorized) navigate("/home");
+  }, [isAuthorized]);
+
   return (
     <div className="h-full w-full bg-default-100 flex items-center justify-center">
       <div className=" bg-layout-background w-[25rem] h-[29rem] rounded-[15px] box-border p-[25px] relative">
