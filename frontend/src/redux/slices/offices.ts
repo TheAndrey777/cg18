@@ -92,7 +92,7 @@ const officeSlice = createSlice({
       state.get.status = "error";
     });
 
-    // *getUser
+    // *getOffice
     builder.addCase(getOffice.pending, (state) => {
       state.get.status = "loading";
     });

@@ -11,7 +11,6 @@ import Spiner from "../spiner/Spiner";
 import { close } from "../../assets/svg";
 import { Input } from "../input/Input";
 import { Button } from "../button/Button";
-import { useSelector } from "react-redux";
 
 interface Props {}
 
@@ -31,7 +30,7 @@ function PixiApplication(props: Props) {
   // const packet = useSelector((state: any) => state!.packet);
   // packet.send
 
-  const createStatus = useSelector((state: any) => state.office.add.status);
+  const offices = useSelector((state: any) => state.office.offices);
 
   useEffect(() => {
     // On first render create our application
